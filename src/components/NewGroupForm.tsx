@@ -12,7 +12,7 @@ class NewGroupForm extends React.Component {
                 {(controller: ArrayController<TodoGroup>) => {
                     return (
                         <Formik
-                            initialValues={{ title: '', id: 5, tasks: [] }}
+                            initialValues={{ title: '', id: 0, tasks: [] }}
                             onSubmit={(values, actions) => {
                                 values.id = getUniqueId(controller.array, 'id');
                                 controller.add(values);

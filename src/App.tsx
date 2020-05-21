@@ -5,6 +5,7 @@ import { TodoController, TodoArrayHelper } from './components/TodoContext';
 import TodoGroupsList from './components/TodoGroupsList';
 import NewGroupForm from './components/NewGroupForm';
 import { Typography } from '@material-ui/core';
+import SideBar from './components/SideBar';
 
 let initialState: AppData = {
     groups: [
@@ -59,18 +60,18 @@ let initialState: AppData = {
     ],
 };
 
-function App() {
+const App = () => {
     return (
         <TodoController initialValues={initialState}>
-            <div className={styles.appWrapper}>
+            <div className={styles['app-wrapper']}>
+                <SideBar />
+
                 <Typography variant="h1">TodoApp</Typography>
-
                 <TodoGroupsList />
-
                 <NewGroupForm />
             </div>
         </TodoController>
     );
-}
+};
 
 export default App;

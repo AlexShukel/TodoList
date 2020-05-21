@@ -19,14 +19,14 @@ export default class TodoList extends React.Component<Props> {
                 {(controller: ArrayController<TodoTask>) => {
                     return (
                         <div>
-                            <List className={styles.itemStyle}>
+                            <List className={styles['item-style']}>
                                 {controller.array.map(
                                     (todo: TodoTask, index) => {
                                         return (
                                             <TodoItem
                                                 taskIndex={index}
                                                 groupIndex={groupIndex}
-                                                key={index}
+                                                key={todo.id}
                                             />
                                         );
                                     }

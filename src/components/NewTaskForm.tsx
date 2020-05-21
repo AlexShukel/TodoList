@@ -23,7 +23,7 @@ class NewTaskForm extends React.Component<Props> {
                     return (
                         <Formik
                             initialValues={{
-                                id: 3,
+                                id: 0,
                                 completed: false,
                                 description: '',
                                 type: 'Low',
