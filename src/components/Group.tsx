@@ -1,5 +1,8 @@
 import React from 'react';
-import { TodoArrayHelper, ArrayController } from './TodoContext';
+import {
+    TodoArrayHelper,
+    ArrayController,
+} from './TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../objects/TodoGroup';
 import styles from './Group.scss';
 import TodoList from './TodoList';

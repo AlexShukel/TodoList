@@ -1,5 +1,8 @@
 import React from 'react';
-import { TodoArrayHelper, ArrayController } from './TodoContext';
+import {
+    TodoArrayHelper,
+    ArrayController,
+} from './TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../objects/TodoGroup';
 import styles from './SideBar.scss';
 import {
@@ -11,6 +14,7 @@ import {
     ListItemText,
     Divider,
 } from '@material-ui/core';
+import Link from './Router/Link';
 
 interface State {
     isOpen: boolean;
@@ -24,9 +28,13 @@ class SideBarItem extends React.Component<SideBarItemProps> {
     public render() {
         const { title } = this.props;
         return (
-            <ListItem button>
-                <ListItemText>{title}</ListItemText>
-            </ListItem>
+            <Link href="group">
+                {(onClick) => (
+                    <ListItem onClick={onClick} button>
+                        <ListItemText>{title}</ListItemText>
+                    </ListItem>
+                )}
+            </Link>
         );
     }
 }

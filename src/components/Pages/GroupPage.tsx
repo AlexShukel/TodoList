@@ -1,5 +1,8 @@
 import React from 'react';
-import { TodoArrayHelper, ArrayController } from '../TodoContext';
+import {
+    TodoArrayHelper,
+    ArrayController,
+} from '../TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../../objects/TodoGroup';
 import { Typography } from '@material-ui/core';
 import TodoList from '../TodoList';

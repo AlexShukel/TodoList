@@ -3,7 +3,7 @@ import { TodoTask } from '../objects/TodoTask';
 import { Button, TextField } from '@material-ui/core';
 import styles from './NewTaskForm.scss';
 import { Formik, Form, Field, FieldProps } from 'formik';
-import { TodoArrayHelper } from './TodoContext';
+import { TodoArrayHelper } from './TodoContext/TodoArrayHelper';
 import { getUniqueId } from '../utils/IdUtils';
 
 interface Props {

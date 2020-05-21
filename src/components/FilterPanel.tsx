@@ -1,5 +1,8 @@
 import React from 'react';
-import { TodoArrayHelper, ArrayController } from './TodoContext';
+import {
+    TodoArrayHelper,
+    ArrayController,
+} from './TodoContext/TodoArrayHelper';
 import { TodoTask } from '../objects/TodoTask';
 import { Button, Select, MenuItem, IconButton, Icon } from '@material-ui/core';
 import { Menu } from 'electron';

@@ -1,7 +1,5 @@
 import React from 'react';
 import { Formik, Field, FieldProps, Form } from 'formik';
-import { CSSProperties } from '@material-ui/core/styles/withStyles';
-import { IconButton, Icon } from '@material-ui/core';
 
 interface Props {
     text: string;

@@ -1,7 +1,10 @@
 import React from 'react';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { Button, TextField } from '@material-ui/core';
-import { TodoArrayHelper, ArrayController } from './TodoContext';
+import {
+    TodoArrayHelper,
+    ArrayController,
+} from './TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../objects/TodoGroup';
 import { getUniqueId } from '../utils/IdUtils';
 

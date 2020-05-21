@@ -13,7 +13,10 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import { TodoTask } from '../objects/TodoTask';
 import styles from './TodoItem.scss';
-import { TodoArrayHelper, ArrayController } from './TodoContext';
+import {
+    TodoArrayHelper,
+    ArrayController,
+} from './TodoContext/TodoArrayHelper';
 import TextEditor from './TextEditor';
 
 interface Props {
