@@ -1,16 +1,13 @@
 import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import {
-    Button,
     ListItem,
     ListItemText,
     ListItemIcon,
     ListItemSecondaryAction,
     IconButton,
     Icon,
-    TextField,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { TodoTask } from '../objects/TodoTask';
 import styles from './TodoItem.scss';
 import {
@@ -18,6 +15,7 @@ import {
     ArrayController,
 } from './TodoContext/TodoArrayHelper';
 import TextEditor from './TextEditor';
+import { dateToYearMonthDay } from '../utils/DateUtils';
 
 interface Props {
     taskIndex: number;
@@ -73,6 +71,9 @@ class TodoItem extends React.Component<Props> {
                                 </label>
                             </TextEditor>
                         </ListItemText>
+                        {dateToYearMonthDay(
+                            controller.array[taskIndex].targetDate
+                        )}
                         <ListItemSecondaryAction>
                             <IconButton
                                 onClick={() => controller.remove(taskIndex)}

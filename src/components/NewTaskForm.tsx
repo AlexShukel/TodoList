@@ -5,6 +5,11 @@ import styles from './NewTaskForm.scss';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { TodoArrayHelper } from './TodoContext/TodoArrayHelper';
 import { getUniqueId } from '../utils/IdUtils';
+import {
+    KeyboardDatePicker,
+    MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 interface Props {
     groupIndex: number;
@@ -27,6 +32,7 @@ class NewTaskForm extends React.Component<Props> {
                                 completed: false,
                                 description: '',
                                 type: 'Low',
+                                targetDate: new Date(),
                             }}
                             onSubmit={(values, actions) => {
                                 values.id = getUniqueId(controller.array, 'id');
@@ -35,20 +41,33 @@ class NewTaskForm extends React.Component<Props> {
                                 actions.resetForm();
                             }}
                         >
-                            <Form className={styles.formStyle}>
-                                <Field name="description">
-                                    {({ field }: FieldProps) => (
-                                        <TextField {...field} />
-                                    )}
-                                </Field>
-                                <Field as="select" name="type">
-                                    <option value="Important">Important</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
-                                </Field>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <Form className={styles['form-style']}>
+                                    <Field name="description">
+                                        {({ field }: FieldProps) => (
+                                            <TextField {...field} />
+                                        )}
+                                    </Field>
+                                    <Field as="select" name="type">
+                                        <option value="Important">
+                                            Important
+                                        </option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </Field>
 
-                                <Button type="submit">Add task</Button>
-                            </Form>
+                                    <Field name="targetDate">
+                                        {({ field }: FieldProps) => (
+                                            <TextField
+                                                {...field}
+                                                type="datetime-local"
+                                            />
+                                        )}
+                                    </Field>
+
+                                    <Button type="submit">Add task</Button>
+                                </Form>
+                            </MuiPickersUtilsProvider>
                         </Formik>
                     );
                 }}

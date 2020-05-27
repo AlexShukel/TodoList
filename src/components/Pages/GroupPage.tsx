@@ -6,22 +6,40 @@ import {
 import { TodoGroup } from '../../objects/TodoGroup';
 import { Typography } from '@material-ui/core';
 import TodoList from '../TodoList';
+import TextEditor from '../TextEditor';
 
 interface Props {
-    groupIndex: number;
+    groupId: number;
 }
 
 export default class GroupPage extends React.Component<Props> {
     public render() {
-        const { groupIndex } = this.props;
+        const { groupId } = this.props;
         return (
             <TodoArrayHelper arrayPath={`groups`}>
                 {(controller: ArrayController<TodoGroup>) => {
+                    const groupIndex = controller.array.findIndex(
+                        (value) => value.id === groupId
+                    );
                     return (
                         <div>
-                            <Typography variant="h1">
-                                {controller.array[groupIndex].title}
-                            </Typography>
+                            <TextEditor
+                                text={controller.array[groupIndex].title}
+                                onChange={(text) => {
+                                    controller.edit(
+                                        {
+                                            ...controller.array[groupIndex],
+                                            title: text,
+                                        },
+                                        groupIndex
+                                    );
+                                }}
+                            >
+                                <Typography variant="h1">
+                                    {controller.array[groupIndex].title}
+                                </Typography>
+                            </TextEditor>
+
                             <TodoList groupIndex={groupIndex} />
                         </div>
                     );

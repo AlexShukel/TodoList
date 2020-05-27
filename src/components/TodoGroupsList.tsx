@@ -15,7 +15,7 @@ class TodoGroupsList extends React.Component {
                     return (
                         <div className={styles.groupsList}>
                             {controller.array.map((group: TodoGroup, index) => (
-                                <Group groupIndex={index} key={group.id} />
+                                <Group groupId={group.id} key={group.id} />
                             ))}
                         </div>
                     );

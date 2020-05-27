@@ -3,6 +3,7 @@ import { Formik, Field, FieldProps, Form } from 'formik';
 
 interface Props {
     text: string;
+    className?: string;
 
     onChange: (text: string) => void;
 }
@@ -23,7 +24,7 @@ export default class TextEditor extends React.Component<Props, State> {
         });
     };
     public render() {
-        const { text, onChange, children } = this.props;
+        const { text, onChange, children, className } = this.props;
         const { isEditing } = this.state;
 
         return (
@@ -40,6 +41,7 @@ export default class TextEditor extends React.Component<Props, State> {
                         <Field name="text">
                             {({ field }: FieldProps) => (
                                 <input
+                                    className={className}
                                     {...field}
                                     ref={this.inputRef}
                                     onBlur={(e) => {

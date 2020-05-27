@@ -3,9 +3,13 @@ import {
     TodoArrayHelper,
     ArrayController,
 } from './TodoContext/TodoArrayHelper';
-import { TodoTask } from '../objects/TodoTask';
-import { Button, Select, MenuItem, IconButton, Icon } from '@material-ui/core';
-import { Menu } from 'electron';
+import {
+    Select,
+    MenuItem,
+    IconButton,
+    Icon,
+    Typography,
+} from '@material-ui/core';
 import { Formik, Field, FieldProps } from 'formik';
 import styles from './FilterPanel.scss';
 
@@ -51,7 +55,10 @@ export default class FilterPanel<T> extends React.Component<Props<T>> {
                                     <Field name="sortType">
                                         {({ field }: FieldProps) => (
                                             <div>
-                                                Sorting type:
+                                                <Typography>
+                                                    Sorting type:
+                                                </Typography>
+
                                                 <Select
                                                     {...field}
                                                     onChange={(

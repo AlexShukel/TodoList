@@ -29,9 +29,8 @@ export class TodoArrayHelper<T> extends React.Component<TodoArrayProps<T>> {
         this.setContext();
     };
     private edit = (value: T, index: number) => {
-        this.context.setValues(
-            setIn(this.context, `${this.props.arrayPath}.${index}`, value)
-        );
+        this.array[index] = value;
+        this.setContext();
     };
     private remove = (index: number) => {
         this.array.splice(index, 1);

@@ -13,6 +13,7 @@ import {
     ListItem,
     ListItemText,
     Divider,
+    Typography,
 } from '@material-ui/core';
 import Link from './Router/Link';
 
@@ -22,13 +23,14 @@ interface State {
 
 interface SideBarItemProps {
     title: string;
+    groupId: number;
 }
 
 class SideBarItem extends React.Component<SideBarItemProps> {
     public render() {
-        const { title } = this.props;
+        const { title, groupId } = this.props;
         return (
-            <Link href="group">
+            <Link href={`group?groupId=${groupId}`}>
                 {(onClick) => (
                     <ListItem onClick={onClick} button>
                         <ListItemText>{title}</ListItemText>
@@ -65,6 +67,13 @@ class SideBar extends React.Component<{}, State> {
                                 variant="persistent"
                             >
                                 <div className={styles['drawer-header']}>
+                                    <Link href="groups">
+                                        {(onClick) => (
+                                            <IconButton onClick={onClick}>
+                                                <Icon>home</Icon>
+                                            </IconButton>
+                                        )}
+                                    </Link>
                                     <IconButton
                                         onClick={() => {
                                             this.setState({ isOpen: false });
@@ -74,11 +83,25 @@ class SideBar extends React.Component<{}, State> {
                                     </IconButton>
                                 </div>
                                 <Divider />
-                                <List>
-                                    {controller.array.map((group) => (
-                                        <SideBarItem title={group.title} />
-                                    ))}
-                                </List>
+                                <span className={styles['groups-list']}>
+                                    <Typography
+                                        className={
+                                            styles['groups-list__header']
+                                        }
+                                        variant="h5"
+                                    >
+                                        My groups
+                                    </Typography>
+                                    <List>
+                                        {controller.array.map((group) => (
+                                            <SideBarItem
+                                                title={group.title}
+                                                groupId={group.id}
+                                                key={group.id}
+                                            />
+                                        ))}
+                                    </List>
+                                </span>
                             </Drawer>
                         </div>
                     );

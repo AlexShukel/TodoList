@@ -29,7 +29,7 @@ export default class TodoList extends React.Component<Props> {
                                             <TodoItem
                                                 taskIndex={index}
                                                 groupIndex={groupIndex}
-                                                key={todo.id}
+                                                key={`${groupIndex}__${todo.id}`}
                                             />
                                         );
                                     }
