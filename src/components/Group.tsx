@@ -1,76 +1,57 @@
 import React from 'react';
-import { TodoArrayHelper, ArrayController } from './TodoContext';
+import {
+    TodoArrayHelper,
+    ArrayController,
+} from './TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../objects/TodoGroup';
 import styles from './Group.scss';
 import TodoList from './TodoList';
-import { Button, Paper, TextField } from '@material-ui/core';
+import { Button, Paper, Typography } from '@material-ui/core';
+import TextEditor from './TextEditor';
+import { dateToYearMonthDay } from '../utils/DateUtils';
 
 interface Props {
-    groupIndex: number;
+    groupId: number;
 }
 
-interface State {
-    editTitle: boolean;
-}
-
-export default class Group extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = { editTitle: false };
-    }
+export default class Group extends React.Component<Props> {
     public render() {
-        const { groupIndex } = this.props;
+        const { groupId } = this.props;
 
         return (
             <TodoArrayHelper arrayPath={`groups`}>
                 {(controller: ArrayController<TodoGroup>) => {
+                    const groupIndex = controller.array.findIndex(
+                        (value) => value.id === groupId
+                    );
                     return (
                         <Paper
                             className={styles.groupItem}
                             elevation={3}
                             square
                         >
-                            {this.state.editTitle === false ? (
-                                <label
-                                    onDoubleClick={() => {
-                                        this.setState({
-                                            editTitle: true,
-                                        });
+                            <Typography variant="h2">
+                                <TextEditor
+                                    text={controller.array[groupIndex].title}
+                                    onChange={(text) => {
+                                        controller.edit(
+                                            {
+                                                ...controller.array[groupIndex],
+                                                title: text,
+                                            },
+                                            groupIndex
+                                        );
                                     }}
+                                    className={styles['input-style']}
                                 >
-                                    <h2>
-                                        {controller.array[groupIndex].title}
-                                    </h2>
-                                </label>
-                            ) : (
-                                <div>
-                                    <TextField
-                                        value={
-                                            controller.array[groupIndex].title
-                                        }
-                                        onChange={(event) => {
-                                            controller.edit(
-                                                {
-                                                    ...controller.array[
-                                                        groupIndex
-                                                    ],
-                                                    title: event.target.value,
-                                                },
-                                                groupIndex
-                                            );
-                                        }}
-                                    ></TextField>
-                                    <Button
-                                        onClick={() => {
-                                            this.setState({ editTitle: false });
-                                        }}
-                                    >
-                                        Change title
-                                    </Button>
-                                </div>
+                                    {controller.array[groupIndex].title}
+                                </TextEditor>
+                            </Typography>
+                            {dateToYearMonthDay(
+                                controller.array[groupIndex].targetDate
                             )}
-
                             <TodoList groupIndex={groupIndex} />
+
                             <Button
                                 onClick={() => {
                                     controller.remove(groupIndex);
