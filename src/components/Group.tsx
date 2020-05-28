@@ -47,9 +47,22 @@ export default class Group extends React.Component<Props> {
                                     {controller.array[groupIndex].title}
                                 </TextEditor>
                             </Typography>
-                            {dateToYearMonthDay(
-                                controller.array[groupIndex].targetDate
-                            )}
+
+                            <span
+                                className={
+                                    new Date().getTime() >
+                                    controller.array[
+                                        groupIndex
+                                    ].targetDate.getTime()
+                                        ? styles['date-out']
+                                        : styles['date-not-out']
+                                }
+                            >
+                                {dateToYearMonthDay(
+                                    controller.array[groupIndex].targetDate
+                                )}
+                            </span>
+
                             <TodoList groupIndex={groupIndex} />
 
                             <Button
