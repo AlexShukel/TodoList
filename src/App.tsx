@@ -9,71 +9,10 @@ import Router from './components/Router/Router';
 import Route from './components/Router/Route';
 import GroupPage from './components/Pages/GroupPage';
 
-let initialState: AppData = {
-    groups: [
-        {
-            id: 1,
-            title: 'Go to market',
-            targetDate: new Date(),
-            tasks: [
-                {
-                    id: 0,
-                    completed: false,
-                    description: 'Buy milk',
-                    type: 'Important',
-                    targetDate: new Date(),
-                },
-                {
-                    id: 1,
-                    completed: false,
-                    description: 'Buy meat',
-                    type: 'Important',
-                    targetDate: new Date(),
-                },
-                {
-                    id: 2,
-                    completed: true,
-                    description: 'Buy bread',
-                    type: 'Important',
-                    targetDate: new Date(),
-                },
-            ],
-        },
-        {
-            id: 2,
-            title: 'Hello',
-            targetDate: new Date(),
-            tasks: [
-                {
-                    id: 0,
-                    completed: false,
-                    description: 'Buy milk',
-                    type: 'Important',
-                    targetDate: new Date(),
-                },
-                {
-                    id: 1,
-                    completed: false,
-                    description: 'Buy meat',
-                    type: 'Important',
-                    targetDate: new Date(),
-                },
-                {
-                    id: 2,
-                    completed: true,
-                    description: 'Buy bread',
-                    type: 'Important',
-                    targetDate: new Date(),
-                },
-            ],
-        },
-    ],
-};
-
 const App = () => {
     return (
         <Router initialPage="groups">
-            <TodoController initialValues={initialState}>
+            <TodoController>
                 <div className={styles['app-wrapper']}>
                     <SideBar />
                     <Route location="groups">

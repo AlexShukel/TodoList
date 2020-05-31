@@ -51,9 +51,10 @@ class TodoItem extends React.Component<Props> {
                                     ? styles.done
                                     : ''
                             }
+                            secondary={dateToYearMonthDay(
+                                controller.array[taskIndex].targetDate
+                            )}
                         >
-                            <strong>{controller.array[taskIndex].id}</strong>
-                            &nbsp;
                             <TextEditor
                                 text={controller.array[taskIndex].description}
                                 onChange={(text) => {
@@ -71,9 +72,7 @@ class TodoItem extends React.Component<Props> {
                                 </label>
                             </TextEditor>
                         </ListItemText>
-                        {dateToYearMonthDay(
-                            controller.array[taskIndex].targetDate
-                        )}
+
                         <ListItemSecondaryAction>
                             <IconButton
                                 onClick={() => controller.remove(taskIndex)}

@@ -22,7 +22,7 @@ export default class TodoList extends React.Component<Props> {
                 {(controller: ArrayController<TodoTask>) => {
                     return (
                         <div>
-                            <List className={styles['item-style']}>
+                            <List className={styles.list}>
                                 {controller.array.map(
                                     (todo: TodoTask, index) => {
                                         return (
