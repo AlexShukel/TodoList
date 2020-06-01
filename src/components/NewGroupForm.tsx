@@ -38,7 +38,10 @@ class NewGroupForm extends React.Component {
                                 <Form>
                                     <Field name="title">
                                         {({ field }: FieldProps) => (
-                                            <TextField {...field} />
+                                            <TextField
+                                                {...field}
+                                                variant="outlined"
+                                            />
                                         )}
                                     </Field>
 
