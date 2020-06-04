@@ -14,11 +14,20 @@ import {
     ListItemText,
     Divider,
     Typography,
+    TextField,
+    Button,
 } from '@material-ui/core';
 import Link from './Router/Link';
 
+import { Formik, Form, Field, FieldProps } from 'formik';
+import { getUniqueId } from '../utils/IdUtils';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import DatePicker from './DatePicker';
+
 interface State {
     isOpen: boolean;
+    addingGroup: boolean;
 }
 
 interface SideBarItemProps {
@@ -44,7 +53,7 @@ class SideBarItem extends React.Component<SideBarItemProps> {
 class SideBar extends React.Component<{}, State> {
     constructor(props: {}) {
         super(props);
-        this.state = { isOpen: false };
+        this.state = { isOpen: false, addingGroup: false };
     }
     public render() {
         return (
@@ -66,7 +75,7 @@ class SideBar extends React.Component<{}, State> {
                                 onClose={() => this.setState({ isOpen: false })}
                                 variant="persistent"
                             >
-                                <div className={styles['drawer-header']}>
+                                <div className={styles['header']}>
                                     <Link href="groups">
                                         {(onClick) => (
                                             <IconButton onClick={onClick}>
@@ -101,6 +110,84 @@ class SideBar extends React.Component<{}, State> {
                                             />
                                         ))}
                                     </List>
+                                    {this.state.addingGroup ? (
+                                        <Formik
+                                            initialValues={{
+                                                title: '',
+                                                id: 0,
+                                                tasks: [],
+                                                targetDate: new Date(),
+                                            }}
+                                            onSubmit={(values, actions) => {
+                                                values.id = getUniqueId(
+                                                    controller.array,
+                                                    'id'
+                                                );
+                                                values.targetDate = new Date(
+                                                    values.targetDate
+                                                );
+                                                controller.add(values);
+                                                this.setState({
+                                                    addingGroup: false,
+                                                });
+                                                actions.resetForm();
+                                            }}
+                                        >
+                                            <MuiPickersUtilsProvider
+                                                utils={DateFnsUtils}
+                                            >
+                                                <Form
+                                                    className={styles['form']}
+                                                >
+                                                    <Field name="title">
+                                                        {({
+                                                            field,
+                                                        }: FieldProps) => (
+                                                            <TextField
+                                                                {...field}
+                                                                variant="outlined"
+                                                            />
+                                                        )}
+                                                    </Field>
+
+                                                    <Field name="targetDate">
+                                                        {({
+                                                            field,
+                                                            form,
+                                                        }: FieldProps) => (
+                                                            <DatePicker
+                                                                value={
+                                                                    field.value
+                                                                }
+                                                                onChange={(
+                                                                    date
+                                                                ) =>
+                                                                    form.setFieldValue(
+                                                                        field.name,
+                                                                        date
+                                                                    )
+                                                                }
+                                                            />
+                                                        )}
+                                                    </Field>
+
+                                                    <Button type="submit">
+                                                        Add group
+                                                    </Button>
+                                                </Form>
+                                            </MuiPickersUtilsProvider>
+                                        </Formik>
+                                    ) : (
+                                        <IconButton
+                                            onClick={() =>
+                                                this.setState({
+                                                    addingGroup: true,
+                                                })
+                                            }
+                                        >
+                                            <Icon>add</Icon>
+                                        </IconButton>
+                                    )}
                                 </span>
                             </Drawer>
                         </div>

@@ -1,4 +1,4 @@
-.drawer-header {
+.header {
     display: flex;
     justify-content: space-between;
     padding: 5px;
@@ -12,4 +12,10 @@
     &__header {
         padding: 6px;
     }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    max-width: 140px;
 }
