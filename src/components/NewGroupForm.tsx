@@ -28,7 +28,9 @@ class NewGroupForm extends React.Component {
                             }}
                             onSubmit={(values, actions) => {
                                 values.id = getUniqueId(controller.array, 'id');
+                                values.targetDate = new Date(values.targetDate);
                                 controller.add(values);
+
                                 actions.resetForm();
                             }}
                         >

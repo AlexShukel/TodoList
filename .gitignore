@@ -1,3 +1,7 @@
 node_modules
 build
+<<<<<<< HEAD
 .DS_Store
+=======
+data.json
+>>>>>>> 6f30e12a67f721c21550f5fd0d544d75e676959d
