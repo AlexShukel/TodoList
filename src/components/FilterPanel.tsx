@@ -7,7 +7,7 @@ import { IconButton, Icon, Typography } from '@material-ui/core';
 import { Formik, Field, FieldProps } from 'formik';
 import styles from './FilterPanel.scss';
 import EnumField from './EnumField';
-import { SortingType, defaultI18n } from '../enums/SortingType';
+import { SortingType, defaultI18n } from '../enums/SortingTypes';
 
 interface Props<T, E> {
     arrayPath: string;
