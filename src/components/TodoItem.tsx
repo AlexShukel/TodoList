@@ -7,6 +7,7 @@ import {
     ListItemSecondaryAction,
     IconButton,
     Icon,
+    Typography,
 } from '@material-ui/core';
 import { TodoTask } from '../objects/TodoTask';
 import styles from './TodoItem.scss';
@@ -72,7 +73,22 @@ class TodoItem extends React.Component<Props> {
                                 </label>
                             </TextEditor>
                         </ListItemText>
-
+                        <ListItemText>
+                            {controller.array[taskIndex].targetDate.getTime() <
+                            new Date().getTime() ? (
+                                <Typography className={styles['time-up']}>
+                                    Time is up{' '}
+                                    {Math.round(
+                                        (new Date().getTime() -
+                                            controller.array[
+                                                taskIndex
+                                            ].targetDate.getTime()) /
+                                            86400000
+                                    )}{' '}
+                                    days ago
+                                </Typography>
+                            ) : null}
+                        </ListItemText>
                         <ListItemSecondaryAction>
                             <IconButton
                                 onClick={() => controller.remove(taskIndex)}

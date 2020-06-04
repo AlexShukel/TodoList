@@ -15,10 +15,12 @@ import { getUniqueId } from '../utils/IdUtils';
 import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider,
+    KeyboardTimePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { PriorityEnum, defaultI18n } from '../enums/PriorityEnum';
 import EnumField from './EnumField';
+import DatePicker from './DatePicker';
 
 interface Props {
     groupIndex: number;
@@ -67,10 +69,15 @@ class NewTaskForm extends React.Component<Props> {
                                     />
 
                                     <Field name="targetDate">
-                                        {({ field }: FieldProps) => (
-                                            <TextField
-                                                {...field}
-                                                type="datetime-local"
+                                        {({ field, form }: FieldProps) => (
+                                            <DatePicker
+                                                value={field.value}
+                                                onChange={(date) =>
+                                                    form.setFieldValue(
+                                                        field.name,
+                                                        date
+                                                    )
+                                                }
                                             />
                                         )}
                                     </Field>
