@@ -1,21 +1,19 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import {
     TodoArrayHelper,
     ArrayController,
 } from './TodoContext/TodoArrayHelper';
-import {
-    Select,
-    MenuItem,
-    IconButton,
-    Icon,
-    Typography,
-} from '@material-ui/core';
+import { IconButton, Icon, Typography } from '@material-ui/core';
 import { Formik, Field, FieldProps } from 'formik';
 import styles from './FilterPanel.scss';
+import EnumField from './EnumField';
+import { SortingType, defaultI18n } from '../enums/SortingType';
 
-interface Props<T> {
+interface Props<T, E> {
     arrayPath: string;
-    sortingTypes: SortType<T>[];
+    sortingTypes: EnumSortTypes<E, T>;
+    values: E;
+    i18n: any;
     defaultCompare: (a: T, b: T) => number;
 }
 
@@ -24,20 +22,21 @@ interface SortType<T> {
     compare: (a: T, b: T) => number;
 }
 
-export default class FilterPanel<T> extends React.Component<Props<T>> {
+export type EnumSortTypes<E, T> = Record<keyof E, SortType<T>>;
+
+export default class FilterPanel<T, E> extends React.Component<Props<T, E>> {
     public render() {
         const { arrayPath, sortingTypes, defaultCompare } = this.props;
+
         return (
             <TodoArrayHelper arrayPath={arrayPath}>
                 {(controller: ArrayController<T>) => {
                     const reorder = (
                         sortingOrder: number,
-                        sortType: number
+                        sortType: keyof E
                     ) => {
                         const compare =
-                            sortType >= 0 && sortType < sortingTypes.length
-                                ? sortingTypes[sortType].compare
-                                : defaultCompare;
+                            sortingTypes[sortType]?.compare || defaultCompare;
                         controller.sort(
                             (a: T, b: T) => sortingOrder * compare(a, b)
                         );
@@ -46,50 +45,35 @@ export default class FilterPanel<T> extends React.Component<Props<T>> {
                         <Formik
                             initialValues={{
                                 sortingOrder: 1,
-                                sortType: -1,
+                                sortType: '' as keyof E,
                             }}
                             onSubmit={() => {}}
                         >
                             {({ values }) => (
                                 <div className={styles['filter-panel']}>
-                                    <Field name="sortType">
-                                        {({ field }: FieldProps) => (
-                                            <div>
-                                                <Typography>
-                                                    Sorting type:
-                                                </Typography>
-
-                                                <Select
-                                                    {...field}
-                                                    onChange={(
-                                                        e: React.ChangeEvent<{
-                                                            value: number;
-                                                        }>
-                                                    ) => {
-                                                        field.onChange(e);
-                                                        reorder(
-                                                            values.sortingOrder,
-                                                            e.target.value
-                                                        );
-                                                    }}
-                                                >
-                                                    <MenuItem value={-1}>
-                                                        None
-                                                    </MenuItem>
-                                                    {sortingTypes.map(
-                                                        (value, index) => (
-                                                            <MenuItem
-                                                                value={index}
-                                                                key={index}
-                                                            >
-                                                                {value.title}
-                                                            </MenuItem>
-                                                        )
-                                                    )}
-                                                </Select>
-                                            </div>
-                                        )}
-                                    </Field>
+                                    <div
+                                        className={
+                                            styles['filter-panel__sorting-type']
+                                        }
+                                    >
+                                        <Typography>Sorting type:</Typography>
+                                        <EnumField
+                                            name="sortType"
+                                            values={SortingType}
+                                            i18n={defaultI18n}
+                                            showNone
+                                            onChange={(
+                                                e: ChangeEvent<{
+                                                    value: keyof E;
+                                                }>
+                                            ) =>
+                                                reorder(
+                                                    values.sortingOrder,
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                    </div>
                                     <Field name="sortingOrder">
                                         {({ field, form }: FieldProps) => (
                                             <IconButton
@@ -101,10 +85,10 @@ export default class FilterPanel<T> extends React.Component<Props<T>> {
                                                             : 1
                                                     );
                                                     reorder(
-                                                        values.sortingOrder,
                                                         field.value === 1
                                                             ? -1
-                                                            : 1
+                                                            : 1,
+                                                        values.sortType
                                                     );
                                                 }}
                                             >

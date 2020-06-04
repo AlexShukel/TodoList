@@ -1,6 +1,13 @@
 import React from 'react';
 import { TodoTask } from '../objects/TodoTask';
-import { Button, TextField } from '@material-ui/core';
+import {
+    Button,
+    TextField,
+    IconButton,
+    Icon,
+    Select,
+    MenuItem,
+} from '@material-ui/core';
 import styles from './NewTaskForm.scss';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { TodoArrayHelper } from './TodoContext/TodoArrayHelper';
@@ -10,6 +17,8 @@ import {
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import { PriorityEnum, defaultI18n } from '../enums/PriorityEnum';
+import EnumField from './EnumField';
 
 interface Props {
     groupIndex: number;
@@ -31,7 +40,7 @@ class NewTaskForm extends React.Component<Props> {
                                 id: 0,
                                 completed: false,
                                 description: '',
-                                type: 'Low',
+                                type: PriorityEnum.LOW,
                                 targetDate: new Date(),
                             }}
                             onSubmit={(values, actions) => {
@@ -45,16 +54,17 @@ class NewTaskForm extends React.Component<Props> {
                                 <Form className={styles['form-style']}>
                                     <Field name="description">
                                         {({ field }: FieldProps) => (
-                                            <TextField {...field} />
+                                            <TextField
+                                                {...field}
+                                                variant="outlined"
+                                            />
                                         )}
                                     </Field>
-                                    <Field as="select" name="type">
-                                        <option value="Important">
-                                            Important
-                                        </option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="Low">Low</option>
-                                    </Field>
+                                    <EnumField
+                                        name="type"
+                                        values={PriorityEnum}
+                                        i18n={defaultI18n}
+                                    />
 
                                     <Field name="targetDate">
                                         {({ field }: FieldProps) => (
@@ -65,7 +75,9 @@ class NewTaskForm extends React.Component<Props> {
                                         )}
                                     </Field>
 
-                                    <Button type="submit">Add task</Button>
+                                    <IconButton type="submit">
+                                        <Icon>add</Icon>
+                                    </IconButton>
                                 </Form>
                             </MuiPickersUtilsProvider>
                         </Formik>
