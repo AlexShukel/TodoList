@@ -1,35 +1,6 @@
 import React from 'react';
-import { AppData } from '../objects/AppData';
-import { getIn, setIn } from 'formik';
-
-const TodoContext = React.createContext(
-    {} as AppData & { setValues: (values: AppData) => void }
-);
-interface TodoControllerProps {
-    initialValues: AppData;
-}
-
-export class TodoController extends React.Component<
-    TodoControllerProps,
-    AppData
-> {
-    constructor(props: TodoControllerProps) {
-        super(props);
-        this.state = props.initialValues;
-    }
-    private setValues = (values: AppData) => {
-        this.setState(values);
-    };
-    public render() {
-        return (
-            <TodoContext.Provider
-                value={{ ...this.state, setValues: this.setValues }}
-            >
-                {this.props.children}
-            </TodoContext.Provider>
-        );
-    }
-}
+import TodoContext from './TodoContext';
+import { setIn, getIn } from 'formik';
 
 export interface ArrayController<T> {
     add: (value: T) => void;
@@ -58,9 +29,8 @@ export class TodoArrayHelper<T> extends React.Component<TodoArrayProps<T>> {
         this.setContext();
     };
     private edit = (value: T, index: number) => {
-        this.context.setValues(
-            setIn(this.context, `${this.props.arrayPath}.${index}`, value)
-        );
+        this.array[index] = value;
+        this.setContext();
     };
     private remove = (index: number) => {
         this.array.splice(index, 1);
@@ -89,5 +59,3 @@ export class TodoArrayHelper<T> extends React.Component<TodoArrayProps<T>> {
         );
     }
 }
-
-export default TodoContext;

@@ -1,5 +1,7 @@
-.appWrapper {
+.app-wrapper {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    &__side-bar {
+        width: 200px;
+    }
 }

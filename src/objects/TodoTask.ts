@@ -3,4 +3,5 @@ export interface TodoTask {
     completed: boolean;
     description: string;
     type: string;
+    targetDate: Date;
 }

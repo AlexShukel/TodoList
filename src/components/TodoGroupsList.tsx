@@ -1,5 +1,8 @@
 import React from 'react';
-import { TodoArrayHelper, ArrayController } from './TodoContext';
+import {
+    TodoArrayHelper,
+    ArrayController,
+} from './TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../objects/TodoGroup';
 import styles from './TodoGroupsList.scss';
 import Group from './Group';
@@ -12,7 +15,7 @@ class TodoGroupsList extends React.Component {
                     return (
                         <div className={styles.groupsList}>
                             {controller.array.map((group: TodoGroup, index) => (
-                                <Group groupIndex={index} key={group.id} />
+                                <Group groupId={group.id} key={group.id} />
                             ))}
                         </div>
                     );
