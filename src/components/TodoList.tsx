@@ -5,11 +5,11 @@ import {
 } from './TodoContext/TodoArrayHelper';
 import { TodoTask } from '../objects/TodoTask';
 import TodoItem from './TodoItem';
-import { Button, Menu, List } from '@material-ui/core';
+import { List } from '@material-ui/core';
 import styles from './TodoList.scss';
 import NewTaskForm from './NewTaskForm';
 import FilterPanel from './FilterPanel';
-import { sortingTypes, defaultI18n, SortingType } from '../enums/SortingType';
+import { sortingTypes, defaultI18n, SortingType } from '../enums/SortingTypes';
 
 interface Props {
     groupIndex: number;
