@@ -17,6 +17,7 @@ import {
 } from './TodoContext/TodoArrayHelper';
 import TextEditor from './TextEditor';
 import { dateToYearMonthDay } from '../utils/DateUtils';
+import moment from 'moment';
 
 interface Props {
     taskIndex: number;
@@ -78,14 +79,9 @@ class TodoItem extends React.Component<Props> {
                             new Date().getTime() ? (
                                 <Typography className={styles['time-up']}>
                                     Time is up{' '}
-                                    {Math.round(
-                                        (new Date().getTime() -
-                                            controller.array[
-                                                taskIndex
-                                            ].targetDate.getTime()) /
-                                            86400000
-                                    )}{' '}
-                                    days ago
+                                    {moment(
+                                        controller.array[taskIndex].targetDate
+                                    ).fromNow()}
                                 </Typography>
                             ) : null}
                         </ListItemText>
