@@ -6,6 +6,7 @@ import SideBar from './components/SideBar';
 import Router from './components/Router/Router';
 import Route from './components/Router/Route';
 import GroupPage from './components/Pages/GroupPage';
+import SettingsPage from './components/Pages/SettingsPage';
 
 const App = () => {
     return (
@@ -17,6 +18,7 @@ const App = () => {
                     <Route location="group">
                         {(params) => <GroupPage groupId={+params.groupId} />}
                     </Route>
+                    <Route location="settings">{() => <SettingsPage />}</Route>
                 </div>
             </TodoController>
         </Router>

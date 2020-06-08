@@ -3,7 +3,7 @@ import { TodoArrayHelper } from './TodoContext/TodoArrayHelper';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { getUniqueId } from '../utils/IdUtils';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DatePicker from './DateField';
+
 import DateFnsUtils from '@date-io/date-fns';
 import { TextField, Button } from '@material-ui/core';
 import styles from './NewGroupForm.scss';
@@ -36,12 +36,7 @@ export default class NewGroupForm extends React.Component {
                                         <TextField
                                             {...field}
                                             variant="outlined"
-                                            // onBlur={(e) => {
-                                            //     this.closeEditing();
-                                            //     field.onBlur(
-                                            //         e
-                                            //     );
-                                            // }}
+                                            margin="dense"
                                         />
                                     )}
                                 </Field>

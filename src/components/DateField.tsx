@@ -21,6 +21,7 @@ const DateField = (props: Props) => (
                         props.onBlur(e);
                     }}
                     PopoverProps={{ disablePortal: true }}
+                    autoOk
                 />
                 <KeyboardTimePicker
                     {...field}
@@ -31,6 +32,7 @@ const DateField = (props: Props) => (
                     }}
                     variant="inline"
                     PopoverProps={{ disablePortal: true }}
+                    autoOk
                 />
             </React.Fragment>
         )}
