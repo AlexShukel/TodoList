@@ -14,16 +14,11 @@ import {
     ListItemText,
     Divider,
     Typography,
-    TextField,
-    Button,
+    ClickAwayListener,
 } from '@material-ui/core';
 import Link from './Router/Link';
 
-import { Formik, Form, Field, FieldProps } from 'formik';
-import { getUniqueId } from '../utils/IdUtils';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
-import DatePicker from './DatePicker';
+import NewGroupForm from './NewGroupForm';
 
 interface State {
     isOpen: boolean;
@@ -33,6 +28,7 @@ interface State {
 interface SideBarItemProps {
     title: string;
     groupId: number;
+    closeSideBar: () => void;
 }
 
 class SideBarItem extends React.Component<SideBarItemProps> {
@@ -41,7 +37,13 @@ class SideBarItem extends React.Component<SideBarItemProps> {
         return (
             <Link href={`group?groupId=${groupId}`}>
                 {(onClick) => (
-                    <ListItem onClick={onClick} button>
+                    <ListItem
+                        onClick={() => {
+                            onClick();
+                            this.props.closeSideBar();
+                        }}
+                        button
+                    >
                         <ListItemText>{title}</ListItemText>
                     </ListItem>
                 )}
@@ -55,142 +57,101 @@ class SideBar extends React.Component<{}, State> {
         super(props);
         this.state = { isOpen: false, addingGroup: false };
     }
+    private closeSideBar = () => {
+        this.setState({ isOpen: false });
+    };
+    private endAdding = () => {
+        this.setState({ addingGroup: false });
+    };
     public render() {
         return (
             <TodoArrayHelper arrayPath={`groups`}>
                 {(controller: ArrayController<TodoGroup>) => {
                     return (
-                        <div className={styles['side-bar']}>
-                            <IconButton
-                                onClick={() => {
-                                    this.setState({
-                                        isOpen: true,
-                                    });
-                                }}
-                            >
-                                <Icon>dehaze</Icon>
-                            </IconButton>
-                            <Drawer
-                                open={this.state.isOpen}
-                                onClose={() => this.setState({ isOpen: false })}
-                                variant="persistent"
-                            >
-                                <div className={styles['header']}>
-                                    <Link href="groups">
-                                        {(onClick) => (
-                                            <IconButton onClick={onClick}>
-                                                <Icon>home</Icon>
+                        <ClickAwayListener onClickAway={this.closeSideBar}>
+                            <div className={styles['side-bar']}>
+                                <IconButton
+                                    onClick={() => {
+                                        this.setState({
+                                            isOpen: true,
+                                        });
+                                    }}
+                                >
+                                    <Icon>dehaze</Icon>
+                                </IconButton>
+                                <Drawer
+                                    open={this.state.isOpen}
+                                    onClose={() =>
+                                        this.setState({ isOpen: false })
+                                    }
+                                    variant="persistent"
+                                >
+                                    <div className={styles['header']}>
+                                        <Link href="groups">
+                                            {(onClick) => (
+                                                <IconButton
+                                                    onClick={() => {
+                                                        onClick();
+                                                        this.closeSideBar();
+                                                    }}
+                                                >
+                                                    <Icon>home</Icon>
+                                                </IconButton>
+                                            )}
+                                        </Link>
+                                        <IconButton
+                                            onClick={() => {
+                                                this.setState({
+                                                    isOpen: false,
+                                                });
+                                            }}
+                                        >
+                                            <Icon>chevron_left</Icon>
+                                        </IconButton>
+                                    </div>
+                                    <Divider />
+                                    <span className={styles['groups-list']}>
+                                        <Typography
+                                            className={
+                                                styles['groups-list__header']
+                                            }
+                                            variant="h5"
+                                        >
+                                            My groups
+                                        </Typography>
+                                        <List>
+                                            {controller.array.map((group) => (
+                                                <SideBarItem
+                                                    title={group.title}
+                                                    groupId={group.id}
+                                                    closeSideBar={
+                                                        this.closeSideBar
+                                                    }
+                                                    key={group.id}
+                                                />
+                                            ))}
+                                        </List>
+                                        {this.state.addingGroup ? (
+                                            <ClickAwayListener
+                                                onClickAway={this.endAdding}
+                                            >
+                                                <NewGroupForm />
+                                            </ClickAwayListener>
+                                        ) : (
+                                            <IconButton
+                                                onClick={() =>
+                                                    this.setState({
+                                                        addingGroup: true,
+                                                    })
+                                                }
+                                            >
+                                                <Icon>add</Icon>
                                             </IconButton>
                                         )}
-                                    </Link>
-                                    <IconButton
-                                        onClick={() => {
-                                            this.setState({ isOpen: false });
-                                        }}
-                                    >
-                                        <Icon>chevron_left</Icon>
-                                    </IconButton>
-                                </div>
-                                <Divider />
-                                <span className={styles['groups-list']}>
-                                    <Typography
-                                        className={
-                                            styles['groups-list__header']
-                                        }
-                                        variant="h5"
-                                    >
-                                        My groups
-                                    </Typography>
-                                    <List>
-                                        {controller.array.map((group) => (
-                                            <SideBarItem
-                                                title={group.title}
-                                                groupId={group.id}
-                                                key={group.id}
-                                            />
-                                        ))}
-                                    </List>
-                                    {this.state.addingGroup ? (
-                                        <Formik
-                                            initialValues={{
-                                                title: '',
-                                                id: 0,
-                                                tasks: [],
-                                                targetDate: new Date(),
-                                            }}
-                                            onSubmit={(values, actions) => {
-                                                values.id = getUniqueId(
-                                                    controller.array,
-                                                    'id'
-                                                );
-                                                values.targetDate = new Date(
-                                                    values.targetDate
-                                                );
-                                                controller.add(values);
-                                                this.setState({
-                                                    addingGroup: false,
-                                                });
-                                                actions.resetForm();
-                                            }}
-                                        >
-                                            <MuiPickersUtilsProvider
-                                                utils={DateFnsUtils}
-                                            >
-                                                <Form
-                                                    className={styles['form']}
-                                                >
-                                                    <Field name="title">
-                                                        {({
-                                                            field,
-                                                        }: FieldProps) => (
-                                                            <TextField
-                                                                {...field}
-                                                                variant="outlined"
-                                                            />
-                                                        )}
-                                                    </Field>
-
-                                                    <Field name="targetDate">
-                                                        {({
-                                                            field,
-                                                            form,
-                                                        }: FieldProps) => (
-                                                            <DatePicker
-                                                                value={
-                                                                    field.value
-                                                                }
-                                                                onChange={(
-                                                                    date
-                                                                ) =>
-                                                                    form.setFieldValue(
-                                                                        field.name,
-                                                                        date
-                                                                    )
-                                                                }
-                                                            />
-                                                        )}
-                                                    </Field>
-
-                                                    <Button type="submit">
-                                                        Add group
-                                                    </Button>
-                                                </Form>
-                                            </MuiPickersUtilsProvider>
-                                        </Formik>
-                                    ) : (
-                                        <IconButton
-                                            onClick={() =>
-                                                this.setState({
-                                                    addingGroup: true,
-                                                })
-                                            }
-                                        >
-                                            <Icon>add</Icon>
-                                        </IconButton>
-                                    )}
-                                </span>
-                            </Drawer>
-                        </div>
+                                    </span>
+                                </Drawer>
+                            </div>
+                        </ClickAwayListener>
                     );
                 }}
             </TodoArrayHelper>

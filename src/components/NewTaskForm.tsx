@@ -20,7 +20,8 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import { PriorityEnum, defaultI18n } from '../enums/PriorityEnum';
 import EnumField from './EnumField';
-import DatePicker from './DatePicker';
+import DatePicker from './DateField';
+import DateField from './DateField';
 
 interface Props {
     groupIndex: number;
@@ -47,18 +48,32 @@ class NewTaskForm extends React.Component<Props> {
                             }}
                             onSubmit={(values, actions) => {
                                 values.id = getUniqueId(controller.array, 'id');
-
                                 controller.add(values);
                                 actions.resetForm();
                             }}
                         >
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <Form className={styles['form-style']}>
-                                    <Field name="description">
-                                        {({ field }: FieldProps) => (
+                                    <Field
+                                        name="description"
+                                        validate={(value: string) => {
+                                            if (value.trim().length === 0)
+                                                return 'Required';
+                                            return null;
+                                        }}
+                                    >
+                                        {({
+                                            field,
+                                            meta: { touched, error },
+                                        }: FieldProps) => (
                                             <TextField
                                                 {...field}
                                                 variant="outlined"
+                                                error={
+                                                    Boolean(error) && touched
+                                                }
+                                                helperText={touched && error}
+                                                margin="dense"
                                             />
                                         )}
                                     </Field>
@@ -67,20 +82,7 @@ class NewTaskForm extends React.Component<Props> {
                                         values={PriorityEnum}
                                         i18n={defaultI18n}
                                     />
-
-                                    <Field name="targetDate">
-                                        {({ field, form }: FieldProps) => (
-                                            <DatePicker
-                                                value={field.value}
-                                                onChange={(date) =>
-                                                    form.setFieldValue(
-                                                        field.name,
-                                                        date
-                                                    )
-                                                }
-                                            />
-                                        )}
-                                    </Field>
+                                    <DateField name="targetDate" />
 
                                     <IconButton type="submit">
                                         <Icon>add</Icon>
