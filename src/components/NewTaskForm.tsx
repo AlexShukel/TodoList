@@ -1,27 +1,15 @@
 import React from 'react';
-import { TodoTask } from '../objects/TodoTask';
-import {
-    Button,
-    TextField,
-    IconButton,
-    Icon,
-    Select,
-    MenuItem,
-} from '@material-ui/core';
+import { TextField, IconButton, Icon, Grid } from '@material-ui/core';
 import styles from './NewTaskForm.scss';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { TodoArrayHelper } from './TodoContext/TodoArrayHelper';
 import { getUniqueId } from '../utils/IdUtils';
-import {
-    KeyboardDatePicker,
-    MuiPickersUtilsProvider,
-    KeyboardTimePicker,
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { PriorityEnum, defaultI18n } from '../enums/PriorityEnum';
 import EnumField from './EnumField';
-import DatePicker from './DateField';
 import DateField from './DateField';
+import Label from './Label';
 
 interface Props {
     groupIndex: number;
@@ -54,39 +42,43 @@ class NewTaskForm extends React.Component<Props> {
                         >
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <Form className={styles['form-style']}>
-                                    <Field
-                                        name="description"
-                                        validate={(value: string) => {
-                                            if (value.trim().length === 0)
-                                                return 'Required';
-                                            return null;
-                                        }}
-                                    >
-                                        {({
-                                            field,
-                                            meta: { touched, error },
-                                        }: FieldProps) => (
-                                            <TextField
-                                                {...field}
-                                                variant="outlined"
-                                                error={
-                                                    Boolean(error) && touched
-                                                }
-                                                helperText={touched && error}
-                                                margin="dense"
+                                    <Grid container spacing={2}>
+                                        <Label label="Description" vertical>
+                                            <Field name="description">
+                                                {({ field }: FieldProps) => (
+                                                    <TextField
+                                                        {...field}
+                                                        variant="outlined"
+                                                        margin="dense"
+                                                    />
+                                                )}
+                                            </Field>
+                                        </Label>
+                                        <Label label="Priority" vertical>
+                                            <EnumField
+                                                name="type"
+                                                values={PriorityEnum}
+                                                i18n={defaultI18n}
                                             />
-                                        )}
-                                    </Field>
-                                    <EnumField
-                                        name="type"
-                                        values={PriorityEnum}
-                                        i18n={defaultI18n}
-                                    />
-                                    <DateField name="targetDate" />
-
-                                    <IconButton type="submit">
-                                        <Icon>add</Icon>
-                                    </IconButton>
+                                        </Label>
+                                        <Label
+                                            label="Target date and time"
+                                            vertical
+                                            labelWidth={4}
+                                        >
+                                            <DateField name="targetDate" />
+                                        </Label>
+                                        <Grid
+                                            item
+                                            container
+                                            alignItems="center"
+                                            xs={2}
+                                        >
+                                            <IconButton type="submit">
+                                                <Icon>add</Icon>
+                                            </IconButton>
+                                        </Grid>
+                                    </Grid>
                                 </Form>
                             </MuiPickersUtilsProvider>
                         </Formik>

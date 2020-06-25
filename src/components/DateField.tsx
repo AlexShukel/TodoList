@@ -22,6 +22,7 @@ const DateField = (props: Props) => (
                     }}
                     PopoverProps={{ disablePortal: true }}
                     autoOk
+                    disablePast
                 />
                 <KeyboardTimePicker
                     {...field}

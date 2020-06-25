@@ -7,9 +7,6 @@ import { TodoTask } from '../objects/TodoTask';
 import TodoItem from './TodoItem';
 import { List } from '@material-ui/core';
 import styles from './TodoList.scss';
-import NewTaskForm from './NewTaskForm';
-import FilterPanel from './FilterPanel';
-import { sortingTypes, defaultI18n, SortingType } from '../enums/SortingTypes';
 
 interface Props {
     groupIndex: number;
@@ -36,17 +33,6 @@ export default class TodoList extends React.Component<Props> {
                                     }
                                 )}
                             </List>
-
-                            <FilterPanel
-                                arrayPath={`groups.${groupIndex}.tasks`}
-                                sortingTypes={sortingTypes}
-                                defaultCompare={(a: TodoTask, b: TodoTask) =>
-                                    b.id - a.id
-                                }
-                                values={SortingType}
-                                i18n={defaultI18n}
-                            />
-                            <NewTaskForm groupIndex={groupIndex} />
                         </div>
                     );
                 }}
