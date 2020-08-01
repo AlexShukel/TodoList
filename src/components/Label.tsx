@@ -22,6 +22,7 @@ const Label = ({
             container
             item
             xs={labelWidth as any}
+            style={vertical && { width: 'auto' }}
             direction={vertical ? 'column' : 'row'}
             justify="center"
         >
