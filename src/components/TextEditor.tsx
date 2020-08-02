@@ -45,6 +45,7 @@ export default class TextEditor extends React.Component<Props, State> {
                                     {...field}
                                     ref={this.inputRef}
                                     onBlur={(e) => {
+                                        onChange(e.target.value);
                                         this.setState({ isEditing: false });
                                         field.onBlur(e);
                                     }}
