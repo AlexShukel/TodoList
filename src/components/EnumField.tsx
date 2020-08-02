@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, CSSProperties } from 'react';
 import { Field, FieldProps } from 'formik';
 import { Select, MenuItem } from '@material-ui/core';
 
@@ -8,6 +8,7 @@ interface Props<T> {
     i18n: any;
     showNone?: boolean;
     onChange?: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
+    style?: CSSProperties;
 }
 
 export default class EnumField<T> extends React.Component<Props<T>> {
@@ -19,6 +20,7 @@ export default class EnumField<T> extends React.Component<Props<T>> {
                 {({ field }: FieldProps) => (
                     <Select
                         {...field}
+                        {...this.props}
                         onChange={(e) => {
                             field.onChange(e);
                             onChange && onChange(e);

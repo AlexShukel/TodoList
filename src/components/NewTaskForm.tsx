@@ -42,43 +42,35 @@ class NewTaskForm extends React.Component<Props> {
                         >
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <Form className={styles['form-style']}>
-                                    <Grid container spacing={2}>
-                                        <Label label="Description" vertical>
-                                            <Field name="description">
-                                                {({ field }: FieldProps) => (
-                                                    <TextField
-                                                        {...field}
-                                                        variant="outlined"
-                                                        margin="dense"
-                                                    />
-                                                )}
-                                            </Field>
-                                        </Label>
-                                        <Label label="Priority" vertical>
-                                            <EnumField
-                                                name="type"
-                                                values={PriorityEnum}
-                                                i18n={defaultI18n}
-                                            />
-                                        </Label>
-                                        <Label
-                                            label="Target date and time"
-                                            vertical
-                                            labelWidth={4}
-                                        >
-                                            <DateField name="targetDate" />
-                                        </Label>
-                                        <Grid
-                                            item
-                                            container
-                                            alignItems="center"
-                                            xs={2}
-                                        >
-                                            <IconButton type="submit">
-                                                <Icon>add</Icon>
-                                            </IconButton>
-                                        </Grid>
-                                    </Grid>
+                                    <Label label="Description" vertical>
+                                        <Field name="description">
+                                            {({ field }: FieldProps) => (
+                                                <TextField
+                                                    {...field}
+                                                    variant="outlined"
+                                                    margin="dense"
+                                                />
+                                            )}
+                                        </Field>
+                                    </Label>
+                                    <Label label="Priority" vertical>
+                                        <EnumField
+                                            name="type"
+                                            values={PriorityEnum}
+                                            i18n={defaultI18n}
+                                        />
+                                    </Label>
+                                    <Label
+                                        label="Target date and time"
+                                        vertical
+                                        labelWidth={4}
+                                    >
+                                        <DateField name="targetDate" />
+                                    </Label>
+
+                                    <IconButton type="submit">
+                                        <Icon>add</Icon>
+                                    </IconButton>
                                 </Form>
                             </MuiPickersUtilsProvider>
                         </Formik>

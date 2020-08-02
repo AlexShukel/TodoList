@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, GridSize } from '@material-ui/core';
 import styles from './Label.scss';
 
 interface Props {
@@ -21,16 +21,21 @@ const Label = ({
         <Grid
             container
             item
-            xs={labelWidth as any}
             style={vertical && { width: 'auto' }}
             direction={vertical ? 'column' : 'row'}
             justify="center"
         >
-            <div className={styles.label}>
-                {label}:{required && '*'}
-            </div>
+            <Grid
+                className={styles.label}
+                item
+                xs={vertical ? 12 : (labelWidth as GridSize)}
+            >
+                {label}
+                {!vertical && ':'}
+                {required && '*'}
+            </Grid>
 
-            {children}
+            <Grid item>{children}</Grid>
         </Grid>
     );
 };

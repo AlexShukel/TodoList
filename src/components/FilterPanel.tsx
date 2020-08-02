@@ -72,6 +72,7 @@ export default class FilterPanel<T, E> extends React.Component<Props<T, E>> {
                                                     e.target.value
                                                 )
                                             }
+                                            style={{ marginLeft: 10 }}
                                         />
                                     </div>
                                     <Field name="sortingOrder">
