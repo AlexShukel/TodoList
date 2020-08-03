@@ -53,9 +53,13 @@ class TodoItem extends React.Component<Props> {
                                     ? styles.done
                                     : ''
                             }
-                            secondary={dateToYearMonthDay(
+                            secondary={
                                 controller.array[taskIndex].targetDate
-                            )}
+                                    ? dateToYearMonthDay(
+                                          controller.array[taskIndex].targetDate
+                                      )
+                                    : `Date wasn't defined`
+                            }
                         >
                             <TextEditor
                                 text={controller.array[taskIndex].description}
@@ -68,23 +72,30 @@ class TodoItem extends React.Component<Props> {
                                         taskIndex
                                     );
                                 }}
+                                enableEllipsis
                             >
                                 <label>
                                     {controller.array[taskIndex].description}
                                 </label>
                             </TextEditor>
                         </ListItemText>
-                        <ListItemText>
-                            {controller.array[taskIndex].targetDate.getTime() <
-                            new Date().getTime() ? (
-                                <Typography className={styles['time-up']}>
-                                    Time is up{' '}
-                                    {moment(
-                                        controller.array[taskIndex].targetDate
-                                    ).fromNow()}
-                                </Typography>
-                            ) : null}
-                        </ListItemText>
+                        {controller.array[taskIndex].targetDate && (
+                            <ListItemText>
+                                {controller.array[
+                                    taskIndex
+                                ].targetDate.getTime() <
+                                new Date().getTime() ? (
+                                    <Typography className={styles['time-up']}>
+                                        Time is up{' '}
+                                        {moment(
+                                            controller.array[taskIndex]
+                                                .targetDate
+                                        ).fromNow()}
+                                    </Typography>
+                                ) : null}
+                            </ListItemText>
+                        )}
+
                         <ListItemSecondaryAction>
                             <IconButton
                                 onClick={() => controller.remove(taskIndex)}

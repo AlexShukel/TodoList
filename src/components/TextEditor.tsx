@@ -1,9 +1,11 @@
 import React from 'react';
 import { Formik, Field, FieldProps, Form } from 'formik';
+import styles from './TextEditor.scss';
 
 interface Props {
     text: string;
     className?: string;
+    enableEllipsis?: boolean;
 
     onChange: (text: string) => void;
 }
@@ -24,7 +26,13 @@ export default class TextEditor extends React.Component<Props, State> {
         });
     };
     public render() {
-        const { text, onChange, children, className } = this.props;
+        const {
+            text,
+            onChange,
+            children,
+            className,
+            enableEllipsis,
+        } = this.props;
         const { isEditing } = this.state;
 
         return (
@@ -54,7 +62,16 @@ export default class TextEditor extends React.Component<Props, State> {
                         </Field>
                     </Form>
                 ) : (
-                    <div onDoubleClick={this.beginEditing}>{children}</div>
+                    <div
+                        onDoubleClick={this.beginEditing}
+                        className={
+                            enableEllipsis
+                                ? styles['description-ellipsis']
+                                : undefined
+                        }
+                    >
+                        {children}
+                    </div>
                 )}
             </Formik>
         );

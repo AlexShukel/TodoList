@@ -78,8 +78,6 @@ export default class Group extends React.Component<Props, State> {
                                 )}
                             </span>
 
-                            <TodoList groupIndex={groupIndex} />
-
                             <FilterPanel
                                 arrayPath={`groups.${groupIndex}.tasks`}
                                 sortingTypes={sortingTypes}
@@ -89,6 +87,9 @@ export default class Group extends React.Component<Props, State> {
                                 values={SortingType}
                                 i18n={defaultI18n}
                             />
+
+                            <TodoList groupIndex={groupIndex} />
+
                             <Button
                                 onClick={() =>
                                     this.setState({

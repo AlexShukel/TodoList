@@ -61,7 +61,7 @@ export default class FilterPanel<T, E> extends React.Component<Props<T, E>> {
                                             name="sortType"
                                             values={SortingType}
                                             i18n={defaultI18n}
-                                            showNone
+                                            shownone="true"
                                             onChange={(
                                                 e: ChangeEvent<{
                                                     value: keyof E;
@@ -72,7 +72,10 @@ export default class FilterPanel<T, E> extends React.Component<Props<T, E>> {
                                                     e.target.value
                                                 )
                                             }
-                                            style={{ marginLeft: 10 }}
+                                            style={{
+                                                marginLeft: 10,
+                                                width: 150,
+                                            }}
                                         />
                                     </div>
                                     <Field name="sortingOrder">

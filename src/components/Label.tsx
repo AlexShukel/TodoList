@@ -2,8 +2,8 @@ import React from 'react';
 import { Grid, GridSize } from '@material-ui/core';
 import styles from './Label.scss';
 
-interface Props {
-    label?: string;
+export interface LabelProps {
+    label?: React.ReactNode;
     vertical?: boolean;
     required?: boolean;
     children?: React.ReactNode;
@@ -16,7 +16,7 @@ const Label = ({
     required,
     children,
     labelWidth = 3,
-}: Props) => {
+}: LabelProps) => {
     return (
         <Grid
             container
@@ -29,13 +29,18 @@ const Label = ({
                 className={styles.label}
                 item
                 xs={vertical ? 12 : (labelWidth as GridSize)}
+                container
+                alignItems="center"
+                justify="flex-end"
             >
                 {label}
                 {!vertical && ':'}
                 {required && '*'}
             </Grid>
 
-            <Grid item>{children}</Grid>
+            <Grid item xs={vertical ? 12 : ((12 - labelWidth) as GridSize)}>
+                {children}
+            </Grid>
         </Grid>
     );
 };

@@ -6,14 +6,14 @@ interface Props<T> {
     values: T;
     name: string;
     i18n: any;
-    showNone?: boolean;
+    shownone?: string;
     onChange?: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
     style?: CSSProperties;
 }
 
 export default class EnumField<T> extends React.Component<Props<T>> {
     public render() {
-        const { name, values, i18n, showNone, onChange } = this.props;
+        const { name, values, i18n, shownone, onChange } = this.props;
 
         return (
             <Field name={name}>
@@ -28,7 +28,7 @@ export default class EnumField<T> extends React.Component<Props<T>> {
                         variant="outlined"
                         margin="dense"
                     >
-                        {showNone && <MenuItem value="">None</MenuItem>}
+                        {shownone && <MenuItem value="">None</MenuItem>}
                         {Object.keys(values).map((value) => (
                             <MenuItem value={value} key={value}>
                                 {i18n[value]}

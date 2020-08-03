@@ -10,6 +10,7 @@ import { PriorityEnum, defaultI18n } from '../enums/PriorityEnum';
 import EnumField from './EnumField';
 import DateField from './DateField';
 import Label from './Label';
+import EnableAbleContainer from './EnableAbleContainer';
 
 interface Props {
     groupIndex: number;
@@ -25,6 +26,7 @@ class NewTaskForm extends React.Component<Props> {
         return (
             <TodoArrayHelper arrayPath={`groups.${index}.tasks`}>
                 {(controller) => {
+                    let dateEnabled = false;
                     return (
                         <Formik
                             initialValues={{
@@ -32,17 +34,18 @@ class NewTaskForm extends React.Component<Props> {
                                 completed: false,
                                 description: '',
                                 type: PriorityEnum.LOW,
-                                targetDate: new Date(),
+                                targetDate: null,
                             }}
                             onSubmit={(values, actions) => {
                                 values.id = getUniqueId(controller.array, 'id');
+                                if (dateEnabled) values.targetDate = null;
                                 controller.add(values);
                                 actions.resetForm();
                             }}
                         >
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <Form className={styles['form-style']}>
-                                    <Label label="Description" vertical>
+                                    <Label label="Description" labelWidth={5}>
                                         <Field name="description">
                                             {({ field }: FieldProps) => (
                                                 <TextField
@@ -53,20 +56,32 @@ class NewTaskForm extends React.Component<Props> {
                                             )}
                                         </Field>
                                     </Label>
-                                    <Label label="Priority" vertical>
+                                    <Label label="Priority" labelWidth={5}>
                                         <EnumField
                                             name="type"
                                             values={PriorityEnum}
                                             i18n={defaultI18n}
+                                            style={{ width: 150 }}
                                         />
                                     </Label>
-                                    <Label
-                                        label="Target date and time"
-                                        vertical
-                                        labelWidth={4}
+
+                                    <EnableAbleContainer
+                                        label="Target date"
+                                        labelWidth={5}
                                     >
-                                        <DateField name="targetDate" />
-                                    </Label>
+                                        {(enabled) => {
+                                            dateEnabled = enabled;
+                                            return (
+                                                <DateField
+                                                    name="targetDate"
+                                                    style={{
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                    }}
+                                                />
+                                            );
+                                        }}
+                                    </EnableAbleContainer>
 
                                     <IconButton type="submit">
                                         <Icon>add</Icon>
