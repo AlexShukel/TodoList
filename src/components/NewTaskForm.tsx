@@ -38,7 +38,7 @@ class NewTaskForm extends React.Component<Props> {
                             }}
                             onSubmit={(values, actions) => {
                                 values.id = getUniqueId(controller.array, 'id');
-                                if (dateEnabled) values.targetDate = null;
+                                if (!dateEnabled) values.targetDate = null;
                                 controller.add(values);
                                 actions.resetForm();
                             }}
@@ -84,7 +84,9 @@ class NewTaskForm extends React.Component<Props> {
                                     </EnableAbleContainer>
 
                                     <IconButton type="submit">
-                                        <Icon>add</Icon>
+                                        <Icon style={{ color: 'green' }}>
+                                            add
+                                        </Icon>
                                     </IconButton>
                                 </Form>
                             </MuiPickersUtilsProvider>

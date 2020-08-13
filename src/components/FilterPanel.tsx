@@ -8,6 +8,7 @@ import { Formik, Field, FieldProps } from 'formik';
 import styles from './FilterPanel.scss';
 import EnumField from './EnumField';
 import { SortingType, defaultI18n } from '../enums/SortingTypes';
+import Label from './Label';
 
 interface Props<T, E> {
     arrayPath: string;
@@ -56,27 +57,31 @@ export default class FilterPanel<T, E> extends React.Component<Props<T, E>> {
                                             styles['filter-panel__sorting-type']
                                         }
                                     >
-                                        <Typography>Sorting type:</Typography>
-                                        <EnumField
-                                            name="sortType"
-                                            values={SortingType}
-                                            i18n={defaultI18n}
-                                            shownone="true"
-                                            onChange={(
-                                                e: ChangeEvent<{
-                                                    value: keyof E;
-                                                }>
-                                            ) =>
-                                                reorder(
-                                                    values.sortingOrder,
-                                                    e.target.value
-                                                )
-                                            }
-                                            style={{
-                                                marginLeft: 10,
-                                                width: 150,
-                                            }}
-                                        />
+                                        <Label
+                                            label="Sorting type"
+                                            labelWidth={6}
+                                        >
+                                            <EnumField
+                                                name="sortType"
+                                                values={SortingType}
+                                                i18n={defaultI18n}
+                                                shownone="true"
+                                                onChange={(
+                                                    e: ChangeEvent<{
+                                                        value: keyof E;
+                                                    }>
+                                                ) =>
+                                                    reorder(
+                                                        values.sortingOrder,
+                                                        e.target.value
+                                                    )
+                                                }
+                                                style={{
+                                                    marginLeft: 10,
+                                                    width: 150,
+                                                }}
+                                            />
+                                        </Label>
                                     </div>
                                     <Field name="sortingOrder">
                                         {({ field, form }: FieldProps) => (

@@ -74,9 +74,7 @@ class TodoItem extends React.Component<Props> {
                                 }}
                                 enableEllipsis
                             >
-                                <label>
-                                    {controller.array[taskIndex].description}
-                                </label>
+                                {controller.array[taskIndex].description}
                             </TextEditor>
                         </ListItemText>
                         {controller.array[taskIndex].targetDate && (

@@ -1,6 +1,8 @@
 .filter-panel {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     &__sorting-type {
         display: flex;
         flex-direction: row;
@@ -8,6 +10,7 @@
     }
     &__sorting-order {
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
         &#{&}_desc {
             transform: rotate(180deg);
         }

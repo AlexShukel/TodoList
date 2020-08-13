@@ -96,15 +96,15 @@ export default class Group extends React.Component<Props, State> {
                                         isShowingTaskForm: !isShowingTaskForm,
                                     })
                                 }
+                                startIcon={
+                                    <Icon>
+                                        {isShowingTaskForm
+                                            ? 'expand_less'
+                                            : 'expand_more'}
+                                    </Icon>
+                                }
                             >
-                                {isShowingTaskForm
-                                    ? 'Close new task form'
-                                    : 'Open new task form'}
-                                <Icon>
-                                    {isShowingTaskForm
-                                        ? 'expand_less'
-                                        : 'expand_more'}
-                                </Icon>
+                                Add new task
                             </Button>
 
                             {isShowingTaskForm && (
