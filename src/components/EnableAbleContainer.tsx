@@ -13,7 +13,10 @@ const EnableAbleContainer = ({ label, children, ...other }: Props) => {
             {...other}
             label={
                 <React.Fragment>
-                    <Checkbox onClick={() => setEnabled(!enabled)} />
+                    <Checkbox
+                        size="small"
+                        onClick={() => setEnabled(!enabled)}
+                    />
                     {label}
                 </React.Fragment>
             }
