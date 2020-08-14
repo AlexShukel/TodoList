@@ -86,10 +86,7 @@ class _NewTaskForm extends React.Component<Props> {
                                         return (
                                             <DateField
                                                 name="targetDate"
-                                                style={{
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                }}
+                                                style={{ width: 250 }}
                                             />
                                         );
                                     }}
