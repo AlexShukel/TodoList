@@ -29,6 +29,11 @@ const load = (lang: string) => {
                     dateWasntDefined: `Data nenustatyta`,
                     timeIsUp: 'Laikas baigėsi',
                 },
+                SideBar: {
+                    settings: 'Nustatymai',
+                    addNewGroup: 'Pridėti grupę',
+                    myGroups: 'Mano grupės',
+                },
             };
     }
 };
