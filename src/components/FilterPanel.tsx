@@ -7,15 +7,24 @@ import { IconButton, Icon } from '@material-ui/core';
 import { Formik, Field, FieldProps } from 'formik';
 import styles from './FilterPanel.scss';
 import EnumField from './EnumField';
-import { SortingType, defaultI18n } from '../enums/SortingTypes';
+import { SortingType, defaultI18n as sortingI18n } from '../enums/SortingTypes';
 import Label from './Label';
+import { withI18n } from './i18n/I18n';
+
+const defaultI18n = {
+    sortingType: 'Sorting type',
+    sortingEnum: sortingI18n,
+};
+
+type I18n = typeof defaultI18n;
 
 interface Props<T, E> {
     arrayPath: string;
     sortingTypes: EnumSortTypes<E, T>;
     values: E;
-    i18n: any;
     defaultCompare: (a: T, b: T) => number;
+
+    i18n: I18n;
 }
 
 interface SortType<T> {
@@ -25,9 +34,9 @@ interface SortType<T> {
 
 export type EnumSortTypes<E, T> = Record<keyof E, SortType<T>>;
 
-export default class FilterPanel<T, E> extends React.Component<Props<T, E>> {
+class _FilterPanel<T, E> extends React.Component<Props<T, E>> {
     public render() {
-        const { arrayPath, sortingTypes, defaultCompare } = this.props;
+        const { arrayPath, sortingTypes, defaultCompare, i18n } = this.props;
 
         return (
             <TodoArrayHelper arrayPath={arrayPath}>
@@ -58,13 +67,13 @@ export default class FilterPanel<T, E> extends React.Component<Props<T, E>> {
                                         }
                                     >
                                         <Label
-                                            label="Sorting type"
+                                            label={i18n.sortingType}
                                             labelWidth={6}
                                         >
                                             <EnumField
                                                 name="sortType"
                                                 values={SortingType}
-                                                i18n={defaultI18n}
+                                                i18n={i18n.sortingEnum}
                                                 shownone="true"
                                                 onChange={(
                                                     e: ChangeEvent<{
@@ -130,3 +139,6 @@ export default class FilterPanel<T, E> extends React.Component<Props<T, E>> {
         );
     }
 }
+
+const FilterPanel = withI18n(_FilterPanel, defaultI18n, 'FilterPanel');
+export default FilterPanel;

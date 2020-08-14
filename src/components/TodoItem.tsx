@@ -63,20 +63,12 @@ class _TodoItem extends React.Component<Props> {
                                     : ''
                             }
                             secondary={
-                                controller.array[taskIndex].targetDate ? (
-                                    <div style={{ width: 170 }}>
-                                        {dateToYearMonthDay(
-                                            controller.array[taskIndex]
-                                                .targetDate
-                                        )}
-                                    </div>
-                                ) : (
-                                    <div style={{ width: 170 }}>
-                                        {i18n.dateWasntDefined}
-                                    </div>
-                                )
+                                controller.array[taskIndex].targetDate
+                                    ? dateToYearMonthDay(
+                                          controller.array[taskIndex].targetDate
+                                      )
+                                    : i18n.dateWasntDefined
                             }
-                            disableTypography
                         >
                             <TextEditor
                                 text={controller.array[taskIndex].description}

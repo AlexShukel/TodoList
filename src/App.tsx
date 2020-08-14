@@ -34,6 +34,17 @@ const load = (lang: string) => {
                     addNewGroup: 'Pridėti grupę',
                     myGroups: 'Mano grupės',
                 },
+                Group: {
+                    delete: 'Ištrinti',
+                    addNewTask: 'Pridėti užduotį',
+                },
+                FilterPanel: {
+                    sortingType: 'Rūšiavimo tipas',
+                    sortingEnum: {
+                        ALPH: 'Abėcėlės tvarka',
+                        DATE: 'Pagal datą',
+                    },
+                },
             };
     }
 };
