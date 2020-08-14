@@ -3,7 +3,7 @@ import {
     TodoArrayHelper,
     ArrayController,
 } from './TodoContext/TodoArrayHelper';
-import { IconButton, Icon, Typography } from '@material-ui/core';
+import { IconButton, Icon } from '@material-ui/core';
 import { Formik, Field, FieldProps } from 'formik';
 import styles from './FilterPanel.scss';
 import EnumField from './EnumField';

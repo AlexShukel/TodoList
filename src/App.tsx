@@ -9,6 +9,7 @@ import GroupPage from './components/Pages/GroupPage';
 import SettingsPage from './components/Pages/SettingsPage';
 import { I18nContext } from './components/i18n/I18n';
 import { Languages } from './enums/Languages';
+import moment from 'moment';
 
 const load = (lang: string) => {
     switch (lang) {
@@ -24,12 +25,17 @@ const load = (lang: string) => {
                         IMP: 'Svarbus',
                     },
                 },
+                TodoItem: {
+                    dateWasntDefined: `Data nenustatyta`,
+                    timeIsUp: 'Laikas baigėsi',
+                },
             };
     }
 };
 
 const App = () => {
-    const [lang, setLang] = useState(Languages.EN);
+    const [lang, setLang] = useState(Languages.LT);
+    moment.locale(lang);
     const loadedI18n = load(lang);
 
     return (

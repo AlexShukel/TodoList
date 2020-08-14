@@ -18,15 +18,24 @@ import {
 import TextEditor from './TextEditor';
 import { dateToYearMonthDay } from '../utils/DateUtils';
 import moment from 'moment';
+import { withI18n } from './i18n/I18n';
+
+const defaultI18n = {
+    dateWasntDefined: `Date wasn't defined`,
+    timeIsUp: 'Time is up',
+};
+
+type I18n = typeof defaultI18n;
 
 interface Props {
     taskIndex: number;
     groupIndex: number;
+    i18n: I18n;
 }
 
-class TodoItem extends React.Component<Props> {
+class _TodoItem extends React.Component<Props> {
     public render() {
-        const { taskIndex } = this.props;
+        const { taskIndex, i18n } = this.props;
         return (
             <TodoArrayHelper
                 arrayPath={`groups.${this.props.groupIndex}.tasks`}
@@ -54,12 +63,20 @@ class TodoItem extends React.Component<Props> {
                                     : ''
                             }
                             secondary={
-                                controller.array[taskIndex].targetDate
-                                    ? dateToYearMonthDay(
-                                          controller.array[taskIndex].targetDate
-                                      )
-                                    : `Date wasn't defined`
+                                controller.array[taskIndex].targetDate ? (
+                                    <div style={{ width: 170 }}>
+                                        {dateToYearMonthDay(
+                                            controller.array[taskIndex]
+                                                .targetDate
+                                        )}
+                                    </div>
+                                ) : (
+                                    <div style={{ width: 170 }}>
+                                        {i18n.dateWasntDefined}
+                                    </div>
+                                )
                             }
+                            disableTypography
                         >
                             <TextEditor
                                 text={controller.array[taskIndex].description}
@@ -78,13 +95,16 @@ class TodoItem extends React.Component<Props> {
                             </TextEditor>
                         </ListItemText>
                         {controller.array[taskIndex].targetDate && (
-                            <ListItemText>
+                            <ListItemText disableTypography>
                                 {controller.array[
                                     taskIndex
                                 ].targetDate.getTime() <
                                 new Date().getTime() ? (
-                                    <Typography className={styles['time-up']}>
-                                        Time is up{' '}
+                                    <Typography
+                                        className={styles['time-up']}
+                                        style={{ width: 200 }}
+                                    >
+                                        {i18n.timeIsUp}{' '}
                                         {moment(
                                             controller.array[taskIndex]
                                                 .targetDate
@@ -108,4 +128,5 @@ class TodoItem extends React.Component<Props> {
     }
 }
 
+const TodoItem = withI18n(_TodoItem, defaultI18n, 'TodoItem');
 export default TodoItem;
