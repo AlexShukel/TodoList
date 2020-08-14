@@ -2,9 +2,7 @@ import React from 'react';
 import { TodoArrayHelper } from './TodoContext/TodoArrayHelper';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { getUniqueId } from '../utils/IdUtils';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
-import DateFnsUtils from '@date-io/date-fns';
 import { TextField, Button } from '@material-ui/core';
 import styles from './NewGroupForm.scss';
 import DateField from './DateField';
@@ -29,23 +27,21 @@ export default class NewGroupForm extends React.Component {
                             actions.resetForm();
                         }}
                     >
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <Form className={styles['form']}>
-                                <Field name="title">
-                                    {({ field }: FieldProps) => (
-                                        <TextField
-                                            {...field}
-                                            variant="outlined"
-                                            margin="dense"
-                                        />
-                                    )}
-                                </Field>
+                        <Form className={styles['form']}>
+                            <Field name="title">
+                                {({ field }: FieldProps) => (
+                                    <TextField
+                                        {...field}
+                                        variant="outlined"
+                                        margin="dense"
+                                    />
+                                )}
+                            </Field>
 
-                                <DateField name="targerDate" />
+                            <DateField name="targerDate" />
 
-                                <Button type="submit">Add group</Button>
-                            </Form>
-                        </MuiPickersUtilsProvider>
+                            <Button type="submit">Add group</Button>
+                        </Form>
                     </Formik>
                 )}
             </TodoArrayHelper>

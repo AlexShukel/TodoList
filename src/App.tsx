@@ -10,6 +10,17 @@ import SettingsPage from './components/Pages/SettingsPage';
 import { I18nContext } from './components/i18n/I18n';
 import { Languages } from './enums/Languages';
 import moment from 'moment';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import enLocale from 'date-fns/locale/en-US';
+import ruLocale from 'date-fns/locale/ru';
+import ltLocale from 'date-fns/locale/lt';
+
+const localeMap = {
+    en: enLocale,
+    ru: ruLocale,
+    lt: ltLocale,
+};
 
 const load = (lang: string) => {
     switch (lang) {
@@ -58,20 +69,25 @@ const App = () => {
         <Router initialPage="groups">
             <TodoController>
                 <I18nContext.Provider value={loadedI18n}>
-                    <div className={styles['app-wrapper']}>
-                        <SideBar />
-                        <Route location="groups">
-                            {() => <TodoGroupsList />}
-                        </Route>
-                        <Route location="group">
-                            {(params) => (
-                                <GroupPage groupId={+params.groupId} />
-                            )}
-                        </Route>
-                        <Route location="settings">
-                            {() => <SettingsPage />}
-                        </Route>
-                    </div>
+                    <MuiPickersUtilsProvider
+                        utils={DateFnsUtils}
+                        locale={localeMap[lang]}
+                    >
+                        <div className={styles['app-wrapper']}>
+                            <SideBar />
+                            <Route location="groups">
+                                {() => <TodoGroupsList />}
+                            </Route>
+                            <Route location="group">
+                                {(params) => (
+                                    <GroupPage groupId={+params.groupId} />
+                                )}
+                            </Route>
+                            <Route location="settings">
+                                {() => <SettingsPage />}
+                            </Route>
+                        </div>
+                    </MuiPickersUtilsProvider>
                 </I18nContext.Provider>
             </TodoController>
         </Router>

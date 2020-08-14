@@ -4,8 +4,6 @@ import styles from './NewTaskForm.scss';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { TodoArrayHelper } from './TodoContext/TodoArrayHelper';
 import { getUniqueId } from '../utils/IdUtils';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import {
     PriorityEnum,
     defaultI18n as priorityI18n,
@@ -55,56 +53,49 @@ class _NewTaskForm extends React.Component<Props> {
                                 actions.resetForm();
                             }}
                         >
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <Form className={styles['form-style']}>
-                                    <Label
-                                        label={i18n.description}
-                                        labelWidth={5}
-                                    >
-                                        <Field name="description">
-                                            {({ field }: FieldProps) => (
-                                                <TextField
-                                                    {...field}
-                                                    variant="outlined"
-                                                    margin="dense"
-                                                />
-                                            )}
-                                        </Field>
-                                    </Label>
-                                    <Label label={i18n.priority} labelWidth={5}>
-                                        <EnumField
-                                            name="type"
-                                            values={PriorityEnum}
-                                            i18n={i18n.priorityEnum}
-                                            style={{ width: 150 }}
-                                        />
-                                    </Label>
+                            <Form className={styles['form-style']}>
+                                <Label label={i18n.description} labelWidth={5}>
+                                    <Field name="description">
+                                        {({ field }: FieldProps) => (
+                                            <TextField
+                                                {...field}
+                                                variant="outlined"
+                                                margin="dense"
+                                            />
+                                        )}
+                                    </Field>
+                                </Label>
+                                <Label label={i18n.priority} labelWidth={5}>
+                                    <EnumField
+                                        name="type"
+                                        values={PriorityEnum}
+                                        i18n={i18n.priorityEnum}
+                                        style={{ width: 150 }}
+                                    />
+                                </Label>
 
-                                    <EnableAbleContainer
-                                        label={i18n.targetDate}
-                                        labelWidth={5}
-                                    >
-                                        {(enabled) => {
-                                            dateEnabled = enabled;
-                                            return (
-                                                <DateField
-                                                    name="targetDate"
-                                                    style={{
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                    }}
-                                                />
-                                            );
-                                        }}
-                                    </EnableAbleContainer>
+                                <EnableAbleContainer
+                                    label={i18n.targetDate}
+                                    labelWidth={5}
+                                >
+                                    {(enabled) => {
+                                        dateEnabled = enabled;
+                                        return (
+                                            <DateField
+                                                name="targetDate"
+                                                style={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                }}
+                                            />
+                                        );
+                                    }}
+                                </EnableAbleContainer>
 
-                                    <IconButton type="submit">
-                                        <Icon style={{ color: 'green' }}>
-                                            add
-                                        </Icon>
-                                    </IconButton>
-                                </Form>
-                            </MuiPickersUtilsProvider>
+                                <IconButton type="submit">
+                                    <Icon style={{ color: 'green' }}>add</Icon>
+                                </IconButton>
+                            </Form>
                         </Formik>
                     );
                 }}
