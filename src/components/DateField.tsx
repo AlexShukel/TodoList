@@ -1,10 +1,13 @@
 import React, { CSSProperties } from 'react';
-import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers';
+import {
+    KeyboardDatePicker,
+    KeyboardTimePicker,
+    DateTimePicker,
+} from '@material-ui/pickers';
 import { Field, FieldProps } from 'formik';
 
 interface Props {
     name: string;
-    onBlur?: (e: React.FocusEvent) => void;
     style?: CSSProperties;
 }
 
@@ -12,7 +15,7 @@ const DateField = (props: Props) => (
     <Field name={props.name}>
         {({ field, form }: FieldProps) => (
             <div style={props.style}>
-                <KeyboardDatePicker
+                {/* <KeyboardDatePicker
                     {...field}
                     onChange={(date) => form.setFieldValue(field.name, date)}
                     variant="inline"
@@ -40,6 +43,15 @@ const DateField = (props: Props) => (
                     autoOk
                     style={{
                         width: 150,
+                    }}
+                /> */}
+                <DateTimePicker
+                    {...field}
+                    onChange={(date) => form.setFieldValue(field.name, date)}
+                    inputVariant="outlined"
+                    margin="dense"
+                    style={{
+                        width: 250,
                     }}
                 />
             </div>

@@ -61,6 +61,9 @@ class _NewTaskForm extends React.Component<Props> {
                                                 {...field}
                                                 variant="outlined"
                                                 margin="dense"
+                                                style={{
+                                                    width: 250,
+                                                }}
                                             />
                                         )}
                                     </Field>
