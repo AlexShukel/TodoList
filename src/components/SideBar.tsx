@@ -16,10 +16,20 @@ import {
     Typography,
     ClickAwayListener,
     ListItemIcon,
+    Button,
 } from '@material-ui/core';
 import Link from './Router/Link';
 
 import NewGroupForm from './NewGroupForm';
+import { withI18n } from './i18n/I18n';
+
+const defaultI18n = {
+    settings: 'Settings',
+    addNewGroup: 'Add new group',
+    myGroups: 'My groups',
+};
+
+type I18n = typeof defaultI18n;
 
 interface State {
     isOpen: boolean;
@@ -53,18 +63,21 @@ class SideBarItem extends React.Component<SideBarItemProps> {
     }
 }
 
-class SideBar extends React.Component<{}, State> {
-    constructor(props: {}) {
+interface SideBarProps {
+    i18n: I18n;
+}
+
+class _SideBar extends React.Component<SideBarProps, State> {
+    constructor(props: SideBarProps) {
         super(props);
         this.state = { isOpen: false, addingGroup: false };
     }
     private closeSideBar = () => {
         this.setState({ isOpen: false });
     };
-    private endAdding = () => {
-        this.setState({ addingGroup: false });
-    };
+
     public render() {
+        const { i18n } = this.props;
         return (
             <TodoArrayHelper arrayPath={`groups`}>
                 {(controller: ArrayController<TodoGroup>) => {
@@ -111,7 +124,7 @@ class SideBar extends React.Component<{}, State> {
                                                 }
                                                 variant="subtitle1"
                                             >
-                                                My groups
+                                                {i18n.myGroups}
                                             </Typography>
                                             <IconButton
                                                 onClick={() => {
@@ -157,14 +170,18 @@ class SideBar extends React.Component<{}, State> {
                                                             <Icon>add</Icon>
                                                         </ListItemIcon>
                                                         <ListItemText>
-                                                            Add new group
+                                                            {i18n.addNewGroup}
                                                         </ListItemText>
                                                     </ListItem>
                                                 )}
                                             </List>
                                             {this.state.addingGroup && (
                                                 <ClickAwayListener
-                                                    onClickAway={this.endAdding}
+                                                    onClickAway={() =>
+                                                        this.setState({
+                                                            addingGroup: false,
+                                                        })
+                                                    }
                                                 >
                                                     <NewGroupForm />
                                                 </ClickAwayListener>
@@ -175,14 +192,19 @@ class SideBar extends React.Component<{}, State> {
                                         >
                                             <Link href="settings">
                                                 {(onClick) => (
-                                                    <IconButton
+                                                    <Button
                                                         onClick={() => {
                                                             onClick();
                                                             this.closeSideBar();
                                                         }}
+                                                        startIcon={
+                                                            <Icon>
+                                                                settings
+                                                            </Icon>
+                                                        }
                                                     >
-                                                        <Icon>settings</Icon>
-                                                    </IconButton>
+                                                        {i18n.settings}
+                                                    </Button>
                                                 )}
                                             </Link>
                                         </div>
@@ -197,4 +219,5 @@ class SideBar extends React.Component<{}, State> {
     }
 }
 
+const SideBar = withI18n(_SideBar, defaultI18n, 'SideBar');
 export default SideBar;

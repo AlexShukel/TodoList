@@ -13,24 +13,32 @@ import FilterPanel from './FilterPanel';
 import NewTaskForm from './NewTaskForm';
 import { sortingTypes, SortingType } from '../enums/SortingTypes';
 import { TodoTask } from '../objects/TodoTask';
-import { defaultI18n } from '../enums/PriorityEnum';
+import { withI18n } from './i18n/I18n';
+
+const defaultI18n = {
+    delete: 'Delete',
+    addNewTask: 'Add new task',
+};
+
+type I18n = typeof defaultI18n;
 
 interface Props {
     groupId: number;
+    i18n: I18n;
 }
 
 interface State {
     isShowingTaskForm: boolean;
 }
 
-export default class Group extends React.Component<Props, State> {
+class _Group extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = { isShowingTaskForm: false };
     }
 
     public render() {
-        const { groupId } = this.props;
+        const { groupId, i18n } = this.props;
 
         return (
             <TodoArrayHelper arrayPath={`groups`}>
@@ -85,7 +93,6 @@ export default class Group extends React.Component<Props, State> {
                                     b.id - a.id
                                 }
                                 values={SortingType}
-                                i18n={defaultI18n}
                             />
 
                             <TodoList groupIndex={groupIndex} />
@@ -104,7 +111,7 @@ export default class Group extends React.Component<Props, State> {
                                     </Icon>
                                 }
                             >
-                                Add new task
+                                {i18n.addNewTask}
                             </Button>
 
                             {isShowingTaskForm && (
@@ -115,8 +122,9 @@ export default class Group extends React.Component<Props, State> {
                                 onClick={() => {
                                     controller.remove(groupIndex);
                                 }}
+                                startIcon={<Icon>delete</Icon>}
                             >
-                                Delete
+                                {i18n.delete}
                             </Button>
                         </Paper>
                     );
@@ -125,3 +133,6 @@ export default class Group extends React.Component<Props, State> {
         );
     }
 }
+
+const Group = withI18n(_Group, defaultI18n, 'Group');
+export default Group;
