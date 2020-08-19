@@ -40,7 +40,15 @@ export const translations = {
                 DATE: 'Pagal datą',
             },
         },
+        SettingsPage: {
+            languages: {
+                EN: 'Anglų',
+                RU: 'Rusų',
+                LT: 'Lietuvių',
+            },
+            apply: 'Taikyti',
+        },
     },
-    EN: {},
     RU: {},
+    EN: {},
 };

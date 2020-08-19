@@ -19,16 +19,15 @@ const App = () => {
         <Router initialPage="settings">
             <TodoController>
                 <TodoContext.Consumer>
-                    {(value) => {
-                        console.log(value.language);
-                        moment.locale(value.language);
+                    {({ language }) => {
+                        moment.locale(language);
                         return (
                             <I18nContext.Provider
-                                value={translations[value.language]}
+                                value={translations[language]}
                             >
                                 <MuiPickersUtilsProvider
                                     utils={DateFnsUtils}
-                                    locale={localeMap[value.language]}
+                                    locale={localeMap[language]}
                                 >
                                     <div className={styles['app-wrapper']}>
                                         <SideBar />
@@ -45,9 +44,7 @@ const App = () => {
                                         <Route location="settings">
                                             {() => (
                                                 <SettingsPage
-                                                    initialLanguage={
-                                                        value.language
-                                                    }
+                                                    initialLanguage={language}
                                                 />
                                             )}
                                         </Route>
