@@ -39,7 +39,6 @@ class _Group extends React.Component<Props, State> {
 
     public render() {
         const { groupId, i18n } = this.props;
-
         return (
             <TodoArrayHelper arrayPath={`groups`}>
                 {(controller: ArrayController<TodoGroup>) => {

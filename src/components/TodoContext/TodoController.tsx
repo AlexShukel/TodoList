@@ -3,6 +3,7 @@ import { AppData } from '../../objects/AppData';
 import TodoContext from './TodoContext';
 import * as fs from 'fs';
 import { toDates } from 'ts-transformer-dates';
+import { Language } from '../../enums/Language';
 
 const filePath = 'data.json';
 
@@ -22,6 +23,7 @@ export class TodoController extends React.Component<{}, AppData> {
         } else {
             const emptyData: AppData = {
                 groups: [],
+                language: Language.EN,
             };
             fs.writeFileSync(filePath, JSON.stringify(emptyData));
             return emptyData;

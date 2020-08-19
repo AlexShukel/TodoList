@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { merge } from 'lodash';
 import { getIn } from 'formik';
+import { Language } from '../../enums/Language';
 
-export const I18nContext = React.createContext({});
+export const I18nContext = React.createContext(
+    {} as any & { setI18n: (language: Language) => void }
+);
 
 interface I18nLoaderProps<I> {
     defaultI18n: I;
