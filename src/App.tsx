@@ -16,7 +16,7 @@ import { translations, localeMap } from '../translations';
 
 const App = () => {
     return (
-        <Router initialPage="settings">
+        <Router initialPage="groups">
             <TodoController>
                 <TodoContext.Consumer>
                     {({ language }) => {
