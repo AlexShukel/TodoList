@@ -82,6 +82,7 @@ class _TodoItem extends React.Component<Props> {
                                     );
                                 }}
                                 enableEllipsis
+                                maxTextWidth={170}
                             >
                                 {controller.array[taskIndex].description}
                             </TextEditor>

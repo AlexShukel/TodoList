@@ -54,6 +54,7 @@ class _Group extends React.Component<Props, State> {
                         >
                             <Typography variant="h2">
                                 <TextEditor
+                                    maxTextWidth={500}
                                     text={controller.array[groupIndex].title}
                                     onChange={(text) => {
                                         controller.edit(

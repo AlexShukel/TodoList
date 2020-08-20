@@ -24,6 +24,7 @@ export default class GroupPage extends React.Component<Props> {
                     return (
                         <div>
                             <TextEditor
+                                maxTextWidth={500}
                                 text={controller.array[groupIndex].title}
                                 onChange={(text) => {
                                     controller.edit(

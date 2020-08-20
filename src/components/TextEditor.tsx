@@ -2,19 +2,16 @@ import React, { useCallback } from 'react';
 import { Formik, Field, FieldProps, Form } from 'formik';
 import styles from './TextEditor.scss';
 import { Tooltip } from '@material-ui/core';
+import useResizeObserver from 'use-resize-observer';
 
 interface Props {
     text: string;
+    maxTextWidth: number;
     onChange: (text: string) => void;
 
     children?: React.ReactNode;
     className?: string;
     enableEllipsis?: boolean;
-}
-
-interface State {
-    isEditing: boolean;
-    textWidth: number;
 }
 
 const TextEditor = ({
@@ -23,25 +20,32 @@ const TextEditor = ({
     className,
     enableEllipsis,
     children,
+    maxTextWidth,
 }: Props) => {
-    const inputRef = React.useRef<HTMLInputElement>();
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    const textRef = React.useRef<HTMLDivElement>(null);
 
     const [isEditing, setIsEditing] = React.useState(false);
-    const [textWidth, setTextWidth] = React.useState(0);
-    console.log(textWidth);
+    const [showTooltip, setShowTooltip] = React.useState(false);
 
-    const measuredRef = useCallback((node) => {
-        if (node !== null) {
-            setTextWidth(node.getBoundingClientRect().height);
-        }
-    }, []);
+    const { width } = useResizeObserver({
+        ref: textRef,
+        onResize: ({ width }) => {
+            width >= maxTextWidth
+                ? setShowTooltip(true)
+                : setShowTooltip(false);
 
-    const beginEditing = () => {
+            console.log(width);
+        },
+    });
+
+    const beginEditing = useCallback(() => {
         setIsEditing(true);
         if (inputRef.current) inputRef.current.focus();
-    };
+    }, [isEditing]);
+    console.log(width);
 
-    return (
+    return isEditing ? (
         <Formik
             initialValues={{ text }}
             onSubmit={(values) => {
@@ -50,51 +54,45 @@ const TextEditor = ({
             }}
             enableReinitialize
         >
-            {isEditing ? (
-                <Form>
-                    <Field name="text">
-                        {({ field }: FieldProps) => (
-                            <input
-                                className={className}
-                                {...field}
-                                ref={inputRef}
-                                onBlur={(e) => {
-                                    onChange(e.target.value);
-                                    setIsEditing(false);
-                                    field.onBlur(e);
-                                }}
-                            />
-                        )}
-                    </Field>
-                </Form>
-            ) : textWidth > 170 ? (
-                <Tooltip title={children} placement="bottom-start">
-                    <div
-                        ref={measuredRef}
-                        onDoubleClick={beginEditing}
-                        className={
-                            enableEllipsis
-                                ? styles['description-ellipsis']
-                                : undefined
-                        }
-                    >
-                        {children || text}
-                    </div>
-                </Tooltip>
-            ) : (
-                <div
-                    ref={measuredRef}
-                    onDoubleClick={beginEditing}
-                    className={
-                        enableEllipsis
-                            ? styles['description-ellipsis']
-                            : undefined
-                    }
-                >
-                    {children || text}
-                </div>
-            )}
+            <Form>
+                <Field name="text">
+                    {({ field }: FieldProps) => (
+                        <input
+                            className={className}
+                            {...field}
+                            ref={inputRef}
+                            onBlur={(e) => {
+                                onChange(e.target.value);
+                                setIsEditing(false);
+                                field.onBlur(e);
+                            }}
+                        />
+                    )}
+                </Field>
+            </Form>
         </Formik>
+    ) : (
+        <Tooltip
+            title={children}
+            placement="bottom-start"
+            disableHoverListener={!showTooltip}
+            disableFocusListener={!showTooltip}
+            disableTouchListener={!showTooltip}
+        >
+            <div
+                onDoubleClick={beginEditing}
+                className={
+                    enableEllipsis ? styles['description-ellipsis'] : undefined
+                }
+                style={{ maxWidth: maxTextWidth, width: 'auto' }}
+                ref={textRef}
+            >
+                <span>
+                    {children || text}
+                    {Math.floor(width)}
+                </span>
+            </div>
+        </Tooltip>
     );
 };
 
