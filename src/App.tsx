@@ -11,7 +11,7 @@ import moment from 'moment';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import TodoContext from './components/TodoContext/TodoContext';
-import { I18nContext } from './components/i18n/I18n';
+import { I18nContext } from './components/I18nContext';
 import { translations, localeMap } from '../translations';
 
 const App = () => {

@@ -12,7 +12,7 @@ import EnumField from './EnumField';
 import DateField from './DateField';
 import Label from './Label';
 import EnableAbleContainer from './EnableAbleContainer';
-import { withI18n } from './i18n/I18n';
+import { withI18n } from './I18nContext';
 
 const defaultI18n = {
     description: 'Description',

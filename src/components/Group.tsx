@@ -13,7 +13,7 @@ import FilterPanel from './FilterPanel';
 import NewTaskForm from './NewTaskForm';
 import { sortingTypes, SortingType } from '../enums/SortingTypes';
 import { TodoTask } from '../objects/TodoTask';
-import { withI18n } from './i18n/I18n';
+import { withI18n } from './I18nContext';
 
 const defaultI18n = {
     delete: 'Delete',

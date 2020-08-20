@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Language } from '../../enums/Language';
-import { useI18n } from '../i18n/I18n';
+import { useI18n } from '../I18nContext';
 import { defaultI18n as languagesI18n } from '../../enums/Language';
 import { Button } from '@material-ui/core';
 import TodoContext from '../TodoContext/TodoContext';

@@ -21,7 +21,7 @@ import {
 import Link from './Router/Link';
 
 import NewGroupForm from './NewGroupForm';
-import { withI18n } from './i18n/I18n';
+import { withI18n } from './I18nContext';
 
 const defaultI18n = {
     settings: 'Settings',
