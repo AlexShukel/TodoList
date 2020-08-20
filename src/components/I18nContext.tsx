@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { merge } from 'lodash';
+import { merge, cloneDeep } from 'lodash';
 import { getIn } from 'formik';
 
-export const I18nContext = React.createContext({});
+export const I18nContext = React.createContext({} as any);
 
 interface I18nLoaderProps<I> {
     defaultI18n: I;
@@ -21,7 +21,10 @@ const I18nLoader = <I extends unknown>({
 
 export function useI18n<I>(defaultI18n: I, path?: string) {
     const loadedI18n = useContext(I18nContext);
-    return merge(defaultI18n, path ? getIn(loadedI18n, path) : loadedI18n);
+    return merge(
+        cloneDeep(defaultI18n),
+        path ? getIn(loadedI18n, path) : loadedI18n
+    );
 }
 
 export function withI18n<T, I>(

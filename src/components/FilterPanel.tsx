@@ -9,7 +9,7 @@ import styles from './FilterPanel.scss';
 import EnumField from './EnumField';
 import { SortingType, defaultI18n as sortingI18n } from '../enums/SortingTypes';
 import Label from './Label';
-import { withI18n } from './i18n/I18n';
+import { withI18n } from './I18nContext';
 
 const defaultI18n = {
     sortingType: 'Sorting type',

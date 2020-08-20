@@ -18,7 +18,7 @@ import {
 import TextEditor from './TextEditor';
 import { dateToYearMonthDay } from '../utils/DateUtils';
 import moment from 'moment';
-import { withI18n } from './i18n/I18n';
+import { withI18n } from './I18nContext';
 
 const defaultI18n = {
     dateWasntDefined: `Date wasn't defined`,
