@@ -26,24 +26,15 @@ const TextWithTooltip = ({ text, maxTextWidth }: Props) => {
     }, [text]);
 
     return (
-        <React.Fragment>
-            <div
-                ref={hiddenTextRef}
-                style={{ opacity: 0, position: 'absolute' }}
-            >
-                {text}
-            </div>
-            {showTooltip ? (
-                <Tooltip title={text} placement="bottom-start">
-                    <div
-                        ref={textRef}
-                        className={styles['description-ellipsis']}
-                        style={{ width: maxTextWidth }}
-                    >
-                        {text}
-                    </div>
-                </Tooltip>
-            ) : (
+        <Tooltip
+            title={text}
+            placement="bottom-start"
+            disableHoverListener={!showTooltip}
+        >
+            <div>
+                <div ref={hiddenTextRef} className="hide">
+                    {text}
+                </div>
                 <div
                     ref={textRef}
                     className={styles['description-ellipsis']}
@@ -51,8 +42,8 @@ const TextWithTooltip = ({ text, maxTextWidth }: Props) => {
                 >
                     {text}
                 </div>
-            )}
-        </React.Fragment>
+            </div>
+        </Tooltip>
     );
 };
 

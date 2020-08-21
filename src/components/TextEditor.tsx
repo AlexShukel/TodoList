@@ -1,5 +1,6 @@
 import React from 'react';
 import TextWithTooltip from './TextWithTooltip';
+import classNames from 'classnames';
 
 interface Props {
     initialText: string;
@@ -29,18 +30,25 @@ const TextEditor = ({
         if (inputRef.current) inputRef.current.focus();
     }, [isEditing]);
 
-    return isEditing ? (
-        <input
-            ref={inputRef}
-            value={text}
-            onChange={handleChange}
-            onBlur={() => setIsEditing(false)}
-            className={className}
-        />
-    ) : (
-        <span onDoubleClick={() => setIsEditing(true)}>
-            <TextWithTooltip text={text} maxTextWidth={maxTextWidth} />
-        </span>
+    return (
+        <React.Fragment>
+            <input
+                ref={inputRef}
+                value={text}
+                onChange={handleChange}
+                onBlur={() => setIsEditing(false)}
+                className={classNames(
+                    { className: true },
+                    { hide: !isEditing }
+                )}
+            />
+            <span
+                onDoubleClick={() => setIsEditing(true)}
+                className={isEditing ? 'hide' : undefined}
+            >
+                <TextWithTooltip text={text} maxTextWidth={maxTextWidth} />
+            </span>
+        </React.Fragment>
     );
 };
 

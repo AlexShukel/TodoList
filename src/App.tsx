@@ -14,6 +14,8 @@ import TodoContext from './components/TodoContext/TodoContext';
 import { I18nContext } from './components/I18nContext';
 import { translations, localeMap } from '../translations';
 
+import './sass/styles.g.scss';
+
 const App = () => {
     return (
         <Router initialPage="groups">
