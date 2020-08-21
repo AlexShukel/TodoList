@@ -71,7 +71,9 @@ class _TodoItem extends React.Component<Props> {
                             }
                         >
                             <TextEditor
-                                text={controller.array[taskIndex].description}
+                                initialText={
+                                    controller.array[taskIndex].description
+                                }
                                 onChange={(text) => {
                                     controller.edit(
                                         {
@@ -81,11 +83,8 @@ class _TodoItem extends React.Component<Props> {
                                         taskIndex
                                     );
                                 }}
-                                enableEllipsis
                                 maxTextWidth={170}
-                            >
-                                {controller.array[taskIndex].description}
-                            </TextEditor>
+                            />
                         </ListItemText>
                         {controller.array[taskIndex].targetDate && (
                             <ListItemText disableTypography>

@@ -25,7 +25,7 @@ export default class GroupPage extends React.Component<Props> {
                         <div>
                             <TextEditor
                                 maxTextWidth={500}
-                                text={controller.array[groupIndex].title}
+                                initialText={controller.array[groupIndex].title}
                                 onChange={(text) => {
                                     controller.edit(
                                         {
@@ -35,11 +35,11 @@ export default class GroupPage extends React.Component<Props> {
                                         groupIndex
                                     );
                                 }}
-                            >
-                                <Typography variant="h1">
+                            />
+                            {/* <Typography variant="h1">
                                     {controller.array[groupIndex].title}
                                 </Typography>
-                            </TextEditor>
+                            </TextEditor> */}
 
                             <TodoList groupIndex={groupIndex} />
                         </div>
