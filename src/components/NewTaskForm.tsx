@@ -22,9 +22,10 @@ const defaultI18n = {
 };
 interface Props {
     groupIndex: number;
+    onSubmit: () => void;
 }
 
-const NewTaskForm = ({ groupIndex }: Props) => {
+const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
     const i18n = useI18n(defaultI18n, 'NewTaskForm');
 
     return (
@@ -45,6 +46,7 @@ const NewTaskForm = ({ groupIndex }: Props) => {
                             if (!dateEnabled) values.targetDate = null;
                             controller.add(values);
                             actions.resetForm();
+                            onSubmit();
                         }}
                     >
                         <Form className={styles['form-style']}>
@@ -55,9 +57,7 @@ const NewTaskForm = ({ groupIndex }: Props) => {
                                             {...field}
                                             variant="outlined"
                                             margin="dense"
-                                            style={{
-                                                width: 250,
-                                            }}
+                                            className={styles['field-width']}
                                         />
                                     )}
                                 </Field>
@@ -80,7 +80,7 @@ const NewTaskForm = ({ groupIndex }: Props) => {
                                     return (
                                         <DateField
                                             name="targetDate"
-                                            style={{ width: 250 }}
+                                            className={styles['field-width']}
                                         />
                                     );
                                 }}

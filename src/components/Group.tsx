@@ -6,14 +6,21 @@ import {
 import { TodoGroup } from '../objects/TodoGroup';
 import styles from './Group.scss';
 import TodoList from './TodoList';
-import { Button, Paper, Typography, Icon } from '@material-ui/core';
+import {
+    Button,
+    Paper,
+    Typography,
+    Icon,
+    Popover,
+    ClickAwayListener,
+} from '@material-ui/core';
 import TextEditor from './TextEditor';
 import { dateToYearMonthDay } from '../utils/DateUtils';
 import FilterPanel from './FilterPanel';
 import NewTaskForm from './NewTaskForm';
 import { sortingTypes, SortingType } from '../enums/SortingTypes';
 import { TodoTask } from '../objects/TodoTask';
-import { withI18n } from './I18nContext';
+import { useI18n } from './I18nContext';
 import DateWithTooltip from './DateWithTooltip';
 
 const defaultI18n = {
@@ -21,108 +28,103 @@ const defaultI18n = {
     addNewTask: 'Add new task',
 };
 
-type I18n = typeof defaultI18n;
-
 interface Props {
     groupId: number;
-    i18n: I18n;
 }
 
-interface State {
-    isShowingTaskForm: boolean;
-}
+const Group = ({ groupId }: Props) => {
+    const [isShowingTaskForm, setIsShowingTaskForm] = React.useState(false);
+    const i18n = useI18n(defaultI18n, 'Group');
 
-class _Group extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = { isShowingTaskForm: false };
-    }
+    const buttonRef = React.useRef();
 
-    public render() {
-        const { groupId, i18n } = this.props;
-        return (
-            <TodoArrayHelper arrayPath={`groups`}>
-                {(controller: ArrayController<TodoGroup>) => {
-                    const groupIndex = controller.array.findIndex(
-                        (value) => value.id === groupId
-                    );
-                    const { isShowingTaskForm } = this.state;
-                    return (
-                        <Paper
-                            className={styles.groupItem}
-                            elevation={3}
-                            square
-                        >
-                            <Typography variant="h2">
-                                <TextEditor
-                                    maxTextWidth={310}
-                                    initialText={
-                                        controller.array[groupIndex].title
-                                    }
-                                    onChange={(text) => {
-                                        controller.edit(
-                                            {
-                                                ...controller.array[groupIndex],
-                                                title: text,
-                                            },
-                                            groupIndex
-                                        );
-                                    }}
-                                    className={styles['input-style']}
-                                />
-                            </Typography>
-
-                            <DateWithTooltip
-                                date={controller.array[groupIndex].targetDate}
-                            />
-
-                            <FilterPanel
-                                arrayPath={`groups.${groupIndex}.tasks`}
-                                sortingTypes={sortingTypes}
-                                defaultCompare={(a: TodoTask, b: TodoTask) =>
-                                    b.id - a.id
-                                }
-                                values={SortingType}
-                            />
-
-                            <TodoList groupIndex={groupIndex} />
-
-                            <Button
-                                onClick={() =>
-                                    this.setState({
-                                        isShowingTaskForm: !isShowingTaskForm,
-                                    })
-                                }
-                                startIcon={
-                                    <Icon>
-                                        {isShowingTaskForm
-                                            ? 'expand_less'
-                                            : 'expand_more'}
-                                    </Icon>
-                                }
-                            >
-                                {i18n.addNewTask}
-                            </Button>
-
-                            {isShowingTaskForm && (
-                                <NewTaskForm groupIndex={groupIndex} />
-                            )}
-
-                            <Button
-                                onClick={() => {
-                                    controller.remove(groupIndex);
+    return (
+        <TodoArrayHelper arrayPath={`groups`}>
+            {(controller: ArrayController<TodoGroup>) => {
+                const groupIndex = controller.array.findIndex(
+                    (value) => value.id === groupId
+                );
+                return (
+                    <Paper className={styles.groupItem} elevation={3} square>
+                        <Typography variant="h2">
+                            <TextEditor
+                                maxTextWidth={310}
+                                initialText={controller.array[groupIndex].title}
+                                onChange={(text) => {
+                                    controller.edit(
+                                        {
+                                            ...controller.array[groupIndex],
+                                            title: text,
+                                        },
+                                        groupIndex
+                                    );
                                 }}
-                                startIcon={<Icon>delete</Icon>}
-                            >
-                                {i18n.delete}
-                            </Button>
-                        </Paper>
-                    );
-                }}
-            </TodoArrayHelper>
-        );
-    }
-}
+                                className={styles['input-style']}
+                            />
+                        </Typography>
 
-const Group = withI18n(_Group, defaultI18n, 'Group');
+                        <DateWithTooltip
+                            date={controller.array[groupIndex].targetDate}
+                        />
+
+                        <FilterPanel
+                            arrayPath={`groups.${groupIndex}.tasks`}
+                            sortingTypes={sortingTypes}
+                            defaultCompare={(a: TodoTask, b: TodoTask) =>
+                                b.id - a.id
+                            }
+                            values={SortingType}
+                        />
+
+                        <TodoList groupIndex={groupIndex} />
+
+                        <Popover
+                            open={isShowingTaskForm}
+                            anchorEl={buttonRef.current ?? undefined}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                        >
+                            <ClickAwayListener
+                                onClickAway={() => setIsShowingTaskForm(false)}
+                            >
+                                <div style={{ width: 400 }}>
+                                    <NewTaskForm
+                                        groupIndex={groupIndex}
+                                        onSubmit={() =>
+                                            setIsShowingTaskForm(false)
+                                        }
+                                    />
+                                </div>
+                            </ClickAwayListener>
+                        </Popover>
+
+                        <Button
+                            ref={buttonRef}
+                            onClick={() => setIsShowingTaskForm(true)}
+                            startIcon={<Icon fontSize="small">add</Icon>}
+                        >
+                            {i18n.addNewTask}
+                        </Button>
+
+                        <Button
+                            onClick={() => {
+                                controller.remove(groupIndex);
+                            }}
+                            startIcon={<Icon>delete</Icon>}
+                        >
+                            {i18n.delete}
+                        </Button>
+                    </Paper>
+                );
+            }}
+        </TodoArrayHelper>
+    );
+};
+
 export default Group;

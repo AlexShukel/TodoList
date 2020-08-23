@@ -11,32 +11,29 @@ interface Props<T> {
     style?: CSSProperties;
 }
 
-export default class EnumField<T> extends React.Component<Props<T>> {
-    public render() {
-        const { name, values, i18n, shownone, onChange } = this.props;
-
-        return (
-            <Field name={name}>
-                {({ field }: FieldProps) => (
-                    <Select
-                        {...field}
-                        {...this.props}
-                        onChange={(e) => {
-                            field.onChange(e);
-                            onChange && onChange(e);
-                        }}
-                        variant="outlined"
-                        margin="dense"
-                    >
-                        {shownone && <MenuItem value="">None</MenuItem>}
-                        {Object.keys(values).map((value) => (
-                            <MenuItem value={value} key={value}>
-                                {i18n[value]}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                )}
-            </Field>
-        );
-    }
+export default function EnumField<T>(props: Props<T>) {
+    const { onChange, shownone, values, i18n } = props;
+    return (
+        <Field name={name}>
+            {({ field }: FieldProps) => (
+                <Select
+                    {...field}
+                    {...props}
+                    onChange={(e) => {
+                        field.onChange(e);
+                        onChange && onChange(e);
+                    }}
+                    variant="outlined"
+                    margin="dense"
+                >
+                    {shownone && <MenuItem value="">None</MenuItem>}
+                    {Object.keys(values).map((value) => (
+                        <MenuItem value={value} key={value}>
+                            {i18n[value]}
+                        </MenuItem>
+                    ))}
+                </Select>
+            )}
+        </Field>
+    );
 }

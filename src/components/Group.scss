@@ -17,10 +17,8 @@
     height: 100%;
 }
 
-.date-out {
-    color: red;
-}
-
-.date-not-out {
-    color: green;
+.new-task-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
