@@ -2,6 +2,7 @@ import React from 'react';
 import TextWithTooltip from './TextWithTooltip';
 import classNames from 'classnames';
 import { Formik, Field, Form, FieldProps } from 'formik';
+import * as Yup from 'yup';
 
 interface Props {
     initialText: string;
@@ -11,7 +12,9 @@ interface Props {
     className?: string;
 }
 
-// const ValidationSchema = Yup.object()
+const validationSchema = Yup.object().shape({
+    text: Yup.string().required('Required'),
+});
 
 const TextEditor = ({
     initialText,
@@ -31,12 +34,13 @@ const TextEditor = ({
         <Formik
             initialValues={{ text: initialText }}
             onSubmit={(value) => onChange(value.text)}
-            // validate={validationSchema}
+            validationSchema={validationSchema}
         >
-            {({ values }) => (
-                <React.Fragment>
-                    <Form>
-                        <Field name="text">
+            {({ values, errors, touched }) => (
+                // <React.Fragment>
+                <Form>
+                    {console.log(errors, touched)}
+                    {/* <Field name="text">
                             {({ field, meta }: FieldProps) => (
                                 <input
                                     {...field}
@@ -51,19 +55,20 @@ const TextEditor = ({
                                     })}
                                 />
                             )}
-                        </Field>
-                    </Form>
+                        </Field> */}
+                    <Field name="text" />
+                </Form>
 
-                    <span
-                        onDoubleClick={() => setIsEditing(true)}
-                        className={isEditing ? 'hide' : undefined}
-                    >
-                        <TextWithTooltip
-                            text={values.text}
-                            maxTextWidth={maxTextWidth}
-                        />
-                    </span>
-                </React.Fragment>
+                //     <span
+                //         onDoubleClick={() => setIsEditing(true)}
+                //         className={isEditing ? 'hide' : undefined}
+                //     >
+                //         <TextWithTooltip
+                //             text={values.text}
+                //             maxTextWidth={maxTextWidth}
+                //         />
+                //     </span>
+                // </React.Fragment>
             )}
         </Formik>
     );
