@@ -1,6 +1,8 @@
 import { EnumSortTypes } from '../components/FilterPanel';
 import { TodoTask } from '../objects/TodoTask';
 
+const MIN_DATE_TIME = new Date(-8640000000000000).getTime();
+
 export enum SortingType {
     ALPH = 'ALPH',
     DATE = 'DATE',
@@ -19,7 +21,11 @@ export const sortingTypes: EnumSortTypes<typeof SortingType, TodoTask> = {
     },
     DATE: {
         title: 'Dates',
-        compare: (a: TodoTask, b: TodoTask) =>
-            a.targetDate.getTime() - b.targetDate.getTime(),
+        compare: (a: TodoTask, b: TodoTask) => {
+            return (
+                (a.targetDate ? a.targetDate.getTime() : MIN_DATE_TIME) -
+                (b.targetDate ? b.targetDate.getTime() : MIN_DATE_TIME)
+            );
+        },
     },
 };
