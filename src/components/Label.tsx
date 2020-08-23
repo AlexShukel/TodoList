@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, GridSize } from '@material-ui/core';
+import { Grid, GridSize, Typography } from '@material-ui/core';
 import styles from './Label.scss';
 
 export interface LabelProps {
@@ -33,9 +33,11 @@ const Label = ({
                 alignItems="center"
                 justify="flex-end"
             >
-                {label}
-                {!vertical && ':'}
-                {required && '*'}
+                <Typography variant="body1">
+                    {label}
+                    {!vertical && ':'}
+                    {required && '*'}
+                </Typography>
             </Grid>
 
             <Grid item xs={vertical ? 12 : ((12 - labelWidth) as GridSize)}>
