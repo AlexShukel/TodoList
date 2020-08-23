@@ -37,10 +37,7 @@ const TextEditor = ({
                 value={text}
                 onChange={handleChange}
                 onBlur={() => setIsEditing(false)}
-                className={classNames(
-                    { className: true },
-                    { hide: !isEditing }
-                )}
+                className={classNames(className, { hide: !isEditing })}
             />
             <span
                 onDoubleClick={() => setIsEditing(true)}
