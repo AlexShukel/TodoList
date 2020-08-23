@@ -11,14 +11,23 @@ interface Props<T> {
     style?: CSSProperties;
 }
 
-export default function EnumField<T>(props: Props<T>) {
-    const { onChange, shownone, values, i18n } = props;
+export default function EnumField<T>({
+    onChange,
+    shownone,
+    values,
+    i18n,
+    name,
+    style,
+}: Props<T>) {
+    const [open, setOpen] = React.useState(false);
     return (
         <Field name={name}>
             {({ field }: FieldProps) => (
                 <Select
                     {...field}
-                    {...props}
+                    open={open}
+                    onClick={() => setOpen((prev) => !prev)}
+                    style={style}
                     onChange={(e) => {
                         field.onChange(e);
                         onChange && onChange(e);
