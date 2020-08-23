@@ -60,77 +60,73 @@ class _FilterPanel<T, E> extends React.Component<Props<T, E>> {
                             onSubmit={() => {}}
                         >
                             {({ values }) => (
-                                <div className={styles['filter-panel']}>
+                                <Label label={i18n.sortingType} labelWidth={4}>
                                     <div
                                         className={
                                             styles['filter-panel__sorting-type']
                                         }
                                     >
-                                        <Label
-                                            label={i18n.sortingType}
-                                            labelWidth={6}
-                                        >
-                                            <EnumField
-                                                name="sortType"
-                                                values={SortingType}
-                                                i18n={i18n.sortingEnum}
-                                                shownone="true"
-                                                onChange={(
-                                                    e: ChangeEvent<{
-                                                        value: keyof E;
-                                                    }>
-                                                ) =>
-                                                    reorder(
-                                                        values.sortingOrder,
-                                                        e.target.value
-                                                    )
-                                                }
-                                                style={{
-                                                    marginLeft: 10,
-                                                    width: 150,
-                                                }}
-                                            />
-                                        </Label>
-                                    </div>
-                                    <Field name="sortingOrder">
-                                        {({ field, form }: FieldProps) => (
-                                            <IconButton
-                                                onClick={() => {
-                                                    form.setFieldValue(
-                                                        field.name,
-                                                        field.value === 1
-                                                            ? -1
-                                                            : 1
-                                                    );
-                                                    reorder(
-                                                        field.value === 1
-                                                            ? -1
-                                                            : 1,
-                                                        values.sortType
-                                                    );
-                                                }}
-                                            >
-                                                <Icon
-                                                    className={
-                                                        styles[
-                                                            'filter-panel__sorting-order'
-                                                        ] +
-                                                        ' ' +
-                                                        (field.value === 1
-                                                            ? styles[
-                                                                  'filter-panel__sorting-order_asc'
-                                                              ]
-                                                            : styles[
-                                                                  'filter-panel__sorting-order_desc'
-                                                              ])
-                                                    }
+                                        <EnumField
+                                            name="sortType"
+                                            values={SortingType}
+                                            i18n={i18n.sortingEnum}
+                                            shownone="true"
+                                            onChange={(
+                                                e: ChangeEvent<{
+                                                    value: keyof E;
+                                                }>
+                                            ) =>
+                                                reorder(
+                                                    values.sortingOrder,
+                                                    e.target.value
+                                                )
+                                            }
+                                            style={{
+                                                marginLeft: 10,
+                                                width: 120,
+                                            }}
+                                        />
+                                        <Field name="sortingOrder">
+                                            {({ field, form }: FieldProps) => (
+                                                <IconButton
+                                                    onClick={() => {
+                                                        form.setFieldValue(
+                                                            field.name,
+                                                            field.value === 1
+                                                                ? -1
+                                                                : 1
+                                                        );
+                                                        reorder(
+                                                            field.value === 1
+                                                                ? -1
+                                                                : 1,
+                                                            values.sortType
+                                                        );
+                                                    }}
                                                 >
-                                                    arrow_upward
-                                                </Icon>
-                                            </IconButton>
-                                        )}
-                                    </Field>
-                                </div>
+                                                    <Icon
+                                                        className={
+                                                            styles[
+                                                                'filter-panel__sorting-order'
+                                                            ] +
+                                                            ' ' +
+                                                            (field.value === 1
+                                                                ? styles[
+                                                                      'filter-panel__sorting-order_asc'
+                                                                  ]
+                                                                : styles[
+                                                                      'filter-panel__sorting-order_desc'
+                                                                  ])
+                                                        }
+                                                        fontSize="small"
+                                                    >
+                                                        arrow_upward
+                                                    </Icon>
+                                                </IconButton>
+                                            )}
+                                        </Field>
+                                    </div>
+                                </Label>
                             )}
                         </Formik>
                     );

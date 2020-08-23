@@ -14,6 +14,7 @@ import NewTaskForm from './NewTaskForm';
 import { sortingTypes, SortingType } from '../enums/SortingTypes';
 import { TodoTask } from '../objects/TodoTask';
 import { withI18n } from './I18nContext';
+import DateWithTooltip from './DateWithTooltip';
 
 const defaultI18n = {
     delete: 'Delete',
@@ -54,7 +55,7 @@ class _Group extends React.Component<Props, State> {
                         >
                             <Typography variant="h2">
                                 <TextEditor
-                                    maxTextWidth={500}
+                                    maxTextWidth={310}
                                     initialText={
                                         controller.array[groupIndex].title
                                     }
@@ -71,20 +72,9 @@ class _Group extends React.Component<Props, State> {
                                 />
                             </Typography>
 
-                            <span
-                                className={
-                                    new Date().getTime() >
-                                    controller.array[
-                                        groupIndex
-                                    ].targetDate.getTime()
-                                        ? styles['date-out']
-                                        : styles['date-not-out']
-                                }
-                            >
-                                {dateToYearMonthDay(
-                                    controller.array[groupIndex].targetDate
-                                )}
-                            </span>
+                            <DateWithTooltip
+                                date={controller.array[groupIndex].targetDate}
+                            />
 
                             <FilterPanel
                                 arrayPath={`groups.${groupIndex}.tasks`}
