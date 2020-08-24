@@ -22,6 +22,7 @@ import { sortingTypes, SortingType } from '../enums/SortingTypes';
 import { TodoTask } from '../objects/TodoTask';
 import { useI18n } from './I18nContext';
 import DateWithTooltip from './DateWithTooltip';
+import FormPopup from './FormPopup';
 
 const defaultI18n = {
     delete: 'Delete',
@@ -37,6 +38,8 @@ const Group = ({ groupId }: Props) => {
     const i18n = useI18n(defaultI18n, 'Group');
 
     const buttonRef = React.useRef();
+
+    const closeForm = () => setIsShowingTaskForm(false);
 
     return (
         <TodoArrayHelper arrayPath={`groups`}>
@@ -78,31 +81,17 @@ const Group = ({ groupId }: Props) => {
 
                         <TodoList groupIndex={groupIndex} />
 
-                        <Popover
+                        <FormPopup
                             open={isShowingTaskForm}
-                            anchorEl={buttonRef.current ?? undefined}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
+                            onClickAway={closeForm}
                         >
-                            <ClickAwayListener
-                                onClickAway={() => setIsShowingTaskForm(false)}
-                            >
-                                <div style={{ width: 400 }}>
-                                    <NewTaskForm
-                                        groupIndex={groupIndex}
-                                        onSubmit={() =>
-                                            setIsShowingTaskForm(false)
-                                        }
-                                    />
-                                </div>
-                            </ClickAwayListener>
-                        </Popover>
+                            <div style={{ width: 400 }}>
+                                <NewTaskForm
+                                    groupIndex={groupIndex}
+                                    onSubmit={() => setIsShowingTaskForm(false)}
+                                />
+                            </div>
+                        </FormPopup>
 
                         <Button
                             ref={buttonRef}

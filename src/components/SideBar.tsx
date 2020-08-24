@@ -21,7 +21,7 @@ import {
 import Link from './Router/Link';
 
 import NewGroupForm from './NewGroupForm';
-import { withI18n } from './I18nContext';
+import { withI18n, useI18n } from './I18nContext';
 
 const defaultI18n = {
     settings: 'Settings',
@@ -42,182 +42,106 @@ interface SideBarItemProps {
     closeSideBar: () => void;
 }
 
-class SideBarItem extends React.Component<SideBarItemProps> {
-    public render() {
-        const { title, groupId } = this.props;
-        return (
-            <Link href={`group?groupId=${groupId}`}>
-                {(onClick) => (
-                    <ListItem
-                        onClick={() => {
-                            onClick();
-                            this.props.closeSideBar();
-                        }}
-                        button
-                    >
-                        <ListItemText>{title}</ListItemText>
-                    </ListItem>
-                )}
-            </Link>
-        );
-    }
-}
+const SideBarItem = ({ title, groupId, closeSideBar }: SideBarItemProps) => (
+    <Link href={`group?groupId=${groupId}`}>
+        {(onClick) => (
+            <ListItem
+                onClick={() => {
+                    onClick();
+                    closeSideBar();
+                }}
+                button
+            >
+                <ListItemText>{title}</ListItemText>
+            </ListItem>
+        )}
+    </Link>
+);
 
-interface SideBarProps {
-    i18n: I18n;
-}
+const SideBar = () => {
+    const [open, setOpen] = React.useState(false);
+    const i18n = useI18n(defaultI18n, 'SideBar');
 
-class _SideBar extends React.Component<SideBarProps, State> {
-    constructor(props: SideBarProps) {
-        super(props);
-        this.state = { isOpen: false, addingGroup: false };
-    }
-    private closeSideBar = () => {
-        this.setState({ isOpen: false });
-    };
+    const closeSideBar = () => setOpen(false);
 
-    public render() {
-        const { i18n } = this.props;
-        return (
-            <TodoArrayHelper arrayPath={`groups`}>
-                {(controller: ArrayController<TodoGroup>) => {
-                    return (
-                        <ClickAwayListener onClickAway={this.closeSideBar}>
-                            <div>
-                                <IconButton
-                                    onClick={() => {
-                                        this.setState({
-                                            isOpen: true,
-                                        });
-                                    }}
-                                >
-                                    <Icon>dehaze</Icon>
-                                </IconButton>
-                                <Drawer
-                                    open={this.state.isOpen}
-                                    onClose={() =>
-                                        this.setState({ isOpen: false })
-                                    }
-                                    variant="persistent"
-                                >
-                                    <div className={styles['drawer']}>
-                                        <div
-                                            className={styles['drawer__header']}
-                                        >
-                                            <Link href="groups">
-                                                {(onClick) => (
-                                                    <IconButton
-                                                        onClick={() => {
-                                                            onClick();
-                                                            this.closeSideBar();
-                                                        }}
-                                                    >
-                                                        <Icon>home</Icon>
-                                                    </IconButton>
-                                                )}
-                                            </Link>
-                                            <Typography
-                                                className={
-                                                    styles[
-                                                        'groups-list__header'
-                                                    ]
-                                                }
-                                                variant="subtitle1"
-                                            >
-                                                {i18n.myGroups}
-                                            </Typography>
-                                            <IconButton
-                                                onClick={() => {
-                                                    this.setState({
-                                                        isOpen: false,
-                                                    });
-                                                }}
-                                            >
-                                                <Icon>chevron_left</Icon>
-                                            </IconButton>
-                                        </div>
-                                        <Divider />
-                                        <div
+    return (
+        <TodoArrayHelper arrayPath={`groups`}>
+            {(controller: ArrayController<TodoGroup>) => {
+                return (
+                    <ClickAwayListener onClickAway={closeSideBar}>
+                        <div>
+                            <IconButton onClick={() => setOpen(true)}>
+                                <Icon>dehaze</Icon>
+                            </IconButton>
+                            <Drawer
+                                open={open}
+                                onClose={closeSideBar}
+                                variant="persistent"
+                            >
+                                <div className={styles['drawer']}>
+                                    <div className={styles['drawer__header']}>
+                                        <Link href="groups">
+                                            {(onClick) => (
+                                                <IconButton
+                                                    onClick={() => {
+                                                        onClick();
+                                                        closeSideBar();
+                                                    }}
+                                                >
+                                                    <Icon>home</Icon>
+                                                </IconButton>
+                                            )}
+                                        </Link>
+                                        <Typography
                                             className={
-                                                styles['drawer__content']
+                                                styles['groups-list__header']
                                             }
+                                            variant="subtitle1"
                                         >
-                                            <List>
-                                                {controller.array.map(
-                                                    (group) => (
-                                                        <SideBarItem
-                                                            title={group.title}
-                                                            groupId={group.id}
-                                                            closeSideBar={
-                                                                this
-                                                                    .closeSideBar
-                                                            }
-                                                            key={group.id}
-                                                        />
-                                                    )
-                                                )}
-
-                                                {!this.state.addingGroup && (
-                                                    <ListItem
-                                                        button
-                                                        onClick={() =>
-                                                            this.setState({
-                                                                addingGroup: true,
-                                                            })
-                                                        }
-                                                    >
-                                                        <ListItemIcon>
-                                                            <Icon>add</Icon>
-                                                        </ListItemIcon>
-                                                        <ListItemText>
-                                                            {i18n.addNewGroup}
-                                                        </ListItemText>
-                                                    </ListItem>
-                                                )}
-                                            </List>
-                                            {this.state.addingGroup && (
-                                                <ClickAwayListener
-                                                    onClickAway={() =>
-                                                        this.setState({
-                                                            addingGroup: false,
-                                                        })
+                                            {i18n.myGroups}
+                                        </Typography>
+                                        <IconButton onClick={closeSideBar}>
+                                            <Icon>chevron_left</Icon>
+                                        </IconButton>
+                                    </div>
+                                    <Divider />
+                                    <div className={styles['drawer__content']}>
+                                        <List>
+                                            {controller.array.map((group) => (
+                                                <SideBarItem
+                                                    title={group.title}
+                                                    groupId={group.id}
+                                                    closeSideBar={closeSideBar}
+                                                    key={group.id}
+                                                />
+                                            ))}
+                                        </List>
+                                    </div>
+                                    <div className={styles['drawer__footer']}>
+                                        <Link href="settings">
+                                            {(onClick) => (
+                                                <Button
+                                                    onClick={() => {
+                                                        onClick();
+                                                        closeSideBar();
+                                                    }}
+                                                    startIcon={
+                                                        <Icon>settings</Icon>
                                                     }
                                                 >
-                                                    <NewGroupForm />
-                                                </ClickAwayListener>
+                                                    {i18n.settings}
+                                                </Button>
                                             )}
-                                        </div>
-                                        <div
-                                            className={styles['drawer__footer']}
-                                        >
-                                            <Link href="settings">
-                                                {(onClick) => (
-                                                    <Button
-                                                        onClick={() => {
-                                                            onClick();
-                                                            this.closeSideBar();
-                                                        }}
-                                                        startIcon={
-                                                            <Icon>
-                                                                settings
-                                                            </Icon>
-                                                        }
-                                                    >
-                                                        {i18n.settings}
-                                                    </Button>
-                                                )}
-                                            </Link>
-                                        </div>
+                                        </Link>
                                     </div>
-                                </Drawer>
-                            </div>
-                        </ClickAwayListener>
-                    );
-                }}
-            </TodoArrayHelper>
-        );
-    }
-}
+                                </div>
+                            </Drawer>
+                        </div>
+                    </ClickAwayListener>
+                );
+            }}
+        </TodoArrayHelper>
+    );
+};
 
-const SideBar = withI18n(_SideBar, defaultI18n, 'SideBar');
 export default SideBar;

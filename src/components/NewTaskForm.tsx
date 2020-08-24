@@ -27,6 +27,11 @@ interface Props {
 
 const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
     const i18n = useI18n(defaultI18n, 'NewTaskForm');
+    const inputRef = React.useRef<HTMLInputElement>();
+
+    React.useEffect(() => {
+        if (inputRef.current) inputRef.current.focus();
+    }, []);
 
     return (
         <TodoArrayHelper arrayPath={`groups.${groupIndex}.tasks`}>
@@ -48,48 +53,69 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                             actions.resetForm();
                             onSubmit();
                         }}
+                        validate={(values) => {
+                            if (values.description === '')
+                                return { description: 'Required' };
+                            return null;
+                        }}
                     >
-                        <Form className={styles['form-style']}>
-                            <Label label={i18n.description} labelWidth={5}>
-                                <Field name="description">
-                                    {({ field }: FieldProps) => (
-                                        <TextField
-                                            {...field}
-                                            variant="outlined"
-                                            margin="dense"
-                                            className={styles['field-width']}
-                                        />
-                                    )}
-                                </Field>
-                            </Label>
-                            <Label label={i18n.priority} labelWidth={5}>
-                                <EnumField
-                                    name="type"
-                                    values={PriorityEnum}
-                                    i18n={i18n.priorityEnum}
-                                    style={{ width: 150 }}
-                                />
-                            </Label>
+                        {({ errors, touched }) => (
+                            <Form className={styles['form-style']}>
+                                <Label label={i18n.description} labelWidth={5}>
+                                    <Field name="description">
+                                        {({ field }: FieldProps) => (
+                                            <TextField
+                                                {...field}
+                                                inputRef={inputRef}
+                                                error={
+                                                    errors.description &&
+                                                    touched.description
+                                                }
+                                                variant="outlined"
+                                                margin="dense"
+                                                className={
+                                                    styles['field-width']
+                                                }
+                                                label={
+                                                    errors.description &&
+                                                    touched.description &&
+                                                    errors.description
+                                                }
+                                            />
+                                        )}
+                                    </Field>
+                                </Label>
+                                <Label label={i18n.priority} labelWidth={5}>
+                                    <EnumField
+                                        name="type"
+                                        values={PriorityEnum}
+                                        i18n={i18n.priorityEnum}
+                                        style={{ width: 150 }}
+                                    />
+                                </Label>
 
-                            <EnableAbleContainer
-                                label={i18n.targetDate}
-                                labelWidth={5}
-                            >
-                                {(enabled) => {
-                                    dateEnabled = enabled;
-                                    return (
-                                        <DateField
-                                            name="targetDate"
-                                            className={styles['field-width']}
-                                        />
-                                    );
-                                }}
-                            </EnableAbleContainer>
+                                <EnableAbleContainer
+                                    label={i18n.targetDate}
+                                    labelWidth={5}
+                                >
+                                    {(enabled) => {
+                                        dateEnabled = enabled;
+                                        return (
+                                            <DateField
+                                                name="targetDate"
+                                                className={
+                                                    styles['field-width']
+                                                }
+                                            />
+                                        );
+                                    }}
+                                </EnableAbleContainer>
 
-                            <IconButton type="submit">
-                                <Icon style={{ color: 'green' }}>add</Icon>
-                            </IconButton>
-                        </Form>
+                                <IconButton type="submit">
+                                    <Icon style={{ color: 'green' }}>add</Icon>
+                                </IconButton>
+                            </Form>
+                        )}
                     </Formik>
                 );
             }}

@@ -7,3 +7,9 @@
 .error {
     border: 2px solid red;
 }
+
+.center-aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
