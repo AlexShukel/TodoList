@@ -1,6 +1,5 @@
 import React from 'react';
-import { TextField, IconButton, Icon } from '@material-ui/core';
-import styles from './NewTaskForm.scss';
+import { TextField } from '@material-ui/core';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { TodoArrayHelper } from './TodoContext/TodoArrayHelper';
 import { getUniqueId } from '../utils/IdUtils';
@@ -13,6 +12,7 @@ import DateField from './DateField';
 import Label from './Label';
 import EnableAbleContainer from './EnableAbleContainer';
 import { useI18n } from './I18nContext';
+import AddIcon from './AddIcon';
 
 const defaultI18n = {
     description: 'Description',
@@ -25,6 +25,8 @@ interface Props {
     onSubmit: () => void;
 }
 
+let dateEnabled = false;
+
 const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
     const i18n = useI18n(defaultI18n, 'NewTaskForm');
     const inputRef = React.useRef<HTMLInputElement>();
@@ -36,7 +38,6 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
     return (
         <TodoArrayHelper arrayPath={`groups.${groupIndex}.tasks`}>
             {(controller) => {
-                let dateEnabled = false;
                 return (
                     <Formik
                         initialValues={{
@@ -60,7 +61,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                         }}
                     >
                         {({ errors, touched }) => (
-                            <Form className={styles['form-style']}>
+                            <Form className={'form'}>
                                 <Label label={i18n.description} labelWidth={5}>
                                     <Field name="description">
                                         {({ field }: FieldProps) => (
@@ -73,9 +74,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                                 }
                                                 variant="outlined"
                                                 margin="dense"
-                                                className={
-                                                    styles['field-width']
-                                                }
+                                                className="form__field"
                                                 label={
                                                     errors.description &&
                                                     touched.description &&
@@ -103,17 +102,13 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                         return (
                                             <DateField
                                                 name="targetDate"
-                                                className={
-                                                    styles['field-width']
-                                                }
+                                                className="form__field"
                                             />
                                         );
                                     }}
                                 </EnableAbleContainer>
 
-                                <IconButton type="submit">
-                                    <Icon style={{ color: 'green' }}>add</Icon>
-                                </IconButton>
+                                <AddIcon />
                             </Form>
                         )}
                     </Formik>

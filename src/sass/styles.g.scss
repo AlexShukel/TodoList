@@ -4,12 +4,17 @@
     position: absolute;
 }
 
-.error {
-    border: 2px solid red;
-}
-
 .center-aligner {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__field {
+        width: 200px;
+    }
 }

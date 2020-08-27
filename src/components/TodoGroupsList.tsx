@@ -5,7 +5,6 @@ import {
 } from './TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../objects/TodoGroup';
 import Group from './Group';
-
 import styles from './TodoGroupsList.scss';
 import FormPopup from './FormPopup';
 import { Button } from '@material-ui/core';
@@ -15,6 +14,7 @@ const TodoGroupsList = () => {
     const [open, setOpen] = React.useState(false);
 
     const closeForm = () => setOpen(false);
+    const openForm = () => setOpen(true);
 
     return (
         <TodoArrayHelper arrayPath={`groups`}>
@@ -25,9 +25,11 @@ const TodoGroupsList = () => {
                             <Group groupId={group.id} key={group.id} />
                         ))}
                         <FormPopup open={open} onClickAway={closeForm}>
-                            <NewGroupForm />
+                            <div style={{ width: 400 }}>
+                                <NewGroupForm />
+                            </div>
                         </FormPopup>
-                        <Button>Add new group</Button>
+                        <Button onClick={openForm}>Add new group</Button>
                     </div>
                 );
             }}
