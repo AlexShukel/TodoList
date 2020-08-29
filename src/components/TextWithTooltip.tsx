@@ -1,12 +1,18 @@
 import React from 'react';
 
 import styles from './TextWithTooltip.scss';
-import { Tooltip } from '@material-ui/core';
+import { Tooltip, withStyles } from '@material-ui/core';
 
 interface Props {
     text: string;
     maxTextWidth: number;
 }
+
+const TooltipPopper = withStyles({
+    tooltip: {
+        fontSize: 18,
+    },
+})(Tooltip);
 
 const TextWithTooltip = ({ text, maxTextWidth }: Props) => {
     const hiddenTextRef = React.useRef<HTMLDivElement>();
@@ -26,7 +32,7 @@ const TextWithTooltip = ({ text, maxTextWidth }: Props) => {
     }, [text]);
 
     return (
-        <Tooltip
+        <TooltipPopper
             title={text}
             placement="bottom-start"
             disableHoverListener={!showTooltip}
@@ -43,7 +49,7 @@ const TextWithTooltip = ({ text, maxTextWidth }: Props) => {
                     {text}
                 </div>
             </div>
-        </Tooltip>
+        </TooltipPopper>
     );
 };
 
