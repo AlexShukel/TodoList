@@ -23,6 +23,7 @@ const TodoGroupsList = () => {
                         <Grid container spacing={2}>
                             {controller.array.map((group: TodoGroup) => (
                                 <Grid
+                                    key={group.id}
                                     item
                                     xs={12}
                                     sm={6}
@@ -32,7 +33,7 @@ const TodoGroupsList = () => {
                                     container
                                     justify="center"
                                 >
-                                    <Group groupId={group.id} key={group.id} />
+                                    <Group groupId={group.id} />
                                 </Grid>
                             ))}
                         </Grid>
