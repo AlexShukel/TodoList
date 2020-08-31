@@ -38,7 +38,11 @@ const OverflowText = ({ text, maxTextWidth }: Props) => {
             disableHoverListener={!showTooltip}
         >
             <div>
-                <div ref={hiddenTextRef} className="hide">
+                <div
+                    ref={hiddenTextRef}
+                    style={{ maxWidth: maxTextWidth }}
+                    className="hide"
+                >
                     {text}
                 </div>
                 <div
