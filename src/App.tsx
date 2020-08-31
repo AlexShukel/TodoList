@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './App.scss';
 import { TodoController } from './components/TodoContext/TodoController';
-import TodoGroupsList from './components/TodoGroupsList';
+import TodoGroupsList from './components/todoComponents/TodoGroupsList';
 import SideBar from './components/SideBar';
 import Router from './components/Router/Router';
 import Route from './components/Router/Route';

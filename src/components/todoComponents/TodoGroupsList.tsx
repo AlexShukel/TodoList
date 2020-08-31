@@ -2,12 +2,12 @@ import React from 'react';
 import {
     TodoArrayHelper,
     ArrayController,
-} from './TodoContext/TodoArrayHelper';
-import { TodoGroup } from '../objects/TodoGroup';
+} from '../TodoContext/TodoArrayHelper';
+import { TodoGroup } from '../../objects/TodoGroup';
 import Group from './Group';
-import FormPopup from './FormPopup';
+import FormPopup from '../FormPopup';
 import { Button, Grid } from '@material-ui/core';
-import NewGroupForm from './NewGroupForm';
+import NewGroupForm from '../forms/NewGroupForm';
 
 const TodoGroupsList = () => {
     const [open, setOpen] = React.useState(false);

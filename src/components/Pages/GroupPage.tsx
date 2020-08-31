@@ -5,7 +5,7 @@ import {
 } from '../TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../../objects/TodoGroup';
 import { Typography } from '@material-ui/core';
-import TodoList from '../TodoList';
+import TodoList from '../todoComponents/TodoList';
 import TextEditor from '../TextEditor';
 
 interface Props {

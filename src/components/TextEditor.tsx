@@ -1,5 +1,5 @@
 import React from 'react';
-import TextWithTooltip from './TextWithTooltip';
+import OverflowText from './OverflowText';
 import classNames from 'classnames';
 import { Formik, Field, Form, FieldProps } from 'formik';
 import { Typography } from '@material-ui/core';
@@ -55,6 +55,10 @@ const TextEditor = ({
                                                 setIsEditing(false);
                                             }
                                         }}
+                                        style={{
+                                            maxWidth: maxTextWidth,
+                                            height: 'auto',
+                                        }}
                                         className={classNames(
                                             className,
                                             {
@@ -77,7 +81,7 @@ const TextEditor = ({
                         onDoubleClick={() => setIsEditing(true)}
                         className={isEditing ? 'hide' : undefined}
                     >
-                        <TextWithTooltip
+                        <OverflowText
                             text={values.text}
                             maxTextWidth={maxTextWidth}
                         />
