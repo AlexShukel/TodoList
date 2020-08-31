@@ -18,7 +18,11 @@ const defaultI18n = {
 
 let dateEnabled = false;
 
-const NewGroupForm = () => {
+interface Props {
+    closePopup: () => void;
+}
+
+const NewGroupForm = ({ closePopup }: Props) => {
     const i18n = useI18n(defaultI18n, 'NewGroupForm');
     const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -40,7 +44,7 @@ const NewGroupForm = () => {
                         values.id = getUniqueId(controller.array, 'id');
                         if (!dateEnabled) values.targetDate = null;
                         controller.add(values);
-
+                        closePopup();
                         actions.resetForm();
                     }}
                     validate={(values) => {

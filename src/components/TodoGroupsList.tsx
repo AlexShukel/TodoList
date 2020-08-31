@@ -26,7 +26,7 @@ const TodoGroupsList = () => {
                         ))}
                         <FormPopup open={open} onClickAway={closeForm}>
                             <div style={{ width: 400 }}>
-                                <NewGroupForm />
+                                <NewGroupForm closePopup={closeForm} />
                             </div>
                         </FormPopup>
                         <Button onClick={openForm}>Add new group</Button>
