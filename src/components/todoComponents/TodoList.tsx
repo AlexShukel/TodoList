@@ -39,7 +39,9 @@ const TodoList = ({ groupIndex }: Props) => {
                                 )}
                             </List>
                         ) : (
-                            <Typography>{i18n.thereArentAnyTasks}</Typography>
+                            <Typography variant="overline">
+                                {i18n.thereArentAnyTasks}
+                            </Typography>
                         )}
                     </div>
                 );

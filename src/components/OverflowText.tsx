@@ -1,6 +1,4 @@
 import React from 'react';
-
-import styles from './TextWithTooltip.scss';
 import { Tooltip, withStyles } from '@material-ui/core';
 
 interface Props {
@@ -47,7 +45,7 @@ const OverflowText = ({ text, maxTextWidth }: Props) => {
                 </div>
                 <div
                     ref={textRef}
-                    className={styles['description-ellipsis']}
+                    className="text-ellipsis"
                     style={{ width: maxTextWidth }}
                 >
                     {text}

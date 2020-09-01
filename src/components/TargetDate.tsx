@@ -43,7 +43,11 @@ const TargetDate = ({ date }: Props) => {
                         : undefined
                 }
             >
-                {date ? dateToYearMonthDay(date) : i18n.dateWasntDefined}
+                {date ? (
+                    dateToYearMonthDay(date)
+                ) : (
+                    <Typography>{i18n.dateWasntDefined}</Typography>
+                )}
             </div>
         </Tooltip>
     );

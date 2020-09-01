@@ -43,7 +43,9 @@ const SideBarItem = ({ title, groupId, closeSideBar }: SideBarItemProps) => (
                 }}
                 button
             >
-                <ListItemText>{title}</ListItemText>
+                <ListItemText disableTypography>
+                    <Typography className="text-ellipsis">{title}</Typography>
+                </ListItemText>
             </ListItem>
         )}
     </Link>
