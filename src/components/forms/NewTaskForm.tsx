@@ -10,7 +10,7 @@ import {
 import EnumField from '../EnumField';
 import DateField from '../DateField';
 import Label from '../Label';
-import EnableAbleContainer from '../EnableAbleContainer';
+import SwitchableContainer from '../EnableAbleContainer';
 import { useI18n } from '../I18nContext';
 import AddIcon from '../AddIcon';
 
@@ -93,7 +93,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                     />
                                 </Label>
 
-                                <EnableAbleContainer
+                                <SwitchableContainer
                                     label={i18n.targetDate}
                                     labelWidth={5}
                                 >
@@ -106,7 +106,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                             />
                                         );
                                     }}
-                                </EnableAbleContainer>
+                                </SwitchableContainer>
 
                                 <AddIcon />
                             </Form>

@@ -6,7 +6,7 @@ interface Props extends LabelProps {
     children: (enabled: boolean) => React.ReactNode;
 }
 
-const EnableAbleContainer = ({ label, children, ...other }: Props) => {
+const SwitchableContainer = ({ label, children, ...other }: Props) => {
     const [enabled, setEnabled] = useState(false);
     return (
         <Label
@@ -26,4 +26,4 @@ const EnableAbleContainer = ({ label, children, ...other }: Props) => {
     );
 };
 
-export default EnableAbleContainer;
+export default SwitchableContainer;

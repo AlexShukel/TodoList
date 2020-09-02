@@ -8,7 +8,7 @@ import DateField from '../DateField';
 import AddIcon from '../AddIcon';
 import Label from '../Label';
 import { useI18n } from '../I18nContext';
-import EnableAbleContainer from '../EnableAbleContainer';
+import SwitchableContainer from '../EnableAbleContainer';
 
 const defaultI18n = {
     title: 'Title',
@@ -38,7 +38,7 @@ const NewGroupForm = ({ closePopup }: Props) => {
                         title: '',
                         id: 0,
                         tasks: [],
-                        targetDate: new Date(),
+                        targetDate: null,
                     }}
                     onSubmit={(values, actions) => {
                         values.id = getUniqueId(controller.array, 'id');
@@ -76,7 +76,7 @@ const NewGroupForm = ({ closePopup }: Props) => {
                                     )}
                                 </Field>
                             </Label>
-                            <EnableAbleContainer
+                            <SwitchableContainer
                                 label={i18n.targetDate}
                                 labelWidth={5}
                             >
@@ -89,7 +89,7 @@ const NewGroupForm = ({ closePopup }: Props) => {
                                         />
                                     );
                                 }}
-                            </EnableAbleContainer>
+                            </SwitchableContainer>
 
                             <AddIcon />
                         </Form>
