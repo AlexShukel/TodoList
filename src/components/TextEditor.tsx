@@ -2,12 +2,6 @@ import React from 'react';
 import TextWithTooltip from './TextWithTooltip';
 import classNames from 'classnames';
 import { Formik, Field, Form, FieldProps } from 'formik';
-import { Typography } from '@material-ui/core';
-import { useI18n } from './I18nContext';
-
-const defaultI18n = {
-    required: 'Required',
-};
 
 interface Props {
     initialText: string;
@@ -25,7 +19,6 @@ const TextEditor = ({
 }: Props) => {
     const inputRef = React.useRef<HTMLInputElement>();
 
-    const i18n = useI18n(defaultI18n, 'TextEditor');
     const [isEditing, setIsEditing] = React.useState(false);
 
     React.useEffect(() => {
@@ -35,12 +28,13 @@ const TextEditor = ({
     return (
         <Formik
             initialValues={{ text: initialText }}
-            onSubmit={(value) => onChange(value.text)}
-            validate={(values) =>
-                values.text === '' ? { text: i18n.required } : {}
+            onSubmit={(value) =>
+                Boolean(value.text)
+                    ? onChange(value.text)
+                    : onChange(initialText)
             }
         >
-            {({ values, errors, touched }) => (
+            {({ values }) => (
                 <React.Fragment>
                     <Form>
                         <Field name="text">
@@ -50,24 +44,13 @@ const TextEditor = ({
                                         {...field}
                                         ref={inputRef}
                                         onBlur={(e) => {
-                                            if (!errors.text) {
-                                                field.onBlur(e);
-                                                setIsEditing(false);
-                                            }
+                                            field.onBlur(e);
+                                            setIsEditing(false);
                                         }}
-                                        className={classNames(
-                                            className,
-                                            {
-                                                hide: !isEditing,
-                                            },
-                                            { error: !!errors.text && touched }
-                                        )}
+                                        className={classNames(className, {
+                                            hide: !isEditing,
+                                        })}
                                     />
-                                    {values.text === '' && (
-                                        <Typography color="error">
-                                            {i18n.required}!
-                                        </Typography>
-                                    )}
                                 </React.Fragment>
                             )}
                         </Field>
