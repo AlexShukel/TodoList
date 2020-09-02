@@ -6,7 +6,16 @@ import {
 import { TodoGroup } from '../../objects/TodoGroup';
 import styles from './Group.scss';
 import TodoList from './TodoList';
-import { Button, Paper, Typography, Icon } from '@material-ui/core';
+import {
+    Button,
+    Paper,
+    Typography,
+    Icon,
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    DialogActions,
+} from '@material-ui/core';
 import TextEditor from '../TextEditor';
 import FilterPanel from '../FilterPanel';
 import NewTaskForm from '../forms/NewTaskForm';
@@ -14,11 +23,12 @@ import { sortingTypes, SortingType } from '../../enums/SortingTypes';
 import { TodoTask } from '../../objects/TodoTask';
 import { useI18n } from '../I18nContext';
 import TargetDate from '../TargetDate';
-import FormPopup from '../FormPopup';
+import ButtonsContainer from '../ButtonsContainer';
 
 const defaultI18n = {
     delete: 'Delete',
     addNewTask: 'Add new task',
+    newTask: 'New task',
 };
 
 interface Props {
@@ -26,12 +36,11 @@ interface Props {
 }
 
 const Group = ({ groupId }: Props) => {
-    const [isShowingTaskForm, setIsShowingTaskForm] = React.useState(false);
+    const [showForm, setShowForm] = React.useState(false);
     const i18n = useI18n(defaultI18n, 'Group');
 
-    const buttonRef = React.useRef();
-
-    const closeForm = () => setIsShowingTaskForm(false);
+    const openForm = () => setShowForm(true);
+    const closeForm = () => setShowForm(false);
 
     return (
         <TodoArrayHelper arrayPath={`groups`}>
@@ -73,21 +82,23 @@ const Group = ({ groupId }: Props) => {
 
                         <TodoList groupIndex={groupIndex} />
 
-                        <FormPopup
-                            open={isShowingTaskForm}
-                            onClickAway={closeForm}
-                        >
-                            <div style={{ width: 400 }}>
-                                <NewTaskForm
-                                    groupIndex={groupIndex}
-                                    onSubmit={() => setIsShowingTaskForm(false)}
-                                />
-                            </div>
-                        </FormPopup>
+                        <Dialog open={showForm} onClose={closeForm}>
+                            <DialogTitle>{i18n.newTask}</DialogTitle>
+                            <DialogContent>
+                                <div style={{ width: 400 }}>
+                                    <NewTaskForm
+                                        groupIndex={groupIndex}
+                                        onSubmit={closeForm}
+                                    />
+                                </div>
+                            </DialogContent>
+                            <DialogActions>
+                                <ButtonsContainer closeForm={closeForm} />
+                            </DialogActions>
+                        </Dialog>
 
                         <Button
-                            ref={buttonRef}
-                            onClick={() => setIsShowingTaskForm(true)}
+                            onClick={openForm}
                             startIcon={<Icon fontSize="small">add</Icon>}
                         >
                             {i18n.addNewTask}

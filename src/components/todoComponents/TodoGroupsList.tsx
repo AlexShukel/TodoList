@@ -5,13 +5,25 @@ import {
 } from '../TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../../objects/TodoGroup';
 import Group from './Group';
-import FormPopup from '../FormPopup';
-import { Button } from '@material-ui/core';
+import {
+    Button,
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    DialogActions,
+} from '@material-ui/core';
 import NewGroupForm from '../forms/NewGroupForm';
 
 import styles from './TodoGroupsList.scss';
+import { useI18n } from '../I18nContext';
+import ButtonsContainer from '../ButtonsContainer';
+
+const defaultI18n = {
+    newGroup: 'New group',
+};
 
 const TodoGroupsList = () => {
+    const i18n = useI18n(defaultI18n, 'TodoGroupsList');
     const [open, setOpen] = React.useState(false);
 
     const closeForm = () => setOpen(false);
@@ -32,11 +44,18 @@ const TodoGroupsList = () => {
                         ))}
 
                         <div className={styles['container__item']}>
-                            <FormPopup open={open} onClickAway={closeForm}>
-                                <div style={{ width: 400 }}>
-                                    <NewGroupForm closePopup={closeForm} />
-                                </div>
-                            </FormPopup>
+                            <Dialog open={open} onClose={closeForm}>
+                                <DialogTitle>{i18n.newGroup}</DialogTitle>
+                                <DialogContent>
+                                    <div style={{ width: 400 }}>
+                                        <NewGroupForm closePopup={closeForm} />
+                                    </div>
+                                </DialogContent>
+                                <DialogActions>
+                                    <ButtonsContainer closeForm={closeForm} />
+                                </DialogActions>
+                            </Dialog>
+
                             <Button onClick={openForm}>Add new group</Button>
                         </div>
                     </div>

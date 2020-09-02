@@ -12,12 +12,12 @@ import DateField from '../DateField';
 import Label from '../Label';
 import SwitchableContainer from '../EnableAbleContainer';
 import { useI18n } from '../I18nContext';
-import AddIcon from '../AddIcon';
 
 const defaultI18n = {
     description: 'Description',
     priority: 'Priority',
     targetDate: 'Target date',
+    required: 'Required',
     priorityEnum: priorityI18n,
 };
 interface Props {
@@ -56,7 +56,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                         }}
                         validate={(values) => {
                             if (values.description === '')
-                                return { description: 'Required' };
+                                return { description: i18n.required };
                             return null;
                         }}
                     >
@@ -107,8 +107,6 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                         );
                                     }}
                                 </SwitchableContainer>
-
-                                <AddIcon />
                             </Form>
                         )}
                     </Formik>

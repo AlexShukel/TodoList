@@ -5,7 +5,6 @@ import { getUniqueId } from '../../utils/IdUtils';
 
 import { TextField, Button } from '@material-ui/core';
 import DateField from '../DateField';
-import AddIcon from '../AddIcon';
 import Label from '../Label';
 import { useI18n } from '../I18nContext';
 import SwitchableContainer from '../EnableAbleContainer';
@@ -90,8 +89,6 @@ const NewGroupForm = ({ closePopup }: Props) => {
                                     );
                                 }}
                             </SwitchableContainer>
-
-                            <AddIcon />
                         </Form>
                     )}
                 </Formik>
