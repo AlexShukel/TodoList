@@ -29,12 +29,10 @@ const TextEditor = ({
         <Formik
             initialValues={{ text: initialText }}
             onSubmit={(value) =>
-                Boolean(value.text)
-                    ? onChange(value.text)
-                    : onChange(initialText)
+                value.text !== '' ? onChange(value.text) : onChange(initialText)
             }
         >
-            {({ values }) => (
+            {({ values, submitForm, setFieldValue }) => (
                 <React.Fragment>
                     <Form>
                         <Field name="text">
@@ -45,6 +43,12 @@ const TextEditor = ({
                                         ref={inputRef}
                                         onBlur={(e) => {
                                             field.onBlur(e);
+                                            if (e.currentTarget.value === '')
+                                                setFieldValue(
+                                                    'text',
+                                                    initialText
+                                                );
+                                            submitForm();
                                             setIsEditing(false);
                                         }}
                                         className={classNames(className, {
@@ -65,7 +69,7 @@ const TextEditor = ({
                         className={isEditing ? 'hide' : undefined}
                     >
                         <OverflowText
-                            text={values.text}
+                            text={initialText}
                             maxTextWidth={maxTextWidth}
                         />
                     </span>
