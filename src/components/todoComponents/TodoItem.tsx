@@ -70,6 +70,7 @@ const TodoItem = ({ taskIndex, groupIndex }: Props) => {
                                     taskIndex
                                 );
                             }}
+                            className="edit-text"
                             maxTextWidth={160}
                         />
                     </ListItemText>

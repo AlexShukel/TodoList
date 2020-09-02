@@ -54,7 +54,7 @@ const Group = ({ groupId }: Props) => {
                                         groupIndex
                                     );
                                 }}
-                                className={styles['input-style']}
+                                className="edit-text"
                             />
                         </Typography>
 

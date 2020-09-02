@@ -4,9 +4,8 @@ import {
     ArrayController,
 } from '../TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../../objects/TodoGroup';
-import { Typography } from '@material-ui/core';
-import TodoList from '../todoComponents/TodoList';
 import TextEditor from '../TextEditor';
+import TodoList from '../todoComponents/TodoList';
 
 interface Props {
     groupId: number;
@@ -36,10 +35,6 @@ export default class GroupPage extends React.Component<Props> {
                                     );
                                 }}
                             />
-                            {/* <Typography variant="h1">
-                                    {controller.array[groupIndex].title}
-                                </Typography>
-                            </TextEditor> */}
 
                             <TodoList groupIndex={groupIndex} />
                         </div>
