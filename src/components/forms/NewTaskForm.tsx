@@ -1,18 +1,18 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
 import { Formik, Form, Field, FieldProps } from 'formik';
-import { TodoArrayHelper } from './TodoContext/TodoArrayHelper';
-import { getUniqueId } from '../utils/IdUtils';
+import { TodoArrayHelper } from '../TodoContext/TodoArrayHelper';
+import { getUniqueId } from '../../utils/IdUtils';
 import {
     PriorityEnum,
     defaultI18n as priorityI18n,
-} from '../enums/PriorityEnum';
-import EnumField from './EnumField';
-import DateField from './DateField';
-import Label from './Label';
-import EnableAbleContainer from './EnableAbleContainer';
-import { useI18n } from './I18nContext';
-import AddIcon from './AddIcon';
+} from '../../enums/PriorityEnum';
+import EnumField from '../EnumField';
+import DateField from '../DateField';
+import Label from '../Label';
+import EnableAbleContainer from '../EnableAbleContainer';
+import { useI18n } from '../I18nContext';
+import AddIcon from '../AddIcon';
 
 const defaultI18n = {
     description: 'Description',

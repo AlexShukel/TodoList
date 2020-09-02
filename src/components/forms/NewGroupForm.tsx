@@ -1,14 +1,14 @@
 import React from 'react';
-import { TodoArrayHelper } from './TodoContext/TodoArrayHelper';
+import { TodoArrayHelper } from '../TodoContext/TodoArrayHelper';
 import { Formik, Form, Field, FieldProps } from 'formik';
-import { getUniqueId } from '../utils/IdUtils';
+import { getUniqueId } from '../../utils/IdUtils';
 
 import { TextField, Button } from '@material-ui/core';
-import DateField from './DateField';
-import AddIcon from './AddIcon';
-import Label from './Label';
-import { useI18n } from './I18nContext';
-import EnableAbleContainer from './EnableAbleContainer';
+import DateField from '../DateField';
+import AddIcon from '../AddIcon';
+import Label from '../Label';
+import { useI18n } from '../I18nContext';
+import EnableAbleContainer from '../EnableAbleContainer';
 
 const defaultI18n = {
     title: 'Title',

@@ -4,7 +4,6 @@ import {
     ArrayController,
 } from './TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../objects/TodoGroup';
-import styles from './SideBar.scss';
 import {
     Drawer,
     IconButton,
@@ -15,26 +14,18 @@ import {
     Divider,
     Typography,
     ClickAwayListener,
-    ListItemIcon,
     Button,
 } from '@material-ui/core';
 import Link from './Router/Link';
 
-import NewGroupForm from './NewGroupForm';
-import { withI18n, useI18n } from './I18nContext';
+import { useI18n } from './I18nContext';
+import styles from './SideBar.scss';
 
 const defaultI18n = {
     settings: 'Settings',
     addNewGroup: 'Add new group',
     myGroups: 'My groups',
 };
-
-type I18n = typeof defaultI18n;
-
-interface State {
-    isOpen: boolean;
-    addingGroup: boolean;
-}
 
 interface SideBarItemProps {
     title: string;
@@ -52,7 +43,9 @@ const SideBarItem = ({ title, groupId, closeSideBar }: SideBarItemProps) => (
                 }}
                 button
             >
-                <ListItemText>{title}</ListItemText>
+                <ListItemText disableTypography>
+                    <Typography className="text-ellipsis">{title}</Typography>
+                </ListItemText>
             </ListItem>
         )}
     </Link>

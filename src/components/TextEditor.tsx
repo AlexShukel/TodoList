@@ -1,7 +1,7 @@
 import React from 'react';
-import TextWithTooltip from './TextWithTooltip';
 import classNames from 'classnames';
 import { Formik, Field, Form, FieldProps } from 'formik';
+import OverflowText from './OverflowText';
 
 interface Props {
     initialText: string;
@@ -50,6 +50,10 @@ const TextEditor = ({
                                         className={classNames(className, {
                                             hide: !isEditing,
                                         })}
+                                        style={{
+                                            maxWidth: maxTextWidth,
+                                            height: 'auto',
+                                        }}
                                     />
                                 </React.Fragment>
                             )}
@@ -60,7 +64,7 @@ const TextEditor = ({
                         onDoubleClick={() => setIsEditing(true)}
                         className={isEditing ? 'hide' : undefined}
                     >
-                        <TextWithTooltip
+                        <OverflowText
                             text={values.text}
                             maxTextWidth={maxTextWidth}
                         />

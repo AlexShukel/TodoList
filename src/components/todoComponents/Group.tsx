@@ -2,27 +2,19 @@ import React from 'react';
 import {
     TodoArrayHelper,
     ArrayController,
-} from './TodoContext/TodoArrayHelper';
-import { TodoGroup } from '../objects/TodoGroup';
+} from '../TodoContext/TodoArrayHelper';
+import { TodoGroup } from '../../objects/TodoGroup';
 import styles from './Group.scss';
 import TodoList from './TodoList';
-import {
-    Button,
-    Paper,
-    Typography,
-    Icon,
-    Popover,
-    ClickAwayListener,
-} from '@material-ui/core';
-import TextEditor from './TextEditor';
-import { dateToYearMonthDay } from '../utils/DateUtils';
-import FilterPanel from './FilterPanel';
-import NewTaskForm from './NewTaskForm';
-import { sortingTypes, SortingType } from '../enums/SortingTypes';
-import { TodoTask } from '../objects/TodoTask';
-import { useI18n } from './I18nContext';
-import DateWithTooltip from './DateWithTooltip';
-import FormPopup from './FormPopup';
+import { Button, Paper, Typography, Icon } from '@material-ui/core';
+import TextEditor from '../TextEditor';
+import FilterPanel from '../FilterPanel';
+import NewTaskForm from '../forms/NewTaskForm';
+import { sortingTypes, SortingType } from '../../enums/SortingTypes';
+import { TodoTask } from '../../objects/TodoTask';
+import { useI18n } from '../I18nContext';
+import TargetDate from '../TargetDate';
+import FormPopup from '../FormPopup';
 
 const defaultI18n = {
     delete: 'Delete',
@@ -66,7 +58,7 @@ const Group = ({ groupId }: Props) => {
                             />
                         </Typography>
 
-                        <DateWithTooltip
+                        <TargetDate
                             date={controller.array[groupIndex].targetDate}
                         />
 

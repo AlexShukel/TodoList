@@ -1,7 +1,8 @@
 .hide {
+    position: absolute;
     opacity: 0;
     pointer-events: none;
-    position: absolute;
+    overflow-x: hidden;
 }
 
 .center-aligner {
@@ -17,4 +18,10 @@
     &__field {
         width: 200px;
     }
+}
+
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
