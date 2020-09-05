@@ -12,6 +12,7 @@ import DateField from '../DateField';
 import Label from '../Label';
 import SwitchableContainer from '../EnableAbleContainer';
 import { useI18n } from '../I18nContext';
+import ButtonsContainer from '../ButtonsContainer';
 
 const defaultI18n = {
     description: 'Description',
@@ -107,6 +108,8 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                         );
                                     }}
                                 </SwitchableContainer>
+
+                                <ButtonsContainer closeForm={onSubmit} />
                             </Form>
                         )}
                     </Formik>

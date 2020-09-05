@@ -92,9 +92,6 @@ const Group = ({ groupId }: Props) => {
                                     />
                                 </div>
                             </DialogContent>
-                            <DialogActions>
-                                <ButtonsContainer closeForm={closeForm} />
-                            </DialogActions>
                         </Dialog>
 
                         <Button
