@@ -15,23 +15,29 @@ const defaultI18n = {
 
 interface Props {
     groupIndex: number;
+    maxTextWidth: number;
+    maxHeight?: number;
 }
 
-const TodoList = ({ groupIndex }: Props) => {
+const TodoList = ({ groupIndex, maxHeight = 166, maxTextWidth }: Props) => {
     const i18n = useI18n(defaultI18n, 'TodoList');
     return (
         <TodoArrayHelper arrayPath={`groups.${groupIndex}.tasks`}>
             {(controller: ArrayController<TodoTask>) => {
                 return (
-                    <div style={{ height: 166 }} className="center-aligner">
+                    <div style={{ maxHeight }} className="center-aligner">
                         {controller.array.length > 0 ? (
-                            <List className={styles.list}>
+                            <List
+                                style={{ maxHeight, width: '100%' }}
+                                className={styles.list}
+                            >
                                 {controller.array.map(
                                     (todo: TodoTask, index) => {
                                         return (
                                             <TodoItem
                                                 taskIndex={index}
                                                 groupIndex={groupIndex}
+                                                maxTextWidth={maxTextWidth}
                                                 key={`${groupIndex}__${todo.id}`}
                                             />
                                         );
