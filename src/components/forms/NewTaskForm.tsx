@@ -109,7 +109,10 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                     }}
                                 </SwitchableContainer>
 
-                                <ButtonsContainer closeForm={onSubmit} />
+                                <ButtonsContainer
+                                    errors={!!errors.description}
+                                    closeForm={onSubmit}
+                                />
                             </Form>
                         )}
                     </Formik>

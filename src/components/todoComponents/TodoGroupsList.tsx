@@ -51,9 +51,6 @@ const TodoGroupsList = () => {
                                         <NewGroupForm closePopup={closeForm} />
                                     </div>
                                 </DialogContent>
-                                <DialogActions>
-                                    <ButtonsContainer closeForm={closeForm} />
-                                </DialogActions>
                             </Dialog>
 
                             <Button onClick={openForm}>Add new group</Button>

@@ -9,9 +9,10 @@ const defaultI18n = {
 
 interface Props {
     closeForm: () => void;
+    errors: boolean;
 }
 
-const ButtonsContainer = ({ closeForm }: Props) => {
+const ButtonsContainer = ({ closeForm, errors }: Props) => {
     const i18n = useI18n(defaultI18n, 'ButtonsContainer');
 
     return (
@@ -22,7 +23,11 @@ const ButtonsContainer = ({ closeForm }: Props) => {
                 width: '100%',
             }}
         >
-            <Button onClick={closeForm} color="primary" type="submit">
+            <Button
+                onClick={!errors && closeForm}
+                color="primary"
+                type="submit"
+            >
                 {i18n.add}
             </Button>
             <Button onClick={closeForm} color="primary">

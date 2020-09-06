@@ -8,6 +8,7 @@ import DateField from '../DateField';
 import Label from '../Label';
 import { useI18n } from '../I18nContext';
 import SwitchableContainer from '../EnableAbleContainer';
+import ButtonsContainer from '../ButtonsContainer';
 
 const defaultI18n = {
     title: 'Title',
@@ -89,6 +90,11 @@ const NewGroupForm = ({ closePopup }: Props) => {
                                     );
                                 }}
                             </SwitchableContainer>
+
+                            <ButtonsContainer
+                                errors={!!errors.title}
+                                closeForm={closePopup}
+                            />
                         </Form>
                     )}
                 </Formik>
