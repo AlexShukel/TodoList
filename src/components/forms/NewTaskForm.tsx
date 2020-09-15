@@ -45,12 +45,13 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                             id: 0,
                             completed: false,
                             description: '',
-                            type: PriorityEnum.LOW,
+                            priority: PriorityEnum.LOW,
                             targetDate: null,
                         }}
                         onSubmit={(values, actions) => {
                             values.id = getUniqueId(controller.array, 'id');
                             if (!dateEnabled) values.targetDate = null;
+                            console.log(values);
                             controller.add(values);
                             actions.resetForm();
                             onSubmit();
@@ -87,7 +88,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                 </Label>
                                 <Label label={i18n.priority} labelWidth={5}>
                                     <EnumField
-                                        name="type"
+                                        name="priority"
                                         values={PriorityEnum}
                                         i18n={i18n.priorityEnum}
                                         style={{ width: 150 }}

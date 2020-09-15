@@ -16,6 +16,7 @@ import {
 } from '../TodoContext/TodoArrayHelper';
 import TextEditor from '../TextEditor';
 import TargetDate from '../TargetDate';
+import classNames from 'classnames';
 
 interface Props {
     taskIndex: number;
@@ -27,7 +28,12 @@ const TodoItem = ({ taskIndex, groupIndex, maxTextWidth }: Props) => {
     return (
         <TodoArrayHelper arrayPath={`groups.${groupIndex}.tasks`}>
             {(controller: ArrayController<TodoTask>) => (
-                <ListItem className={styles.todoItemStyle}>
+                <ListItem
+                    className={classNames(
+                        styles.todoItemStyle,
+                        styles[`${controller.array[taskIndex].priority}`]
+                    )}
+                >
                     <ListItemIcon>
                         <Checkbox
                             onChange={(event) => {
