@@ -14,6 +14,7 @@ import { TodoTask } from '../../objects/TodoTask';
 import { useI18n } from '../I18nContext';
 import TargetDate from '../TargetDate';
 import NewTaskButton from '../forms/NewTaskButton';
+import classNames from 'classnames';
 
 const defaultI18n = {
     delete: 'Delete',
@@ -33,7 +34,14 @@ const Group = ({ groupId }: Props) => {
                     (value) => value.id === groupId
                 );
                 return (
-                    <Paper className={styles.groupItem} elevation={3} square>
+                    <Paper
+                        className={classNames(
+                            styles.groupItem,
+                            controller.array[groupIndex].priority
+                        )}
+                        elevation={3}
+                        square
+                    >
                         <Typography variant="h2">
                             <TextEditor
                                 maxTextWidth={310}

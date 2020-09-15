@@ -1,3 +1,4 @@
+import { PriorityEnum } from '../enums/PriorityEnum';
 import { TodoTask } from './TodoTask';
 
 export interface TodoGroup {
@@ -5,4 +6,5 @@ export interface TodoGroup {
     title: string;
     tasks: TodoTask[];
     targetDate: Date;
+    priority: PriorityEnum;
 }

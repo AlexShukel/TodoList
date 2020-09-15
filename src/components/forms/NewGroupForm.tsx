@@ -9,11 +9,18 @@ import Label from '../Label';
 import { useI18n } from '../I18nContext';
 import SwitchableContainer from '../EnableAbleContainer';
 import ButtonsContainer from '../ButtonsContainer';
+import EnumField from '../EnumField';
+import {
+    PriorityEnum,
+    defaultI18n as priorityI18n,
+} from '../../enums/PriorityEnum';
 
 const defaultI18n = {
     title: 'Title',
     targetDate: 'TargetDate',
     required: 'Required',
+    priority: 'Priority',
+    priorityEnum: priorityI18n,
 };
 
 let dateEnabled = false;
@@ -39,6 +46,7 @@ const NewGroupForm = ({ closePopup }: Props) => {
                         id: 0,
                         tasks: [],
                         targetDate: null,
+                        priority: PriorityEnum.LOW,
                     }}
                     onSubmit={(values, actions) => {
                         values.id = getUniqueId(controller.array, 'id');
@@ -75,6 +83,14 @@ const NewGroupForm = ({ closePopup }: Props) => {
                                         />
                                     )}
                                 </Field>
+                            </Label>
+                            <Label label={i18n.priority} labelWidth={5}>
+                                <EnumField
+                                    name="priority"
+                                    values={PriorityEnum}
+                                    i18n={i18n.priorityEnum}
+                                    style={{ width: 150 }}
+                                />
                             </Label>
                             <SwitchableContainer
                                 label={i18n.targetDate}
