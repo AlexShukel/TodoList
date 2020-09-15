@@ -17,15 +17,28 @@ interface Props {
     groupIndex: number;
     maxTextWidth: number;
     maxHeight?: number;
+    showFullHeight?: boolean;
 }
 
-const TodoList = ({ groupIndex, maxHeight = 166, maxTextWidth }: Props) => {
+const TodoList = ({
+    groupIndex,
+    maxHeight = 166,
+    maxTextWidth,
+    showFullHeight,
+}: Props) => {
     const i18n = useI18n(defaultI18n, 'TodoList');
     return (
         <TodoArrayHelper arrayPath={`groups.${groupIndex}.tasks`}>
             {(controller: ArrayController<TodoTask>) => {
                 return (
-                    <div style={{ maxHeight }} className="center-aligner">
+                    <div
+                        style={{
+                            maxHeight: !showFullHeight ? maxHeight : undefined,
+                            height: showFullHeight ? maxHeight : undefined,
+                            padding: '8px 0',
+                        }}
+                        className="center-aligner"
+                    >
                         {controller.array.length > 0 ? (
                             <List
                                 style={{ maxHeight, width: '100%' }}

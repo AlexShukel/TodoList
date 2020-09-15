@@ -64,7 +64,11 @@ const Group = ({ groupId }: Props) => {
                             values={SortingType}
                         />
 
-                        <TodoList groupIndex={groupIndex} maxTextWidth={160} />
+                        <TodoList
+                            groupIndex={groupIndex}
+                            maxTextWidth={160}
+                            showFullHeight
+                        />
 
                         <NewTaskButton groupIndex={groupIndex} />
 
