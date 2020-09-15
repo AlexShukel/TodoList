@@ -20,9 +20,10 @@ import TargetDate from '../TargetDate';
 interface Props {
     taskIndex: number;
     groupIndex: number;
+    maxTextWidth: number;
 }
 
-const TodoItem = ({ taskIndex, groupIndex }: Props) => {
+const TodoItem = ({ taskIndex, groupIndex, maxTextWidth }: Props) => {
     return (
         <TodoArrayHelper arrayPath={`groups.${groupIndex}.tasks`}>
             {(controller: ArrayController<TodoTask>) => (
@@ -71,7 +72,7 @@ const TodoItem = ({ taskIndex, groupIndex }: Props) => {
                                 );
                             }}
                             className="edit-text"
-                            maxTextWidth={160}
+                            maxTextWidth={maxTextWidth}
                         />
                     </ListItemText>
 
