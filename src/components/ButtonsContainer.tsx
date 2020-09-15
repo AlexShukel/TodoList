@@ -24,7 +24,7 @@ const ButtonsContainer = ({ closeForm, errors }: Props) => {
             }}
         >
             <Button
-                onClick={!errors && closeForm}
+                onClick={!errors ? closeForm : null}
                 color="primary"
                 type="submit"
             >
