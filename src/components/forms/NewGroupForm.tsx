@@ -14,12 +14,15 @@ import {
     PriorityEnum,
     defaultI18n as priorityI18n,
 } from '../../enums/PriorityEnum';
+import { TaskTypes, defaultI18n as typeI18n } from '../../enums/TaskTypes';
 
 const defaultI18n = {
     title: 'Title',
     targetDate: 'TargetDate',
     required: 'Required',
     priority: 'Priority',
+    type: 'Type',
+    typeEnum: typeI18n,
     priorityEnum: priorityI18n,
 };
 
@@ -47,6 +50,7 @@ const NewGroupForm = ({ closePopup }: Props) => {
                         tasks: [],
                         targetDate: null,
                         priority: PriorityEnum.LOW,
+                        type: TaskTypes.NONE,
                     }}
                     onSubmit={(values, actions) => {
                         values.id = getUniqueId(controller.array, 'id');
@@ -84,6 +88,7 @@ const NewGroupForm = ({ closePopup }: Props) => {
                                     )}
                                 </Field>
                             </Label>
+
                             <Label label={i18n.priority} labelWidth={5}>
                                 <EnumField
                                     name="priority"
@@ -92,6 +97,16 @@ const NewGroupForm = ({ closePopup }: Props) => {
                                     style={{ width: 150 }}
                                 />
                             </Label>
+
+                            <Label label={i18n.type} labelWidth={5}>
+                                <EnumField
+                                    name="type"
+                                    values={TaskTypes}
+                                    i18n={i18n.typeEnum}
+                                    style={{ width: 150 }}
+                                />
+                            </Label>
+
                             <SwitchableContainer
                                 label={i18n.targetDate}
                                 labelWidth={5}

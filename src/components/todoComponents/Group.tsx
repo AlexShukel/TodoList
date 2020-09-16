@@ -33,14 +33,14 @@ const Group = ({ groupId }: Props) => {
                 const groupIndex = controller.array.findIndex(
                     (value) => value.id === groupId
                 );
+                console.log(controller.array[groupIndex]);
                 return (
-                    <Paper
+                    <div
                         className={classNames(
                             styles.groupItem,
-                            controller.array[groupIndex].priority
+                            controller.array[groupIndex].priority,
+                            controller.array[groupIndex].type
                         )}
-                        elevation={3}
-                        square
                     >
                         <Typography variant="h2">
                             <TextEditor
@@ -88,7 +88,7 @@ const Group = ({ groupId }: Props) => {
                         >
                             {i18n.delete}
                         </Button>
-                    </Paper>
+                    </div>
                 );
             }}
         </TodoArrayHelper>

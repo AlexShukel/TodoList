@@ -31,7 +31,8 @@ const TodoItem = ({ taskIndex, groupIndex, maxTextWidth }: Props) => {
                 <ListItem
                     className={classNames(
                         styles.todoItemStyle,
-                        controller.array[taskIndex].priority
+                        controller.array[taskIndex].priority,
+                        controller.array[taskIndex].type
                     )}
                 >
                     <ListItemIcon>

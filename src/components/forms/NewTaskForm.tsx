@@ -13,13 +13,16 @@ import Label from '../Label';
 import SwitchableContainer from '../EnableAbleContainer';
 import { useI18n } from '../I18nContext';
 import ButtonsContainer from '../ButtonsContainer';
+import { TaskTypes, defaultI18n as typeI18n } from '../../enums/TaskTypes';
 
 const defaultI18n = {
     description: 'Description',
     priority: 'Priority',
     targetDate: 'Target date',
     required: 'Required',
+    type: 'Type',
     priorityEnum: priorityI18n,
+    typeEnum: typeI18n,
 };
 interface Props {
     groupIndex: number;
@@ -47,6 +50,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                             description: '',
                             priority: PriorityEnum.LOW,
                             targetDate: null,
+                            type: TaskTypes.NONE,
                         }}
                         onSubmit={(values, actions) => {
                             values.id = getUniqueId(controller.array, 'id');
@@ -86,11 +90,21 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                         )}
                                     </Field>
                                 </Label>
+
                                 <Label label={i18n.priority} labelWidth={5}>
                                     <EnumField
                                         name="priority"
                                         values={PriorityEnum}
                                         i18n={i18n.priorityEnum}
+                                        style={{ width: 150 }}
+                                    />
+                                </Label>
+
+                                <Label label={i18n.type} labelWidth={5}>
+                                    <EnumField
+                                        name="type"
+                                        values={TaskTypes}
+                                        i18n={i18n.typeEnum}
                                         style={{ width: 150 }}
                                     />
                                 </Label>
