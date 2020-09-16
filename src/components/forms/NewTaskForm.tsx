@@ -102,8 +102,8 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
 
                                 <Label label={i18n.type} labelWidth={5}>
                                     <EnumField
-                                        name="priority"
-                                        values={PriorityEnum}
+                                        name="type"
+                                        values={TaskTypes}
                                         i18n={i18n.typeEnum}
                                         style={{ width: 150 }}
                                     />

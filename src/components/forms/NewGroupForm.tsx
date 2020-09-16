@@ -100,9 +100,9 @@ const NewGroupForm = ({ closePopup }: Props) => {
 
                             <Label label={i18n.type} labelWidth={5}>
                                 <EnumField
-                                    name="priority"
-                                    values={PriorityEnum}
-                                    i18n={i18n.typeI18n}
+                                    name="type"
+                                    values={TaskTypes}
+                                    i18n={i18n.typeEnum}
                                     style={{ width: 150 }}
                                 />
                             </Label>
