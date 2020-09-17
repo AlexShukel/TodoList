@@ -16,7 +16,7 @@ interface Props<T> {
 
 export const RenderEnum = <T extends Record<string, string>>({
     value,
-    enumBundle: { defaultI18n },
+    enumBundle: { defaultI18n, name },
 }: Props<T>) => {
     return (
         <I18nLoader defaultI18n={defaultI18n} path={`enums.${name}`}>

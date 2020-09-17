@@ -23,6 +23,8 @@ const App = () => {
                 <TodoContext.Consumer>
                     {({ language }) => {
                         moment.locale(language);
+                        // TODO make getting translations from server
+                        // const translation = await getTranslation(language)
                         return (
                             <I18nContext.Provider
                                 value={translations[language]}
