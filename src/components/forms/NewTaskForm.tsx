@@ -3,17 +3,14 @@ import { TextField } from '@material-ui/core';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { TodoArrayHelper } from '../TodoContext/TodoArrayHelper';
 import { getUniqueId } from '../../utils/IdUtils';
-import {
-    PriorityEnum,
-    defaultI18n as priorityI18n,
-} from '../../enums/PriorityEnum';
+import { Priorities, PriorityEnumBundle } from '../../enums/PriorityEnum';
 import EnumField from '../EnumField';
 import DateField from '../DateField';
 import Label from '../Label';
 import SwitchableContainer from '../EnableAbleContainer';
 import { useI18n } from '../I18nContext';
 import ButtonsContainer from '../ButtonsContainer';
-import { TaskTypes, defaultI18n as typeI18n } from '../../enums/TaskTypes';
+import { TaskTypes, TaskTypesBundle } from '../../enums/TaskTypes';
 
 const defaultI18n = {
     description: 'Description',
@@ -21,8 +18,6 @@ const defaultI18n = {
     targetDate: 'Target date',
     required: 'Required',
     type: 'Type',
-    priorityEnum: priorityI18n,
-    typeEnum: typeI18n,
 };
 interface Props {
     groupIndex: number;
@@ -48,14 +43,13 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                             id: 0,
                             completed: false,
                             description: '',
-                            priority: PriorityEnum.LOW,
+                            priority: Priorities.LOW,
                             targetDate: null,
                             type: TaskTypes.NONE,
                         }}
                         onSubmit={(values, actions) => {
                             values.id = getUniqueId(controller.array, 'id');
                             if (!dateEnabled) values.targetDate = null;
-                            console.log(values);
                             controller.add(values);
                             actions.resetForm();
                             onSubmit();
@@ -94,8 +88,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                 <Label label={i18n.priority} labelWidth={5}>
                                     <EnumField
                                         name="priority"
-                                        values={PriorityEnum}
-                                        i18n={i18n.priorityEnum}
+                                        enumBundle={PriorityEnumBundle}
                                         style={{ width: 150 }}
                                     />
                                 </Label>
@@ -103,8 +96,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                 <Label label={i18n.type} labelWidth={5}>
                                     <EnumField
                                         name="type"
-                                        values={TaskTypes}
-                                        i18n={i18n.typeEnum}
+                                        enumBundle={TaskTypesBundle}
                                         style={{ width: 150 }}
                                     />
                                 </Label>

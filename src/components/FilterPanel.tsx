@@ -7,13 +7,12 @@ import { IconButton, Icon } from '@material-ui/core';
 import { Formik, Field, FieldProps } from 'formik';
 import styles from './FilterPanel.scss';
 import EnumField from './EnumField';
-import { SortingType, defaultI18n as sortingI18n } from '../enums/SortingTypes';
 import Label from './Label';
 import { withI18n } from './I18nContext';
+import { SortingTypesBundle } from '../enums/SortingTypes';
 
 const defaultI18n = {
     sortingType: 'Sorting type',
-    sortingEnum: sortingI18n,
 };
 
 type I18n = typeof defaultI18n;
@@ -68,8 +67,7 @@ class _FilterPanel<T, E> extends React.Component<Props<T, E>> {
                                     >
                                         <EnumField
                                             name="sortType"
-                                            values={SortingType}
-                                            i18n={i18n.sortingEnum}
+                                            enumBundle={SortingTypesBundle}
                                             shownone="true"
                                             onChange={(
                                                 e: ChangeEvent<{

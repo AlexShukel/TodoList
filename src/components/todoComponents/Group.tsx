@@ -33,7 +33,6 @@ const Group = ({ groupId }: Props) => {
                 const groupIndex = controller.array.findIndex(
                     (value) => value.id === groupId
                 );
-                console.log(controller.array[groupIndex]);
                 return (
                     <div
                         className={classNames(

@@ -10,11 +10,8 @@ import { useI18n } from '../I18nContext';
 import SwitchableContainer from '../EnableAbleContainer';
 import ButtonsContainer from '../ButtonsContainer';
 import EnumField from '../EnumField';
-import {
-    PriorityEnum,
-    defaultI18n as priorityI18n,
-} from '../../enums/PriorityEnum';
-import { TaskTypes, defaultI18n as typeI18n } from '../../enums/TaskTypes';
+import { Priorities, PriorityEnumBundle } from '../../enums/PriorityEnum';
+import { TaskTypes, TaskTypesBundle } from '../../enums/TaskTypes';
 
 const defaultI18n = {
     title: 'Title',
@@ -22,8 +19,6 @@ const defaultI18n = {
     required: 'Required',
     priority: 'Priority',
     type: 'Type',
-    typeEnum: typeI18n,
-    priorityEnum: priorityI18n,
 };
 
 let dateEnabled = false;
@@ -49,7 +44,7 @@ const NewGroupForm = ({ closePopup }: Props) => {
                         id: 0,
                         tasks: [],
                         targetDate: null,
-                        priority: PriorityEnum.LOW,
+                        priority: Priorities.LOW,
                         type: TaskTypes.NONE,
                     }}
                     onSubmit={(values, actions) => {
@@ -92,8 +87,7 @@ const NewGroupForm = ({ closePopup }: Props) => {
                             <Label label={i18n.priority} labelWidth={5}>
                                 <EnumField
                                     name="priority"
-                                    values={PriorityEnum}
-                                    i18n={i18n.priorityEnum}
+                                    enumBundle={PriorityEnumBundle}
                                     style={{ width: 150 }}
                                 />
                             </Label>
@@ -101,8 +95,7 @@ const NewGroupForm = ({ closePopup }: Props) => {
                             <Label label={i18n.type} labelWidth={5}>
                                 <EnumField
                                     name="type"
-                                    values={TaskTypes}
-                                    i18n={i18n.typeEnum}
+                                    enumBundle={TaskTypesBundle}
                                     style={{ width: 150 }}
                                 />
                             </Label>

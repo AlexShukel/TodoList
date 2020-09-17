@@ -1,22 +1,21 @@
 import React, { ChangeEvent, CSSProperties } from 'react';
 import { Field, FieldProps } from 'formik';
 import { Select, MenuItem } from '@material-ui/core';
+import { EnumBundle, RenderEnum } from '../enums';
 
 interface Props<T> {
-    values: T;
     name: string;
-    i18n: any;
     shownone?: string;
     onChange?: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
     style?: CSSProperties;
+    enumBundle: EnumBundle<T>;
 }
 
-export default function EnumField<T>({
+export default function EnumField<T extends Record<string, string>>({
     onChange,
     shownone,
-    values,
-    i18n,
     name,
+    enumBundle,
     style,
 }: Props<T>) {
     const [open, setOpen] = React.useState(false);
@@ -36,9 +35,9 @@ export default function EnumField<T>({
                     margin="dense"
                 >
                     {shownone && <MenuItem value="">None</MenuItem>}
-                    {Object.keys(values).map((value) => (
+                    {Object.keys(enumBundle.values).map((value) => (
                         <MenuItem value={value} key={value}>
-                            {i18n[value]}
+                            <RenderEnum value={value} enumBundle={enumBundle} />
                         </MenuItem>
                     ))}
                 </Select>

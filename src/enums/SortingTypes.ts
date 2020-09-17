@@ -1,3 +1,4 @@
+import { EnumBundle } from '.';
 import { EnumSortTypes } from '../components/FilterPanel';
 import { TodoTask } from '../objects/TodoTask';
 
@@ -8,9 +9,15 @@ export enum SortingType {
     DATE = 'DATE',
 }
 
-export const defaultI18n = {
+const SortingTypeI18n = {
     ALPH: 'Alphabetical',
     DATE: 'By date',
+};
+
+export const SortingTypesBundle: EnumBundle<typeof SortingType> = {
+    values: SortingType,
+    defaultI18n: SortingTypeI18n,
+    name: 'SortingTypes',
 };
 
 export const sortingTypes: EnumSortTypes<typeof SortingType, TodoTask> = {

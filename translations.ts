@@ -48,6 +48,15 @@ export const translations = {
             },
             apply: 'Taikyti',
         },
+        enums: {
+            TaskTypes: {
+                NONE: 'Niekas',
+                WORK: 'Darbas',
+                FAML: 'Šeima',
+                HOME: 'Namai',
+                EDUC: 'Mokslas',
+            },
+        },
     },
     RU: {},
     EN: {},
