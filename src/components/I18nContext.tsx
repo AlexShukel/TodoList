@@ -10,7 +10,7 @@ interface I18nLoaderProps<I> {
     children: (i18n: I) => React.ReactNode;
 }
 
-const I18nLoader = <I extends unknown>({
+export const I18nLoader = <I extends unknown>({
     defaultI18n,
     path,
     children,
