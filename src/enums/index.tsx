@@ -1,7 +1,7 @@
 import React from 'react';
 import { I18nLoader } from '../components/I18nContext';
 
-type EnumI18n<T> = { [K in keyof T]: string };
+export type EnumI18n<T> = { [K in keyof T]: string };
 
 export interface EnumBundle<T> {
     name: string;

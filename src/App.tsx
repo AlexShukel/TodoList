@@ -15,6 +15,7 @@ import { I18nContext } from './components/I18nContext';
 import { translations, localeMap } from '../translations';
 
 import './sass/styles.g.scss';
+import './sass/colors.g.scss';
 
 const App = () => {
     return (
