@@ -37,26 +37,36 @@ const Group = ({ groupId }: Props) => {
                     <div
                         className={classNames(
                             styles.groupItem,
-                            controller.array[groupIndex].priority,
-                            controller.array[groupIndex].type
+                            controller.array[groupIndex].priority
                         )}
                     >
-                        <Typography variant="h2">
-                            <TextEditor
-                                maxTextWidth={310}
-                                initialText={controller.array[groupIndex].title}
-                                onChange={(text) => {
-                                    controller.edit(
-                                        {
-                                            ...controller.array[groupIndex],
-                                            title: text,
-                                        },
-                                        groupIndex
-                                    );
-                                }}
-                                className="edit-text"
-                            />
-                        </Typography>
+                        <div className={styles['header']}>
+                            <div className={styles['header__title']}>
+                                <Typography variant="h2">
+                                    <TextEditor
+                                        maxTextWidth={285}
+                                        initialText={
+                                            controller.array[groupIndex].title
+                                        }
+                                        onChange={(text) => {
+                                            controller.edit(
+                                                {
+                                                    ...controller.array[
+                                                        groupIndex
+                                                    ],
+                                                    title: text,
+                                                },
+                                                groupIndex
+                                            );
+                                        }}
+                                        className="edit-text"
+                                    />
+                                </Typography>
+                            </div>
+                            <div className={styles['header__icon']}>
+                                <Icon>work</Icon>
+                            </div>
+                        </div>
 
                         <TargetDate
                             date={controller.array[groupIndex].targetDate}
