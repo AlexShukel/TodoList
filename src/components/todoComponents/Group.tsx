@@ -15,6 +15,7 @@ import { useI18n } from '../I18nContext';
 import TargetDate from '../TargetDate';
 import NewTaskButton from '../forms/NewTaskButton';
 import classNames from 'classnames';
+import { LoadableImage } from '../LoadableImage';
 
 const defaultI18n = {
     delete: 'Delete',
@@ -64,7 +65,11 @@ const Group = ({ groupId }: Props) => {
                                 </Typography>
                             </div>
                             <div className={styles['header__icon']}>
-                                <Icon>work</Icon>
+                                <LoadableImage
+                                    src={`${controller.array[groupIndex].type}.png`}
+                                    width={24}
+                                    height={24}
+                                />
                             </div>
                         </div>
 

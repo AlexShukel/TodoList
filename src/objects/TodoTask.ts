@@ -1,5 +1,4 @@
 import { Priorities } from '../enums/PriorityEnum';
-import { TaskTypes } from '../enums/TaskTypes';
 
 export interface TodoTask {
     id: number;
@@ -7,5 +6,4 @@ export interface TodoTask {
     description: string;
     priority: Priorities;
     targetDate: Date | null;
-    type: TaskTypes;
 }

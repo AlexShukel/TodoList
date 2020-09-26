@@ -1,4 +1,4 @@
-import { EnumBundle } from '.';
+import { EnumBundle, EnumI18n } from '.';
 
 export enum TaskTypes {
     NONE = 'NONE',
@@ -8,7 +8,7 @@ export enum TaskTypes {
     EDUC = 'EDUC',
 }
 
-const TaskTypesI18n = {
+const TaskTypesI18n: EnumI18n<typeof TaskTypes> = {
     NONE: 'None',
     WORK: 'Work',
     FAML: 'Family',

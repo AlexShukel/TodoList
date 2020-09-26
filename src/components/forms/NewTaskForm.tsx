@@ -45,7 +45,6 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                             description: '',
                             priority: Priorities.LOW,
                             targetDate: null,
-                            type: TaskTypes.NONE,
                         }}
                         onSubmit={(values, actions) => {
                             values.id = getUniqueId(controller.array, 'id');
@@ -89,14 +88,6 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                     <EnumField
                                         name="priority"
                                         enumBundle={PriorityEnumBundle}
-                                        style={{ width: 150 }}
-                                    />
-                                </Label>
-
-                                <Label label={i18n.type} labelWidth={5}>
-                                    <EnumField
-                                        name="type"
-                                        enumBundle={TaskTypesBundle}
                                         style={{ width: 150 }}
                                     />
                                 </Label>
