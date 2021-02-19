@@ -79,6 +79,6 @@
         }
     },
     "lint-staged": {
-        "src/**": "eslint --max-warnings=0"
+        "**/*.{js,jsx,ts,tsx,json}": "eslint --max-warnings=0 --config=./eslintrc --fix"
     }
 }
