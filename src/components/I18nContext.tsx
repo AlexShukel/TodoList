@@ -19,7 +19,7 @@ export const I18nLoader = <I extends unknown>({
     return <React.Fragment>{children(i18n)}</React.Fragment>;
 };
 
-export function useI18n<I>(defaultI18n: I, path?: string) {
+export function useI18n<I>(defaultI18n: I, path?: string): I {
     const loadedI18n = useContext(I18nContext);
     return merge(
         cloneDeep(defaultI18n),
