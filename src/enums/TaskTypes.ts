@@ -1,7 +1,7 @@
 import { EnumBundle, EnumI18n } from '.';
 
 export enum TaskTypes {
-    NONE = 'NONE',
+    ANTH = 'ANTH',
     WORK = 'WORK',
     FAML = 'FAML',
     HOME = 'HOME',
@@ -9,7 +9,7 @@ export enum TaskTypes {
 }
 
 const TaskTypesI18n: EnumI18n<typeof TaskTypes> = {
-    NONE: 'None',
+    ANTH: 'Anything',
     WORK: 'Work',
     FAML: 'Family',
     HOME: 'Home',

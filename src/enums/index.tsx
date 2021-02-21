@@ -20,11 +20,7 @@ export const RenderEnum = <T extends Record<string, string>>({
 }: Props<T>) => {
     return (
         <I18nLoader defaultI18n={defaultI18n} path={`enums.${name}`}>
-            {(i18n) => (
-                <div>
-                    <span>{i18n[value]}</span>
-                </div>
-            )}
+            {(i18n) => <span>{i18n[value]}</span>}
         </I18nLoader>
     );
 };
