@@ -5,18 +5,11 @@ import {
 } from '../TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../../objects/TodoGroup';
 import Group from './Group';
-import {
-    Button,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    DialogActions,
-} from '@material-ui/core';
+import { Button, Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import NewGroupForm from '../forms/NewGroupForm';
 
 import styles from './TodoGroupsList.scss';
 import { useI18n } from '../I18nContext';
-import ButtonsContainer from '../ButtonsContainer';
 
 const defaultI18n = {
     newGroup: 'New group',

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { merge, cloneDeep } from 'lodash';
 import { getIn } from 'formik';
 
-export const I18nContext = React.createContext({} as any);
+export const I18nContext = React.createContext({} as unknown);
 
 interface I18nLoaderProps<I> {
     defaultI18n: I;
@@ -32,16 +32,17 @@ export function withI18n<T, I>(
     defaultI18n: I,
     path?: string
 ) {
-    return class extends React.Component<Omit<T, 'i18n'>> {
-        render() {
-            const { ...other } = this.props;
-            return (
-                <I18nLoader defaultI18n={defaultI18n} path={path}>
-                    {(i18n) => (
-                        <WrappedComponent {...(other as T)} i18n={i18n} />
-                    )}
-                </I18nLoader>
-            );
-        }
+    type P = Omit<T, 'i18n'>;
+    const WithI18n: React.FC<P> = (props: P) => {
+        return (
+            <I18nLoader defaultI18n={defaultI18n} path={path}>
+                {(i18n) => <WrappedComponent {...(props as T)} i18n={i18n} />}
+            </I18nLoader>
+        );
     };
+    const wrappedComponentName =
+        WrappedComponent.displayName || WrappedComponent.name || 'Component';
+
+    WithI18n.displayName = `withI18n(${wrappedComponentName})`;
+    return WithI18n;
 }

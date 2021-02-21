@@ -6,7 +6,7 @@ import {
 import { TodoGroup } from '../../objects/TodoGroup';
 import styles from './Group.scss';
 import TodoList from './TodoList';
-import { Button, Paper, Typography, Icon } from '@material-ui/core';
+import { Button, Typography, Icon } from '@material-ui/core';
 import TextEditor from '../TextEditor';
 import FilterPanel from '../FilterPanel';
 import { sortingTypes, SortingType } from '../../enums/SortingTypes';

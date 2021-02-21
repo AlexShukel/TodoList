@@ -56,7 +56,9 @@ class _FilterPanel<T, E> extends React.Component<Props<T, E>> {
                                 sortingOrder: 1,
                                 sortType: '' as keyof E,
                             }}
-                            onSubmit={() => {}}
+                            onSubmit={() => {
+                                //
+                            }}
                         >
                             {({ values }) => (
                                 <Label label={i18n.sortingType} labelWidth={4}>

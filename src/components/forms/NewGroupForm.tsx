@@ -3,7 +3,7 @@ import { TodoArrayHelper } from '../TodoContext/TodoArrayHelper';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { getUniqueId } from '../../utils/IdUtils';
 
-import { TextField, Button } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import DateField from '../DateField';
 import Label from '../Label';
 import { useI18n } from '../I18nContext';

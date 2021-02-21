@@ -29,7 +29,7 @@ export default function EnumField<T extends Record<string, string>>({
                     style={style}
                     onChange={(e) => {
                         field.onChange(e);
-                        onChange && onChange(e);
+                        if (onChange) onChange(e);
                     }}
                     variant="outlined"
                     margin="dense"
