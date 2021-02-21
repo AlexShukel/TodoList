@@ -29,7 +29,7 @@ const SettingsPage = ({ initialLanguage }: Props) => {
         >
             <Form>
                 <Field name="language" as="select">
-                    {Object.keys(Language).map((key) => (
+                    {Object.keys(Language).map((key: Language) => (
                         <option value={key} key={key}>
                             {i18n.languages[key]}
                         </option>

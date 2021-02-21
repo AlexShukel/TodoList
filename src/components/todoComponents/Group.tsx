@@ -6,7 +6,7 @@ import {
 import { TodoGroup } from '../../objects/TodoGroup';
 import styles from './Group.scss';
 import TodoList from './TodoList';
-import { Button, Typography, Icon, Tooltip } from '@material-ui/core';
+import { Button, Typography, Icon, Tooltip, Dialog } from '@material-ui/core';
 import TextEditor from '../TextEditor';
 import FilterPanel from '../FilterPanel';
 import { sortingTypes, SortingType } from '../../enums/SortingTypes';
@@ -18,9 +18,12 @@ import classNames from 'classnames';
 import { LoadableImage } from '../LoadableImage';
 import { RenderEnum } from '../../enums';
 import { TaskTypesBundle } from '../../enums/TaskTypes';
+import { ConfirmPopup } from '../popups/ConfirmPopup';
+import { useConfirmPopup } from '../hooks/useConfirmPopup';
 
 const defaultI18n = {
     delete: 'Delete',
+    deletionConfirmMessage: 'Are you sure you want to delete this group?',
 };
 
 interface Props {
@@ -29,6 +32,8 @@ interface Props {
 
 const Group = ({ groupId }: Props) => {
     const i18n = useI18n(defaultI18n, 'Group');
+
+    const { closePopup, open, resolve, showConfirmPopup } = useConfirmPopup();
 
     return (
         <TodoArrayHelper arrayPath={`groups`}>
@@ -111,13 +116,22 @@ const Group = ({ groupId }: Props) => {
                         <NewTaskButton groupIndex={groupIndex} />
 
                         <Button
-                            onClick={() => {
-                                controller.remove(groupIndex);
+                            onClick={async () => {
+                                if (await showConfirmPopup()) {
+                                    controller.remove(groupIndex);
+                                }
                             }}
                             startIcon={<Icon>delete</Icon>}
                         >
                             {i18n.delete}
                         </Button>
+
+                        <Dialog open={open} onClose={closePopup}>
+                            <ConfirmPopup
+                                resolve={resolve}
+                                message={i18n.deletionConfirmMessage}
+                            />
+                        </Dialog>
                     </div>
                 );
             }}
