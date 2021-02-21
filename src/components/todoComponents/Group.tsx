@@ -126,7 +126,15 @@ const Group = ({ groupId }: Props) => {
                             {i18n.delete}
                         </Button>
 
-                        <Dialog open={open} onClose={closePopup}>
+                        <Dialog
+                            open={open}
+                            onClose={closePopup}
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter') {
+                                    resolve(true);
+                                }
+                            }}
+                        >
                             <ConfirmPopup
                                 resolve={resolve}
                                 message={i18n.deletionConfirmMessage}
