@@ -3,12 +3,15 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
+    Typography,
 } from '@material-ui/core';
 import React from 'react';
 import { useI18n } from '../I18nContext';
 
 const defaultI18n = {
     confirmAction: 'Confirm action',
+    yes: 'YES',
+    no: 'NO',
 };
 
 interface Props {
@@ -21,10 +24,16 @@ export const ConfirmPopup = ({ message, resolve }: Props) => {
     return (
         <React.Fragment>
             <DialogTitle>{i18n.confirmAction}</DialogTitle>
-            <DialogContent>{message}</DialogContent>
+            <DialogContent>
+                <Typography>{message}</Typography>
+            </DialogContent>
             <DialogActions>
-                <Button onClick={() => resolve(true)}>YES</Button>
-                <Button onClick={() => resolve(false)}>NO</Button>
+                <Button color="primary" onClick={() => resolve(true)}>
+                    {i18n.yes}
+                </Button>
+                <Button color="primary" onClick={() => resolve(false)}>
+                    {i18n.no}
+                </Button>
             </DialogActions>
         </React.Fragment>
     );
