@@ -22,18 +22,18 @@ const TextEditor = ({
     const [isEditing, setIsEditing] = React.useState(false);
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: { text: initialText },
         onSubmit: (value) =>
-            value.text !== ''
-                ? onChange(value.text.trim())
-                : onChange(initialText.trim()),
+            value.text !== '' ? onChange(value.text) : onChange(initialText),
     });
 
     const { submitForm, setFieldValue } = formik;
 
     const setValue = useCallback(
         (value: string) => {
-            if (value === '') setFieldValue('text', initialText);
+            if (value.trim() === '') setFieldValue('text', initialText);
+            else setFieldValue('text', value.trim());
             submitForm();
             setIsEditing(false);
         },
