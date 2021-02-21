@@ -45,7 +45,7 @@ const Group = ({ groupId }: Props) => {
                     >
                         <div className={styles['header']}>
                             <div className={styles['header__title']}>
-                                <Typography variant="h2">
+                                <Typography variant="h3">
                                     <TextEditor
                                         maxTextWidth={285}
                                         initialText={
