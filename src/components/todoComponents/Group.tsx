@@ -6,7 +6,7 @@ import {
 import { TodoGroup } from '../../objects/TodoGroup';
 import styles from './Group.scss';
 import TodoList from './TodoList';
-import { Button, Typography, Icon } from '@material-ui/core';
+import { Button, Typography, Icon, Tooltip } from '@material-ui/core';
 import TextEditor from '../TextEditor';
 import FilterPanel from '../FilterPanel';
 import { sortingTypes, SortingType } from '../../enums/SortingTypes';
@@ -16,6 +16,8 @@ import TargetDate from '../TargetDate';
 import NewTaskButton from '../forms/NewTaskButton';
 import classNames from 'classnames';
 import { LoadableImage } from '../LoadableImage';
+import { RenderEnum } from '../../enums';
+import { TaskTypesBundle } from '../../enums/TaskTypes';
 
 const defaultI18n = {
     delete: 'Delete',
@@ -65,11 +67,25 @@ const Group = ({ groupId }: Props) => {
                                 </Typography>
                             </div>
                             <div className={styles['header__icon']}>
-                                <LoadableImage
-                                    src={`${controller.array[groupIndex].type}.png`}
-                                    width={24}
-                                    height={24}
-                                />
+                                <Tooltip
+                                    title={
+                                        <RenderEnum
+                                            enumBundle={TaskTypesBundle}
+                                            value={
+                                                controller.array[groupIndex]
+                                                    .type
+                                            }
+                                        />
+                                    }
+                                >
+                                    <div>
+                                        <LoadableImage
+                                            src={`${controller.array[groupIndex].type}.png`}
+                                            width={24}
+                                            height={24}
+                                        />
+                                    </div>
+                                </Tooltip>
                             </div>
                         </div>
 

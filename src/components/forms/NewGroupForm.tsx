@@ -45,7 +45,7 @@ const NewGroupForm = ({ closePopup }: Props) => {
                         tasks: [],
                         targetDate: null,
                         priority: Priorities.LOW,
-                        type: TaskTypes.NONE,
+                        type: TaskTypes.ANTH,
                     }}
                     onSubmit={(values, actions) => {
                         values.id = getUniqueId(controller.array, 'id');

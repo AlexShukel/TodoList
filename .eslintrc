@@ -25,6 +25,7 @@
         "no-console": "warn",
         "no-unused-expressions": "warn",
         "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/ban-types": "off"
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-var-requires": "off"
     }
 }
