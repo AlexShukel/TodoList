@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { merge, cloneDeep } from 'lodash';
 import { getIn } from 'formik';
 
-export const I18nContext = React.createContext({} as any);
+export const I18nContext = React.createContext({} as unknown);
 
 interface I18nLoaderProps<I> {
     defaultI18n: I;

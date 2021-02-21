@@ -32,7 +32,7 @@ const TextEditor = ({
                 value.text !== '' ? onChange(value.text) : onChange(initialText)
             }
         >
-            {({ values, submitForm, setFieldValue }) => (
+            {({ submitForm, setFieldValue }) => (
                 <React.Fragment>
                     <Form>
                         <Field name="text">

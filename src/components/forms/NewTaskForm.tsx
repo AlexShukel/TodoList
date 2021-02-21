@@ -10,7 +10,6 @@ import Label from '../Label';
 import SwitchableContainer from '../EnableAbleContainer';
 import { useI18n } from '../I18nContext';
 import ButtonsContainer from '../ButtonsContainer';
-import { TaskTypes, TaskTypesBundle } from '../../enums/TaskTypes';
 
 const defaultI18n = {
     description: 'Description',
