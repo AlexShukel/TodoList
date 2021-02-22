@@ -7,7 +7,6 @@ import { Priorities, PriorityEnumBundle } from '../../enums/PriorityEnum';
 import EnumField from '../EnumField';
 import DateField from '../DateField';
 import Label from '../Label';
-import SwitchableContainer from '../EnableAbleContainer';
 import { useI18n } from '../I18nContext';
 import ButtonsContainer from '../ButtonsContainer';
 
@@ -22,8 +21,6 @@ interface Props {
     groupIndex: number;
     onSubmit: () => void;
 }
-
-let dateEnabled = false;
 
 const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
     const i18n = useI18n(defaultI18n, 'NewTaskForm');
@@ -47,7 +44,6 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                         }}
                         onSubmit={(values, actions) => {
                             values.id = getUniqueId(controller.array, 'id');
-                            if (!dateEnabled) values.targetDate = null;
                             controller.add(values);
                             actions.resetForm();
                             onSubmit();
@@ -91,20 +87,12 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                     />
                                 </Label>
 
-                                <SwitchableContainer
-                                    label={i18n.targetDate}
-                                    labelWidth={5}
-                                >
-                                    {(enabled) => {
-                                        dateEnabled = enabled;
-                                        return (
-                                            <DateField
-                                                name="targetDate"
-                                                className="form__field"
-                                            />
-                                        );
-                                    }}
-                                </SwitchableContainer>
+                                <Label label={i18n.targetDate} labelWidth={5}>
+                                    <DateField
+                                        name="targetDate"
+                                        className="form__field"
+                                    />
+                                </Label>
 
                                 <ButtonsContainer
                                     errors={!!errors.description}

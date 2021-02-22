@@ -7,7 +7,6 @@ import { TextField } from '@material-ui/core';
 import DateField from '../DateField';
 import Label from '../Label';
 import { useI18n } from '../I18nContext';
-import SwitchableContainer from '../EnableAbleContainer';
 import ButtonsContainer from '../ButtonsContainer';
 import EnumField from '../EnumField';
 import { Priorities, PriorityEnumBundle } from '../../enums/PriorityEnum';
@@ -20,8 +19,6 @@ const defaultI18n = {
     priority: 'Priority',
     type: 'Type',
 };
-
-let dateEnabled = false;
 
 interface Props {
     closePopup: () => void;
@@ -49,7 +46,6 @@ const NewGroupForm = ({ closePopup }: Props) => {
                     }}
                     onSubmit={(values, actions) => {
                         values.id = getUniqueId(controller.array, 'id');
-                        if (!dateEnabled) values.targetDate = null;
                         controller.add(values);
                         closePopup();
                         actions.resetForm();
@@ -100,20 +96,12 @@ const NewGroupForm = ({ closePopup }: Props) => {
                                 />
                             </Label>
 
-                            <SwitchableContainer
-                                label={i18n.targetDate}
-                                labelWidth={5}
-                            >
-                                {(enabled) => {
-                                    dateEnabled = enabled;
-                                    return (
-                                        <DateField
-                                            name="targerDate"
-                                            className="form__field"
-                                        />
-                                    );
-                                }}
-                            </SwitchableContainer>
+                            <Label label={i18n.targetDate} labelWidth={5}>
+                                <DateField
+                                    name="targetDate"
+                                    className="form__field"
+                                />
+                            </Label>
 
                             <ButtonsContainer
                                 errors={!!errors.title}

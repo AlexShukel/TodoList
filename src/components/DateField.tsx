@@ -13,6 +13,7 @@ const DateField = ({ name, ...other }: Props) => (
                 <DateTimePicker
                     {...field}
                     {...other}
+                    clearable
                     onChange={(date) => form.setFieldValue(field.name, date)}
                     inputVariant="outlined"
                     margin="dense"
