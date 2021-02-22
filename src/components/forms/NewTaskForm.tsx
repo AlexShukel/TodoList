@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { TextField } from '@material-ui/core';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { TodoArrayHelper } from '../TodoContext/TodoArrayHelper';
@@ -9,6 +10,8 @@ import DateField from '../DateField';
 import Label from '../Label';
 import { useI18n } from '../I18nContext';
 import ButtonsContainer from '../ButtonsContainer';
+
+import styles from './Forms.scss';
 
 const defaultI18n = {
     description: 'Description',
@@ -54,7 +57,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                             return null;
                         }}
                     >
-                        {({ errors, touched }) => (
+                        {({ errors, touched, values }) => (
                             <Form className={'form'}>
                                 <Label label={i18n.description} labelWidth={5}>
                                     <Field name="description">
@@ -80,11 +83,21 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                 </Label>
 
                                 <Label label={i18n.priority} labelWidth={5}>
-                                    <EnumField
-                                        name="priority"
-                                        enumBundle={PriorityEnumBundle}
-                                        style={{ width: 150 }}
-                                    />
+                                    <div className={styles['priority-field']}>
+                                        <EnumField
+                                            name="priority"
+                                            enumBundle={PriorityEnumBundle}
+                                            style={{ width: 150 }}
+                                        />
+                                        <div
+                                            className={classNames(
+                                                styles[
+                                                    'priority-field__indicator'
+                                                ],
+                                                `${values.priority}__background`
+                                            )}
+                                        />
+                                    </div>
                                 </Label>
 
                                 <Label label={i18n.targetDate} labelWidth={5}>

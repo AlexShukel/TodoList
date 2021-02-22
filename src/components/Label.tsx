@@ -8,6 +8,7 @@ export interface LabelProps {
     required?: boolean;
     children?: React.ReactNode;
     labelWidth?: number;
+    className?: string;
 }
 
 const Label = ({
@@ -16,14 +17,16 @@ const Label = ({
     required,
     children,
     labelWidth = 3,
+    className,
 }: LabelProps) => {
     return (
         <Grid
             container
             item
-            style={vertical && { width: 'auto' }}
+            style={{ width: vertical ? 'auto' : undefined, marginBottom: 5 }}
             direction={vertical ? 'column' : 'row'}
             justify="center"
+            className={className}
         >
             <Grid
                 className={styles.label}
