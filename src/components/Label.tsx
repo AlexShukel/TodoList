@@ -8,7 +8,6 @@ export interface LabelProps {
     required?: boolean;
     children?: React.ReactNode;
     labelWidth?: number;
-    className?: string;
 }
 
 const Label = ({
@@ -17,7 +16,6 @@ const Label = ({
     required,
     children,
     labelWidth = 3,
-    className,
 }: LabelProps) => {
     return (
         <Grid
@@ -26,7 +24,6 @@ const Label = ({
             style={{ width: vertical ? 'auto' : undefined, marginBottom: 5 }}
             direction={vertical ? 'column' : 'row'}
             justify="center"
-            className={className}
         >
             <Grid
                 className={styles.label}
