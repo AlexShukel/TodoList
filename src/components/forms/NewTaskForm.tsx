@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { TextField } from '@material-ui/core';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { TodoArrayHelper } from '../TodoContext/TodoArrayHelper';
@@ -7,9 +8,10 @@ import { Priorities, PriorityEnumBundle } from '../../enums/PriorityEnum';
 import EnumField from '../EnumField';
 import DateField from '../DateField';
 import Label from '../Label';
-import SwitchableContainer from '../EnableAbleContainer';
 import { useI18n } from '../I18nContext';
 import ButtonsContainer from '../ButtonsContainer';
+
+import styles from './Forms.scss';
 
 const defaultI18n = {
     description: 'Description',
@@ -22,8 +24,6 @@ interface Props {
     groupIndex: number;
     onSubmit: () => void;
 }
-
-let dateEnabled = false;
 
 const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
     const i18n = useI18n(defaultI18n, 'NewTaskForm');
@@ -47,7 +47,6 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                         }}
                         onSubmit={(values, actions) => {
                             values.id = getUniqueId(controller.array, 'id');
-                            if (!dateEnabled) values.targetDate = null;
                             controller.add(values);
                             actions.resetForm();
                             onSubmit();
@@ -58,7 +57,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                             return null;
                         }}
                     >
-                        {({ errors, touched }) => (
+                        {({ errors, touched, values }) => (
                             <Form className={'form'}>
                                 <Label label={i18n.description} labelWidth={5}>
                                     <Field name="description">
@@ -84,27 +83,29 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                 </Label>
 
                                 <Label label={i18n.priority} labelWidth={5}>
-                                    <EnumField
-                                        name="priority"
-                                        enumBundle={PriorityEnumBundle}
-                                        style={{ width: 150 }}
-                                    />
+                                    <div className={styles['priority-field']}>
+                                        <EnumField
+                                            name="priority"
+                                            enumBundle={PriorityEnumBundle}
+                                            style={{ width: 150 }}
+                                        />
+                                        <div
+                                            className={classNames(
+                                                styles[
+                                                    'priority-field__indicator'
+                                                ],
+                                                `${values.priority}__background`
+                                            )}
+                                        />
+                                    </div>
                                 </Label>
 
-                                <SwitchableContainer
-                                    label={i18n.targetDate}
-                                    labelWidth={5}
-                                >
-                                    {(enabled) => {
-                                        dateEnabled = enabled;
-                                        return (
-                                            <DateField
-                                                name="targetDate"
-                                                className="form__field"
-                                            />
-                                        );
-                                    }}
-                                </SwitchableContainer>
+                                <Label label={i18n.targetDate} labelWidth={5}>
+                                    <DateField
+                                        name="targetDate"
+                                        className="form__field"
+                                    />
+                                </Label>
 
                                 <ButtonsContainer
                                     errors={!!errors.description}

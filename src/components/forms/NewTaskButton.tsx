@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    Button,
-    Icon,
-} from '@material-ui/core';
+import { Dialog, DialogContent, Button, Icon } from '@material-ui/core';
 import NewTaskForm from './NewTaskForm';
 import { useI18n } from '../I18nContext';
+import { DefaultTitle, PaperComponent } from './FormUtils';
 
 const defaultI18n = {
     addNewTask: 'Add new task',
@@ -28,8 +23,12 @@ const NewTaskButton = ({ groupIndex }: Props) => {
 
     return (
         <React.Fragment>
-            <Dialog open={showForm} onClose={closeForm}>
-                <DialogTitle>{i18n.newTask}</DialogTitle>
+            <Dialog
+                PaperComponent={PaperComponent}
+                open={showForm}
+                onClose={closeForm}
+            >
+                <DefaultTitle title={i18n.newTask} />
                 <DialogContent>
                     <div style={{ width: 400 }}>
                         <NewTaskForm

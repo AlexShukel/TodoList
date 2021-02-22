@@ -45,7 +45,7 @@ const Group = ({ groupId }: Props) => {
                     <div
                         className={classNames(
                             styles.groupItem,
-                            controller.array[groupIndex].priority
+                            `${controller.array[groupIndex].priority}__border`
                         )}
                     >
                         <div className={styles['header']}>

@@ -21,7 +21,7 @@ const Label = ({
         <Grid
             container
             item
-            style={vertical && { width: 'auto' }}
+            style={{ width: vertical ? 'auto' : undefined, marginBottom: 5 }}
             direction={vertical ? 'column' : 'row'}
             justify="center"
         >

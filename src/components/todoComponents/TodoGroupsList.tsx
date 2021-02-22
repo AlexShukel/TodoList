@@ -5,11 +5,12 @@ import {
 } from '../TodoContext/TodoArrayHelper';
 import { TodoGroup } from '../../objects/TodoGroup';
 import Group from './Group';
-import { Button, Dialog, DialogContent, DialogTitle } from '@material-ui/core';
+import { Button, Dialog, DialogContent } from '@material-ui/core';
 import NewGroupForm from '../forms/NewGroupForm';
 
 import styles from './TodoGroupsList.scss';
 import { useI18n } from '../I18nContext';
+import { DefaultTitle, PaperComponent } from '../forms/FormUtils';
 
 const defaultI18n = {
     newGroup: 'New group',
@@ -37,8 +38,12 @@ const TodoGroupsList = () => {
                         ))}
 
                         <div className={styles['container__item']}>
-                            <Dialog open={open} onClose={closeForm}>
-                                <DialogTitle>{i18n.newGroup}</DialogTitle>
+                            <Dialog
+                                PaperComponent={PaperComponent}
+                                open={open}
+                                onClose={closeForm}
+                            >
+                                <DefaultTitle title={i18n.newGroup} />
                                 <DialogContent>
                                     <div style={{ width: 400 }}>
                                         <NewGroupForm closePopup={closeForm} />

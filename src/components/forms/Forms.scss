@@ -1,0 +1,18 @@
+.group-type {
+    display: flex;
+    align-items: center;
+    &__icon {
+        margin-left: 10px;
+    }
+}
+
+.priority-field {
+    display: flex;
+    align-items: center;
+    &__indicator {
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+        border-radius: 50%;
+    }
+}

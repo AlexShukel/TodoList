@@ -7,11 +7,14 @@ import { TextField } from '@material-ui/core';
 import DateField from '../DateField';
 import Label from '../Label';
 import { useI18n } from '../I18nContext';
-import SwitchableContainer from '../EnableAbleContainer';
 import ButtonsContainer from '../ButtonsContainer';
 import EnumField from '../EnumField';
 import { Priorities, PriorityEnumBundle } from '../../enums/PriorityEnum';
 import { TaskTypes, TaskTypesBundle } from '../../enums/TaskTypes';
+import { LoadableImage } from '../LoadableImage';
+import classNames from 'classnames';
+
+import styles from './Forms.scss';
 
 const defaultI18n = {
     title: 'Title',
@@ -20,8 +23,6 @@ const defaultI18n = {
     priority: 'Priority',
     type: 'Type',
 };
-
-let dateEnabled = false;
 
 interface Props {
     closePopup: () => void;
@@ -49,7 +50,6 @@ const NewGroupForm = ({ closePopup }: Props) => {
                     }}
                     onSubmit={(values, actions) => {
                         values.id = getUniqueId(controller.array, 'id');
-                        if (!dateEnabled) values.targetDate = null;
                         controller.add(values);
                         closePopup();
                         actions.resetForm();
@@ -60,7 +60,7 @@ const NewGroupForm = ({ closePopup }: Props) => {
                         return null;
                     }}
                 >
-                    {({ errors, touched }) => (
+                    {({ errors, touched, values }) => (
                         <Form className="form">
                             <Label label={i18n.title} labelWidth={5} required>
                                 <Field name="title">
@@ -85,35 +85,43 @@ const NewGroupForm = ({ closePopup }: Props) => {
                             </Label>
 
                             <Label label={i18n.priority} labelWidth={5}>
-                                <EnumField
-                                    name="priority"
-                                    enumBundle={PriorityEnumBundle}
-                                    style={{ width: 150 }}
-                                />
+                                <div className={styles['priority-field']}>
+                                    <EnumField
+                                        name="priority"
+                                        enumBundle={PriorityEnumBundle}
+                                        style={{ width: 150 }}
+                                    />
+                                    <div
+                                        className={classNames(
+                                            styles['priority-field__indicator'],
+                                            `${values.priority}__background`
+                                        )}
+                                    />
+                                </div>
                             </Label>
 
                             <Label label={i18n.type} labelWidth={5}>
-                                <EnumField
-                                    name="type"
-                                    enumBundle={TaskTypesBundle}
-                                    style={{ width: 150 }}
-                                />
+                                <div className={styles['group-type']}>
+                                    <EnumField
+                                        name="type"
+                                        enumBundle={TaskTypesBundle}
+                                        style={{ width: 150 }}
+                                    />
+                                    <LoadableImage
+                                        src={`${values.type}.png`}
+                                        width={24}
+                                        height={24}
+                                        className={styles['group-type__icon']}
+                                    />
+                                </div>
                             </Label>
 
-                            <SwitchableContainer
-                                label={i18n.targetDate}
-                                labelWidth={5}
-                            >
-                                {(enabled) => {
-                                    dateEnabled = enabled;
-                                    return (
-                                        <DateField
-                                            name="targerDate"
-                                            className="form__field"
-                                        />
-                                    );
-                                }}
-                            </SwitchableContainer>
+                            <Label label={i18n.targetDate} labelWidth={5}>
+                                <DateField
+                                    name="targetDate"
+                                    className="form__field"
+                                />
+                            </Label>
 
                             <ButtonsContainer
                                 errors={!!errors.title}

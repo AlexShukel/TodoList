@@ -1,11 +1,27 @@
-.LOW {
-    border: 3px solid #4caf50;
+$low: #4caf50;
+$med: #ff9800;
+$imp: #f44336;
+
+.LOW__border {
+    border: 3px solid $low;
 }
 
-.MED {
-    border: 3px solid #ff9800;
+.MED__border {
+    border: 3px solid $med;
 }
 
-.IMP {
-    border: 3px solid #f44336;
+.IMP__border {
+    border: 3px solid $imp;
+}
+
+.LOW__background {
+    background: $low;
+}
+
+.MED__background {
+    background: $med;
+}
+
+.IMP__background {
+    background: $imp;
 }
