@@ -17,6 +17,12 @@ import {
 import TextEditor from '../TextEditor';
 import TargetDate from '../TargetDate';
 import classNames from 'classnames';
+import { useConfirmPopup } from '../hooks/useConfirmPopup';
+import { useI18n } from '../I18nContext';
+
+const defaultI18n = {
+    deletionConfirmMessage: 'Are you sure you want to delete this task?',
+};
 
 interface Props {
     taskIndex: number;
@@ -25,13 +31,16 @@ interface Props {
 }
 
 const TodoItem = ({ taskIndex, groupIndex, maxTextWidth }: Props) => {
+    const { showConfirmPopup } = useConfirmPopup();
+    const i18n = useI18n(defaultI18n, 'TodoItem');
+
     return (
         <TodoArrayHelper arrayPath={`groups.${groupIndex}.tasks`}>
             {(controller: ArrayController<TodoTask>) => (
                 <ListItem
                     className={classNames(
                         styles.todoItemStyle,
-                        controller.array[taskIndex].priority
+                        `${controller.array[taskIndex].priority}__border`
                     )}
                 >
                     <ListItemIcon>
@@ -79,12 +88,21 @@ const TodoItem = ({ taskIndex, groupIndex, maxTextWidth }: Props) => {
                             }}
                             className="edit-text"
                             maxTextWidth={maxTextWidth}
+                            multiline
                         />
                     </ListItemText>
 
                     <ListItemSecondaryAction>
                         <IconButton
-                            onClick={() => controller.remove(taskIndex)}
+                            onClick={async () => {
+                                if (
+                                    await showConfirmPopup(
+                                        i18n.deletionConfirmMessage
+                                    )
+                                ) {
+                                    controller.remove(taskIndex);
+                                }
+                            }}
                         >
                             <Icon fontSize="small">delete</Icon>
                         </IconButton>

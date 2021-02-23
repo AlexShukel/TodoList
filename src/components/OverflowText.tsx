@@ -1,16 +1,10 @@
 import React from 'react';
-import { Tooltip, withStyles } from '@material-ui/core';
+import { Tooltip } from '@material-ui/core';
 
 interface Props {
     text: string;
     maxTextWidth: number;
 }
-
-const TooltipPopper = withStyles({
-    tooltip: {
-        fontSize: 18,
-    },
-})(Tooltip);
 
 const OverflowText = ({ text, maxTextWidth }: Props) => {
     const hiddenTextRef = React.useRef<HTMLDivElement>();
@@ -30,8 +24,8 @@ const OverflowText = ({ text, maxTextWidth }: Props) => {
     }, [text]);
 
     return (
-        <TooltipPopper
-            title={text}
+        <Tooltip
+            title={<span className="multiline">{text}</span>}
             placement="bottom-start"
             disableHoverListener={!showTooltip}
         >
@@ -51,7 +45,7 @@ const OverflowText = ({ text, maxTextWidth }: Props) => {
                     {text}
                 </div>
             </div>
-        </TooltipPopper>
+        </Tooltip>
     );
 };
 

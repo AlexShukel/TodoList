@@ -6,7 +6,7 @@ import {
 import { TodoGroup } from '../../objects/TodoGroup';
 import styles from './Group.scss';
 import TodoList from './TodoList';
-import { Button, Typography, Icon, Tooltip, Dialog } from '@material-ui/core';
+import { Button, Typography, Icon, Tooltip } from '@material-ui/core';
 import TextEditor from '../TextEditor';
 import FilterPanel from '../FilterPanel';
 import { sortingTypes, SortingType } from '../../enums/SortingTypes';
@@ -18,7 +18,6 @@ import classNames from 'classnames';
 import { LoadableImage } from '../LoadableImage';
 import { RenderEnum } from '../../enums';
 import { TaskTypesBundle } from '../../enums/TaskTypes';
-import { ConfirmPopup } from '../popups/ConfirmPopup';
 import { useConfirmPopup } from '../hooks/useConfirmPopup';
 
 const defaultI18n = {
@@ -33,7 +32,7 @@ interface Props {
 const Group = ({ groupId }: Props) => {
     const i18n = useI18n(defaultI18n, 'Group');
 
-    const { closePopup, open, resolve, showConfirmPopup } = useConfirmPopup();
+    const { showConfirmPopup } = useConfirmPopup();
 
     return (
         <TodoArrayHelper arrayPath={`groups`}>
@@ -117,7 +116,11 @@ const Group = ({ groupId }: Props) => {
 
                         <Button
                             onClick={async () => {
-                                if (await showConfirmPopup()) {
+                                if (
+                                    await showConfirmPopup(
+                                        i18n.deletionConfirmMessage
+                                    )
+                                ) {
                                     controller.remove(groupIndex);
                                 }
                             }}
@@ -125,21 +128,6 @@ const Group = ({ groupId }: Props) => {
                         >
                             {i18n.delete}
                         </Button>
-
-                        <Dialog
-                            open={open}
-                            onClose={closePopup}
-                            onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
-                                    resolve(true);
-                                }
-                            }}
-                        >
-                            <ConfirmPopup
-                                resolve={resolve}
-                                message={i18n.deletionConfirmMessage}
-                            />
-                        </Dialog>
                     </div>
                 );
             }}

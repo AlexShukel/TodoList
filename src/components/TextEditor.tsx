@@ -8,6 +8,7 @@ interface Props {
     maxTextWidth: number;
     onChange: (text: string) => void;
 
+    multiline?: boolean;
     className?: string;
 }
 
@@ -16,8 +17,10 @@ const TextEditor = ({
     onChange,
     className,
     maxTextWidth,
+    multiline,
 }: Props) => {
     const inputRef = React.useRef<HTMLInputElement>();
+    const textAreaRef = React.useRef<HTMLTextAreaElement>();
 
     const [isEditing, setIsEditing] = React.useState(false);
 
@@ -42,14 +45,37 @@ const TextEditor = ({
 
     React.useEffect(() => {
         if (inputRef.current) inputRef.current.focus();
+        if (textAreaRef.current) textAreaRef.current.focus();
     }, [isEditing]);
 
     return (
         <FormikProvider value={formik}>
             <Form>
                 <Field name="text">
-                    {({ field }: FieldProps) => (
-                        <React.Fragment>
+                    {({ field }: FieldProps) =>
+                        multiline ? (
+                            <textarea
+                                {...field}
+                                ref={textAreaRef}
+                                onBlur={(e) => {
+                                    field.onBlur(e);
+                                    setValue(e.target.value);
+                                }}
+                                className={classNames(className, {
+                                    hide: !isEditing,
+                                })}
+                                style={{
+                                    maxWidth: maxTextWidth,
+                                    height: 'auto',
+                                    resize: 'none',
+                                }}
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter' && !e.shiftKey) {
+                                        setValue(e.currentTarget.value);
+                                    }
+                                }}
+                            />
+                        ) : (
                             <input
                                 {...field}
                                 ref={inputRef}
@@ -65,13 +91,13 @@ const TextEditor = ({
                                     height: 'auto',
                                 }}
                                 onKeyPress={(e) => {
-                                    if (e.key === 'Enter') {
+                                    if (e.key === 'Enter' && !e.shiftKey) {
                                         setValue(e.currentTarget.value);
                                     }
                                 }}
                             />
-                        </React.Fragment>
-                    )}
+                        )
+                    }
                 </Field>
             </Form>
 

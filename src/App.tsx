@@ -15,6 +15,7 @@ import TodoContext from './components/TodoContext/TodoContext';
 import { I18nContext } from './components/I18nContext';
 import { translations, localeMap } from '../translations';
 import { theme } from './MaterialTheme';
+import { ConfirmPopupProvider } from './components/popups/ConfirmPopupProvider';
 
 import './sass/styles.g.scss';
 import './sass/colors.g.scss';
@@ -37,30 +38,36 @@ const App = () => {
                                         utils={DateFnsUtils}
                                         locale={localeMap[language]}
                                     >
-                                        <div className={styles['app-wrapper']}>
-                                            <SideBar />
-                                            <Route location="groups">
-                                                {() => <TodoGroupsList />}
-                                            </Route>
-                                            <Route location="group">
-                                                {(params) => (
-                                                    <GroupPage
-                                                        groupId={
-                                                            +params.groupId
-                                                        }
-                                                    />
-                                                )}
-                                            </Route>
-                                            <Route location="settings">
-                                                {() => (
-                                                    <SettingsPage
-                                                        initialLanguage={
-                                                            language
-                                                        }
-                                                    />
-                                                )}
-                                            </Route>
-                                        </div>
+                                        <ConfirmPopupProvider>
+                                            <div
+                                                className={
+                                                    styles['app-wrapper']
+                                                }
+                                            >
+                                                <SideBar />
+                                                <Route location="groups">
+                                                    {() => <TodoGroupsList />}
+                                                </Route>
+                                                <Route location="group">
+                                                    {(params) => (
+                                                        <GroupPage
+                                                            groupId={
+                                                                +params.groupId
+                                                            }
+                                                        />
+                                                    )}
+                                                </Route>
+                                                <Route location="settings">
+                                                    {() => (
+                                                        <SettingsPage
+                                                            initialLanguage={
+                                                                language
+                                                            }
+                                                        />
+                                                    )}
+                                                </Route>
+                                            </div>
+                                        </ConfirmPopupProvider>
                                     </MuiPickersUtilsProvider>
                                 </I18nContext.Provider>
                             );
