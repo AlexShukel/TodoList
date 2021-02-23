@@ -31,7 +31,7 @@ const TodoItem = ({ taskIndex, groupIndex, maxTextWidth }: Props) => {
                 <ListItem
                     className={classNames(
                         styles.todoItemStyle,
-                        controller.array[taskIndex].priority
+                        `${controller.array[taskIndex].priority}__border`
                     )}
                 >
                     <ListItemIcon>
@@ -79,6 +79,7 @@ const TodoItem = ({ taskIndex, groupIndex, maxTextWidth }: Props) => {
                             }}
                             className="edit-text"
                             maxTextWidth={maxTextWidth}
+                            multiline
                         />
                     </ListItemText>
 
