@@ -1,0 +1,26 @@
+#!/bin/sh
+
+STAGED_FILES=$(git status -s -uno|grep -v '^ '|awk '{print $2}')
+REACT_APP="$(git rev-parse --show-toplevel)"
+ESLINT="$REACT_APP/node_modules/.bin/eslint"
+
+if [[ "$STAGED_FILES" = "" ]]; then
+  exit 0
+fi
+
+# Check for eslint
+which eslint &> /dev/null
+if [[ ! -x "$ESLINT" ]]; then
+  echo "Please install ESlint"
+  exit 1
+fi
+
+npm run lint
+if [ "$?" == 0 ]
+then
+  echo Linting completed successfully
+  exit 0
+fi
+
+echo Linting completed with errors
+exit 1
