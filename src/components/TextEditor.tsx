@@ -9,6 +9,7 @@ interface Props {
     onChange: (text: string) => void;
 
     multiline?: boolean;
+    showMultilineText?: boolean;
     className?: string;
 }
 
@@ -18,6 +19,7 @@ const TextEditor = ({
     className,
     maxTextWidth,
     multiline,
+    showMultilineText,
 }: Props) => {
     const inputRef = React.useRef<HTMLInputElement>();
     const textAreaRef = React.useRef<HTMLTextAreaElement>();
@@ -105,7 +107,11 @@ const TextEditor = ({
                 onDoubleClick={() => setIsEditing(true)}
                 className={isEditing ? 'hide' : undefined}
             >
-                <OverflowText text={initialText} maxTextWidth={maxTextWidth} />
+                <OverflowText
+                    showMultilineText={showMultilineText}
+                    text={initialText}
+                    maxTextWidth={maxTextWidth}
+                />
             </span>
         </FormikProvider>
     );

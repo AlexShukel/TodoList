@@ -28,9 +28,15 @@ interface Props {
     taskIndex: number;
     groupIndex: number;
     maxTextWidth: number;
+    showMultilineText?: boolean;
 }
 
-const TodoItem = ({ taskIndex, groupIndex, maxTextWidth }: Props) => {
+const TodoItem = ({
+    taskIndex,
+    groupIndex,
+    maxTextWidth,
+    showMultilineText,
+}: Props) => {
     const { showConfirmPopup } = useConfirmPopup();
     const i18n = useI18n(defaultI18n, 'TodoItem');
 
@@ -89,6 +95,7 @@ const TodoItem = ({ taskIndex, groupIndex, maxTextWidth }: Props) => {
                             className="edit-text"
                             maxTextWidth={maxTextWidth}
                             multiline
+                            showMultilineText={showMultilineText}
                         />
                     </ListItemText>
 

@@ -1,12 +1,14 @@
 import React from 'react';
 import { Tooltip } from '@material-ui/core';
+import classNames from 'classnames';
 
 interface Props {
     text: string;
     maxTextWidth: number;
+    showMultilineText?: boolean;
 }
 
-const OverflowText = ({ text, maxTextWidth }: Props) => {
+const OverflowText = ({ text, maxTextWidth, showMultilineText }: Props) => {
     const hiddenTextRef = React.useRef<HTMLDivElement>();
     const textRef = React.useRef<HTMLDivElement>();
 
@@ -39,7 +41,9 @@ const OverflowText = ({ text, maxTextWidth }: Props) => {
                 </div>
                 <div
                     ref={textRef}
-                    className="text-ellipsis"
+                    className={classNames('text-ellipsis', {
+                        multiline: showMultilineText,
+                    })}
                     style={{ width: maxTextWidth }}
                 >
                     {text}

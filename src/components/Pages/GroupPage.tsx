@@ -47,6 +47,7 @@ export default class GroupPage extends React.Component<Props> {
                                 groupIndex={groupIndex}
                                 maxHeight={500}
                                 maxTextWidth={350}
+                                showMultilineText
                             />
 
                             <NewTaskButton groupIndex={groupIndex} />

@@ -18,6 +18,7 @@ interface Props {
     maxTextWidth: number;
     maxHeight?: number;
     showFullHeight?: boolean;
+    showMultilineText?: boolean;
 }
 
 const TodoList = ({
@@ -25,6 +26,7 @@ const TodoList = ({
     maxHeight = 166,
     maxTextWidth,
     showFullHeight,
+    showMultilineText,
 }: Props) => {
     const i18n = useI18n(defaultI18n, 'TodoList');
     return (
@@ -52,6 +54,9 @@ const TodoList = ({
                                                 groupIndex={groupIndex}
                                                 maxTextWidth={maxTextWidth}
                                                 key={`${groupIndex}__${todo.id}`}
+                                                showMultilineText={
+                                                    showMultilineText
+                                                }
                                             />
                                         );
                                     }

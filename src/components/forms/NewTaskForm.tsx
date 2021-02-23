@@ -77,6 +77,7 @@ const NewTaskForm = ({ groupIndex, onSubmit }: Props) => {
                                                     touched.description &&
                                                     errors.description
                                                 }
+                                                multiline
                                             />
                                         )}
                                     </Field>
